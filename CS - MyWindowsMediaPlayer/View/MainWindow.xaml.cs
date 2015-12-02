@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CS___MyWindowsMediaPlayer.View
+namespace MyWindowsMediaPlayer.View
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
