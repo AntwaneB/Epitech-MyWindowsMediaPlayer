@@ -4,10 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
+        xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="466" Width="706">
-    <Grid>
-        <MediaElement x:Name="media" Margin="10,10,192,10"/>
-
-    </Grid>
+        Title="MyWindowsMediaPlayer" Height="564" Width="894">
+    <Window.DataContext>
+        <viewmodel:MainWindowVM />
+    </Window.DataContext>
+    <DockPanel x:Name="MainPanel" LastChildFill="False" Margin="0">
+        <Grid x:Name="Controls" DockPanel.Dock="Bottom" Height="80">
+            <Button x:Name="btnLoad" Content="Load file" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,0,10" Width="150"/>
+            <Button x:Name="btnPlay" Content="Play" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="150"/>
+            <Button x:Name="btnPause" Content="Pause" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="330,10,0,10" Width="150"/>
+            <Button x:Name="btnStop" Content="Stop" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Margin="490,10,0,10" Width="150"/>
+        </Grid>
+        <Grid x:Name="Content" Width="886">
+            <Grid.Background>
+                <ImageBrush ImageSource="C:\Users\Antoine\Pictures\1589528.jpg" Stretch="Fill" />
+            </Grid.Background>
+            <MediaElement x:Name="MediaDisplay" Margin="0"/>
+        </Grid>
+    </DockPanel>
 </Window>
