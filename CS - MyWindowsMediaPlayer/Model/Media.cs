@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace MyWindowsMediaPlayer.Model
 {
@@ -11,26 +12,37 @@ namespace MyWindowsMediaPlayer.Model
         #region Factory
         public static class Factory
         {
-            private static Dictionary<string, Type> _extensions = new Dictionary<string, Type>
+            private static Dictionary<string, Func<string, Media>> _extensions = new Dictionary<string, Func<string, Media>>
             {
-                { "mp4", typeof(Video) },
-                { "mpeg", typeof(Video) },
-                { "avi", typeof(Video) },
-                { "wmv", typeof(Video) },
-                { "mp3", typeof(Music) },
-                { "wav", typeof(Music) },
-                { "jpg", typeof(Image) },
+                { "mp4", ((string path) => new Video(path)) },
+                { "mpeg", ((string path) => new Video(path)) },
+                { "avi", ((string path) => new Video(path)) },
+                { "wmv", ((string path) => new Video(path)) },
+                { "mp3", ((string path) => new Music(path)) },
+                { "wav", ((string path) => new Music(path)) },
+                { "jpg", ((string path) => new Image(path)) },
             };
+
+            public static Media make(string path)
+            {
+                string extension = System.IO.Path.GetExtension(path).Substring(1);
+
+                if (!_extensions.ContainsKey(extension))
+                    return (null);
+
+                return (_extensions[extension].Invoke(path));
+            }
         }
         #endregion
 
         #region Attributes
-        private string _path;
+        private Uri _path;
         private string _name;
+        private MediaState _state;
         #endregion
 
         #region Properties
-        public string Path
+        public Uri Path
         {
             get { return (_path); }
             set
@@ -43,6 +55,11 @@ namespace MyWindowsMediaPlayer.Model
         {
             get { return (_name); }
         }
+        public MediaState State
+        {
+            get { return (_state); }
+            set { _state = value; }
+        }
         #endregion
 
         #region Ctor / Dtor
@@ -53,7 +70,8 @@ namespace MyWindowsMediaPlayer.Model
 
         public Media(string path)
         {
-            _path = path;
+            _path = new Uri(path);
+            _state = MediaState.Stop;
 
             this.parseName();
         }
@@ -62,7 +80,7 @@ namespace MyWindowsMediaPlayer.Model
         #region Methods
         private void parseName()
         {
-            _name = System.IO.Path.GetFileNameWithoutExtension(_path);
+            _name = System.IO.Path.GetFileNameWithoutExtension(_path.ToString());
         }
         #endregion
     }

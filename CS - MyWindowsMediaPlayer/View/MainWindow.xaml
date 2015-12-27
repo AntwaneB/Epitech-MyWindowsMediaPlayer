@@ -21,7 +21,10 @@
                 <ImageBrush ImageSource="C:\Users\Antoine\Pictures\1589528.jpg" Stretch="UniformToFill" />
             </Grid.Background>
             -->
+            <!--
             <MediaElement x:Name="MediaDisplay" Margin="0"/>
+            -->
+            <ContentControl Content="{Binding MediaElementCtrl}"/>
         </Grid>
         <Grid x:Name="Controls" Grid.Row="1">
             <Button x:Name="btnLoad" Content="Load file" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,0,10" Width="150"/>
