@@ -15,19 +15,48 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Attributes
         private Media _currentMedia = null;
 
-        private DelegateCommand _loadCommand;
-        private DelegateCommand _playCommand;
-        private DelegateCommand _pauseCommand;
-        private DelegateCommand _stopCommand;
+        private DelegateCommand _loadCommand = null;
+        private DelegateCommand _playCommand = null;
+        private DelegateCommand _pauseCommand = null;
+        private DelegateCommand _stopCommand = null;
         #endregion
 
         #region Properties
         public ICommand LoadCommand
         {
-            get { return (_loadCommand); }
+            get
+            {
+                if (_loadCommand == null)
+                    _loadCommand = new DelegateCommand(OnLoad, CanLoad);
+
+                return (_loadCommand);
+            }
+        }
+        public ICommand PlayCommand
+        {
+            get { return (_playCommand); }
+        }
+        public ICommand PauseCommand
+        {
+            get { return (_pauseCommand); }
+        }
+        public ICommand StopCommand
+        {
+            get { return (_stopCommand); }
         }
         #endregion
 
+        #region Delegate Commands
+        public void OnLoad(object arg)
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog();
+            var result = dialog.ShowDialog();
+        }
 
+        public bool CanLoad(object arg)
+        {
+            return (true);
+        }
+        #endregion
     }
 }

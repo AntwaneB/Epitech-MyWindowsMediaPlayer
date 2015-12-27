@@ -8,6 +8,22 @@ namespace MyWindowsMediaPlayer.Model
 {
     abstract class Media
     {
+        #region Factory
+        public static class Factory
+        {
+            private static Dictionary<string, Type> _extensions = new Dictionary<string, Type>
+            {
+                { "mp4", typeof(Video) },
+                { "mpeg", typeof(Video) },
+                { "avi", typeof(Video) },
+                { "wmv", typeof(Video) },
+                { "mp3", typeof(Music) },
+                { "wav", typeof(Music) },
+                { "jpg", typeof(Image) },
+            };
+        }
+        #endregion
+
         #region Attributes
         private string _path;
         private string _name;

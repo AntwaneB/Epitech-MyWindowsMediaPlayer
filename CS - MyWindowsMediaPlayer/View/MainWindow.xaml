@@ -16,9 +16,11 @@
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid x:Name="Content" Grid.Row="0">
+            <!--
             <Grid.Background>
                 <ImageBrush ImageSource="C:\Users\Antoine\Pictures\1589528.jpg" Stretch="UniformToFill" />
             </Grid.Background>
+            -->
             <MediaElement x:Name="MediaDisplay" Margin="0"/>
         </Grid>
         <Grid x:Name="Controls" Grid.Row="1">
