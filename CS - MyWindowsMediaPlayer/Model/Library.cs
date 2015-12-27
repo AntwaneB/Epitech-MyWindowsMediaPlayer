@@ -7,25 +7,31 @@ using System.Threading.Tasks;
 namespace MyWindowsMediaPlayer.Model
 {
     [Serializable]
-    class Video : Media
+    class Library
     {
         #region Attributes
-        private TimeSpan _duration;
+        private List<Uri> _folders = new List<Uri>();
         #endregion
 
         #region Properties
+        public List<Uri> Folders
+        {
+            get { return (_folders); }
+            set
+            {
+                _folders = value;
+            }
+        }
         #endregion
 
         #region Ctor / Dtor
-        public Video() : base()
+        public Library()
         {
-            _duration = default(TimeSpan);
         }
 
-        public Video(string path, string title = "", string artist = "", TimeSpan duration = default(TimeSpan))
-            : base(path)
+        public Library(List<Uri> folders)
         {
-            _duration = duration;
+            _folders.AddRange(folders);
         }
         #endregion
     }

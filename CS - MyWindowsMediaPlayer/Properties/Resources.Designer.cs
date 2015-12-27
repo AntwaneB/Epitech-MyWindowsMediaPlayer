@@ -59,5 +59,15 @@ namespace MyWindowsMediaPlayer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PlayerBackground {
+            get {
+                object obj = ResourceManager.GetObject("PlayerBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

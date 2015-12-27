@@ -6,30 +6,26 @@ using System.Threading.Tasks;
 
 namespace MyWindowsMediaPlayer.Model
 {
-    [Serializable]
     abstract class Media
     {
         #region Attributes
         private string _path;
-        private string _title;
-        private string _artist;
+        private string _name;
         #endregion
 
         #region Properties
         public string Path
         {
             get { return (_path); }
-            set { _path = value; }
+            set
+            {
+                _path = value;
+                this.parseName();
+            }
         }
-        public string Title
+        public string Name
         {
-            get { return (_title); }
-            set { _title = value; }
-        }
-        public string Artist
-        {
-            get { return (_artist); }
-            set { _artist = value; }
+            get { return (_name); }
         }
         #endregion
 
@@ -37,15 +33,20 @@ namespace MyWindowsMediaPlayer.Model
         public Media()
         {
             _path = null;
-            _title = null;
-            _artist = null;
         }
 
-        public Media(string path, string title = "", string artist = "")
+        public Media(string path)
         {
             _path = path;
-            _title = title;
-            _artist = artist;
+
+            this.parseName();
+        }
+        #endregion
+
+        #region Methods
+        private void parseName()
+        {
+            _name = System.IO.Path.GetFileNameWithoutExtension(_path);
         }
         #endregion
     }

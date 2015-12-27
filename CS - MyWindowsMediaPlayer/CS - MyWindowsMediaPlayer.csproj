@@ -60,7 +60,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\Library.cs" />
     <Compile Include="Model\Media.cs" />
+    <Compile Include="Model\Playlist.cs" />
     <Compile Include="Model\Video.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
@@ -96,16 +98,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DefaultBackground.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="Resources\1589528.jpg" />
+    <Resource Include="Resources\1589528.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
