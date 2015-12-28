@@ -21,10 +21,10 @@
                 <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Frame Grid.Column="0" Background="#dad9d4" />
-            <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
+            <Frame x:Name="LeftContentFrame" Grid.Column="0" Background="#dad9d4" />
+            <GridSplitter x:Name="ContentSplitter" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
             <Border Background="#272729" Grid.Column="2">
-                <ContentControl Content="{Binding MediaElementCtrl}" />
+                <ContentControl x:Name="MediaPlayer" Content="{Binding MediaElementCtrl}" MouseLeftButtonUp="MediaPlayer_MouseLeftButtonUp" />
             </Border>
         </Grid>
         <Grid x:Name="Controls" Grid.Row="1">
