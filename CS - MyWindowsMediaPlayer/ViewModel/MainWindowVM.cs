@@ -8,14 +8,17 @@ using MyWindowsMediaPlayer.Model;
 using MyWindowsMediaPlayer.Utils;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Threading;
+using System.Windows;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class MainWindowVM
+    class MainWindowVM : ViewModelBase
     {
         #region Attributes
         private Media _currentMedia = null;
         private MediaElement _mediaElement = null;
+        private DispatcherTimer _mediaTimer = new DispatcherTimer();
 
         private DelegateCommand _loadCommand = null;
         private DelegateCommand _playCommand = null;
@@ -27,6 +30,10 @@ namespace MyWindowsMediaPlayer.ViewModel
         public MediaElement MediaElementCtrl
         {
             get { return (_mediaElement); }
+        }
+        public Media CurrentMedia
+        {
+            get { return (_currentMedia); }
         }
 
         public ICommand LoadCommand
@@ -78,6 +85,10 @@ namespace MyWindowsMediaPlayer.ViewModel
             var result = dialog.ShowDialog();
 
             _currentMedia = Media.Factory.make(dialog.FileName);
+            if (_currentMedia != null)
+                _currentMedia.State = MediaState.Stop;
+            if (_mediaElement != null)
+                _mediaElement.Stop();
 
             _playCommand.RaiseCanExecuteChanged();
             _pauseCommand.RaiseCanExecuteChanged();
@@ -150,6 +161,40 @@ namespace MyWindowsMediaPlayer.ViewModel
             _mediaElement = new MediaElement();
             _mediaElement.LoadedBehavior = MediaState.Manual;
             _mediaElement.UnloadedBehavior = MediaState.Stop;
+            _mediaElement.MediaOpened += new RoutedEventHandler(MediaOpened);
+            _mediaElement.MediaEnded += new RoutedEventHandler(MediaEnded);
+
+            _mediaTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _mediaTimer.Tick += new EventHandler(UpdateMediaPosition);
+            _mediaTimer.Start();
         }
+
+        #region Methods
+        private void UpdateMediaPosition(Object sender, EventArgs e)
+        {
+            if (_currentMedia != null)
+            {
+                _currentMedia.Position = _mediaElement.Position;
+                NotifyPropertyChanged("CurrentMedia");
+            }
+        }
+
+        private void MediaOpened(object sender, RoutedEventArgs e)
+        {
+            _currentMedia.Duration = _mediaElement.NaturalDuration.TimeSpan;
+        }
+
+        private void MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if (_currentMedia != null)
+                _currentMedia.State = MediaState.Stop;
+            if (_mediaElement != null)
+                _mediaElement.Stop();
+
+            _playCommand.RaiseCanExecuteChanged();
+            _pauseCommand.RaiseCanExecuteChanged();
+            _stopCommand.RaiseCanExecuteChanged();
+        }
+        #endregion
     }
 }

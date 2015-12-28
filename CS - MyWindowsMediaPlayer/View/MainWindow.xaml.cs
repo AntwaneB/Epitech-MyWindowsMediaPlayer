@@ -23,5 +23,10 @@ namespace MyWindowsMediaPlayer.View
         {
             InitializeComponent();
         }
+
+        private void sliderPosition_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

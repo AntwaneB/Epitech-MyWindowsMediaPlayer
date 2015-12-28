@@ -42,6 +42,15 @@ namespace MyWindowsMediaPlayer.Model
         #endregion
 
         #region Properties
+        public TimeSpan Position
+        {
+            get; set;
+        }
+        public TimeSpan Duration
+        {
+            get; set;
+        }
+
         public Uri Path
         {
             get { return (_path); }
@@ -51,10 +60,12 @@ namespace MyWindowsMediaPlayer.Model
                 this.parseName();
             }
         }
+
         public string Name
         {
             get { return (_name); }
         }
+
         public MediaState State
         {
             get { return (_state); }

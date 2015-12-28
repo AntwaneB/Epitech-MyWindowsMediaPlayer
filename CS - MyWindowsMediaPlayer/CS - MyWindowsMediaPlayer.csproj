@@ -69,6 +69,7 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

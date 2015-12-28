@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Title="MyWindowsMediaPlayer" Height="564" Width="894">
+        Title="MyWindowsMediaPlayer" Height="613" Width="894">
     <Window.DataContext>
         <viewmodel:MainWindowVM />
     </Window.DataContext>
     <Grid x:Name="MainPanel" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid x:Name="Content" Grid.Row="0">
@@ -26,7 +27,14 @@
             -->
             <ContentControl Content="{Binding MediaElementCtrl}"/>
         </Grid>
-        <Grid x:Name="Controls" Grid.Row="1">
+        <Grid x:Name="Progress" Grid.Row="1">
+            <Slider x:Name="sliderPosition"
+                    VerticalAlignment="Center" Margin="5,0"
+                    Minimum="0" Maximum="{Binding CurrentMedia.Duration.TotalMilliseconds}"
+                    Value="{Binding CurrentMedia.Position.TotalMilliseconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsEnabled="False"
+                    ></Slider>
+        </Grid>
+        <Grid x:Name="Controls" Grid.Row="2">
             <Button x:Name="btnLoad" Content="Load file" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,0,10" Width="150"/>
             <Button x:Name="btnPlay" Content="Play" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="150"/>
             <Button x:Name="btnPause" Content="Pause" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="330,10,0,10" Width="150"/>
