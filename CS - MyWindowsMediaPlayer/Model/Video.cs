@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace MyWindowsMediaPlayer.Model
 {
@@ -10,23 +11,27 @@ namespace MyWindowsMediaPlayer.Model
     class Video : Media
     {
         #region Attributes
-        private TimeSpan _duration;
         #endregion
 
         #region Properties
+        public override BitmapImage Thumbnail
+        {
+            get { return (null); }
+        }
         #endregion
 
         #region Ctor / Dtor
         public Video() : base()
         {
-            _duration = default(TimeSpan);
         }
 
-        public Video(string path, string title = "", string artist = "", TimeSpan duration = default(TimeSpan))
+        public Video(string path)
             : base(path)
         {
-            _duration = duration;
         }
+        #endregion
+
+        #region Methods
         #endregion
     }
 }

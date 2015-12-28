@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace MyWindowsMediaPlayer.Model
 {
@@ -20,11 +22,15 @@ namespace MyWindowsMediaPlayer.Model
                 { "wmv", ((string path) => new Video(path)) },
                 { "mp3", ((string path) => new Music(path)) },
                 { "wav", ((string path) => new Music(path)) },
+                { "wma", ((string path) => new Music(path)) },
                 { "jpg", ((string path) => new Image(path)) },
             };
 
             public static Media make(string path)
             {
+                if (string.IsNullOrEmpty(path))
+                    return (null);
+
                 string extension = System.IO.Path.GetExtension(path).Substring(1);
 
                 if (!_extensions.ContainsKey(extension))
@@ -36,9 +42,9 @@ namespace MyWindowsMediaPlayer.Model
         #endregion
 
         #region Attributes
-        private Uri _path;
-        private string _name;
-        private MediaState _state;
+        protected Uri _path;
+        protected string _name;
+        protected MediaState _state;
         #endregion
 
         #region Properties
@@ -70,6 +76,11 @@ namespace MyWindowsMediaPlayer.Model
         {
             get { return (_state); }
             set { _state = value; }
+        }
+
+        public virtual BitmapImage Thumbnail
+        {
+            get { throw new NotImplementedException(); }
         }
         #endregion
 

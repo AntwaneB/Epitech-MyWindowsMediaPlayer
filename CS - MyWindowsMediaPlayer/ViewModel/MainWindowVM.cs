@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Windows;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
@@ -181,7 +183,10 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         private void MediaOpened(object sender, RoutedEventArgs e)
         {
-            _currentMedia.Duration = _mediaElement.NaturalDuration.TimeSpan;
+            if (_mediaElement.NaturalDuration.HasTimeSpan)
+                _currentMedia.Duration = _mediaElement.NaturalDuration.TimeSpan;
+            else
+                _currentMedia.Duration = new TimeSpan(0);
         }
 
         private void MediaEnded(object sender, RoutedEventArgs e)
