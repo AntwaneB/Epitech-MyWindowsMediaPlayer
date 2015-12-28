@@ -18,6 +18,10 @@ namespace MyWindowsMediaPlayer.Model
         {
             get { return (null); }
         }
+        public override string Information
+        {
+            get { return (null); }
+        }
         #endregion
 
         #region Ctor / Dtor

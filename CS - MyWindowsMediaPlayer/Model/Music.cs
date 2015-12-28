@@ -15,12 +15,22 @@ namespace MyWindowsMediaPlayer.Model
         #endregion
 
         #region Properties
+        public override string Name
+        {
+            get
+            {
+                var file = TagLib.File.Create(_path.LocalPath);
+                if (!string.IsNullOrEmpty(file.Tag.Title))
+                    return (file.Tag.Title);
+                else
+                    return (base.Name);
+            }
+        }
+
         public override BitmapImage Thumbnail
         {
             get
             {
-                System.Diagnostics.Debug.WriteLine("COUCOU ICI");
-
                 try
                 {
                     var file = TagLib.File.Create(_path.LocalPath);
@@ -40,6 +50,24 @@ namespace MyWindowsMediaPlayer.Model
                     }
                     else
                         return (null);
+                }
+                catch (Exception e)
+                {
+                    return (null);
+                }
+            }
+        }
+        public override string Information
+        {
+            get
+            {
+                try
+                {
+                    var file = TagLib.File.Create(_path.LocalPath);
+                    if (file.Tag.AlbumArtists.Length > 0)
+                        return (file.Tag.Album + " - " + string.Join(", ", file.Tag.Artists));
+                    else
+                        return (file.Tag.Album);
                 }
                 catch (Exception e)
                 {

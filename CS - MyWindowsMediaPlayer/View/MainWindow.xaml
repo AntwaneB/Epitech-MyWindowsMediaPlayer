@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Title="MyWindowsMediaPlayer" Height="720" Width="1280">
+        Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#0f0f10" Foreground="White">
     <Window.DataContext>
         <viewmodel:MainWindowVM />
     </Window.DataContext>
@@ -27,7 +27,14 @@
             <Grid Grid.Column="0">
                 <Image Source="{Binding CurrentMedia.Thumbnail}" Height="60" Width="60" Margin="10,10,0,10" HorizontalAlignment="Left" />
                 <!--<ContentControl Content="{Binding MediaThumbnail}" Height="60" Width="60" Margin="10,10,0,10" HorizontalAlignment="Left" />-->
-                <Label x:Name="mediaName" Content="{Binding CurrentMedia.Name}" Margin="80,0,0,0" VerticalAlignment="Center" />
+                <Grid Margin="80,0,0,0" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" x:Name="mediaName" Content="{Binding CurrentMedia.Name}" VerticalAlignment="Center" Foreground="White" Margin="0,0,10,0" />
+                    <Label Grid.Row="1" x:Name="mediaName2" Content="{Binding CurrentMedia.Information}" VerticalAlignment="Center" Foreground="#FFB6B6B6" Margin="0,0,10,0" />
+                </Grid>
             </Grid>
             <Grid Grid.Column="1">
                 <Slider x:Name="sliderPosition"

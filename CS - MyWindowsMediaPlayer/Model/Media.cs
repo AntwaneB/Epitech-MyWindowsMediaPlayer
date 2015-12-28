@@ -67,7 +67,7 @@ namespace MyWindowsMediaPlayer.Model
             }
         }
 
-        public string Name
+        public virtual string Name
         {
             get { return (_name); }
         }
@@ -79,6 +79,11 @@ namespace MyWindowsMediaPlayer.Model
         }
 
         public virtual BitmapImage Thumbnail
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public virtual String Information
         {
             get { throw new NotImplementedException(); }
         }
