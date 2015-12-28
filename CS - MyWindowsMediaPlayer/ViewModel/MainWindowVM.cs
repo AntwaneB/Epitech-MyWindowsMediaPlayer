@@ -183,6 +183,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         private void MediaOpened(object sender, RoutedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("MEDIAOPENED CALLED");
             if (_mediaElement.NaturalDuration.HasTimeSpan)
                 _currentMedia.Duration = _mediaElement.NaturalDuration.TimeSpan;
             else

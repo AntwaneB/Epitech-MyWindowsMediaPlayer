@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#0f0f10" Foreground="White">
+        Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#1a1a1b" Foreground="White">
     <Window.DataContext>
         <viewmodel:MainWindowVM />
     </Window.DataContext>
@@ -16,7 +16,16 @@
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid x:Name="Content" Grid.Row="0">
-            <ContentControl Content="{Binding MediaElementCtrl}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="0" Background="#dad9d4" />
+            <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
+            <Border Background="#272729" Grid.Column="2">
+                <ContentControl Content="{Binding MediaElementCtrl}" />
+            </Border>
         </Grid>
         <Grid x:Name="Controls" Grid.Row="1">
             <Grid.ColumnDefinitions>
