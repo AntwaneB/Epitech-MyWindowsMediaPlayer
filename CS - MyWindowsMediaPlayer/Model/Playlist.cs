@@ -12,6 +12,8 @@ namespace MyWindowsMediaPlayer.Model
     {
         #region Attributes
         private string _name;
+
+        private int _currentIdx;
         #endregion
 
         #region Properties
@@ -39,12 +41,32 @@ namespace MyWindowsMediaPlayer.Model
         public Playlist()
         {
             _name = null;
+            _currentIdx = 0;
         }
 
         public Playlist(string name)
         {
             _name = name;
+            _currentIdx = 0;
         }
         #endregion
+
+        public Media Next()
+        {
+            if (this.Count() > _currentIdx)
+            {
+                return (this.ElementAt(_currentIdx++));
+            }
+            else
+            {
+                _currentIdx = 0;
+                return (null);
+            }
+        }
+
+        public bool HasNext()
+        {
+            return (this.Count() > _currentIdx);
+        }
     }
 }

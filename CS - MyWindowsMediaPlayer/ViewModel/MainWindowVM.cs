@@ -19,6 +19,7 @@ namespace MyWindowsMediaPlayer.ViewModel
     {
         #region Attributes
         private Media _currentMedia = null;
+        private Playlist _currentPlaylist = null;
         private MediaElement _mediaElement = null;
         private DispatcherTimer _mediaTimer = new DispatcherTimer();
 
@@ -104,6 +105,11 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnPlay(object arg)
         {
+            if (_currentPlaylist != null && _currentMedia == null)
+            {
+                _currentMedia = _currentPlaylist.Next();
+            }
+
             if (_currentMedia != null)
             {
                 _mediaElement.Source = _currentMedia.Path;
@@ -118,7 +124,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public bool CanPlay(object arg)
         {
-            return (_currentMedia != null && _currentMedia.State != MediaState.Play);
+            return ((_currentMedia != null && _currentMedia.State != MediaState.Play)
+                    || (_currentPlaylist != null && _currentMedia == null));
         }
 
         public void OnPause(object arg)
@@ -169,6 +176,10 @@ namespace MyWindowsMediaPlayer.ViewModel
             _mediaTimer.Interval = TimeSpan.FromMilliseconds(100);
             _mediaTimer.Tick += new EventHandler(UpdateMediaPosition);
             _mediaTimer.Start();
+
+            _currentPlaylist = new Playlist();
+            _currentPlaylist.Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3"));
+            _currentPlaylist.Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4"));
         }
 
         #region Methods
@@ -199,6 +210,12 @@ namespace MyWindowsMediaPlayer.ViewModel
             _playCommand.RaiseCanExecuteChanged();
             _pauseCommand.RaiseCanExecuteChanged();
             _stopCommand.RaiseCanExecuteChanged();
+
+            if (_currentPlaylist != null)
+            {
+                _currentMedia = null;
+                OnPlay(null);
+            }
         }
         #endregion
     }
