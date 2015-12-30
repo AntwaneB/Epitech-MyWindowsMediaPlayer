@@ -22,6 +22,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private Playlist _currentPlaylist = null;
         private MediaElement _mediaElement = null;
         private DispatcherTimer _mediaTimer = new DispatcherTimer();
+        private int _volume = 50;
 
         private DelegateCommand _loadCommand = null;
         private DelegateCommand _playCommand = null;
@@ -37,6 +38,16 @@ namespace MyWindowsMediaPlayer.ViewModel
         public Media CurrentMedia
         {
             get { return (_currentMedia); }
+        }
+        public int Volume
+        {
+            get { return (_volume); }
+            set
+            {
+                _volume = value;
+                if (_mediaElement != null)
+                    _mediaElement.Volume = _volume / 100.0;
+            }
         }
 
         public ICommand LoadCommand
@@ -113,6 +124,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             if (_currentMedia != null)
             {
                 _mediaElement.Source = _currentMedia.Path;
+                _mediaElement.Volume = Volume / 100.0;
                 _mediaElement.Play();
                 _currentMedia.State = MediaState.Play;
 

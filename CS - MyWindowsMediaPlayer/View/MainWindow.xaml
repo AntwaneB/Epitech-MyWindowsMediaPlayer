@@ -26,10 +26,10 @@
 
             <Grid Grid.Column="0" Background="#cbcac5">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Button x:Name="btnPlaylistList" Content="Playlists" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
-                    <Button x:Name="btnMusics" Content="Musiques" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
-                    <Button x:Name="btnVideos" Content="Vidéos" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
-                    <Button x:Name="btnImages" Content="Images" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
+                    <Button x:Name="btnPlaylistList" Content="Playlists" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnMusics" Content="Musiques" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnVideos" Content="Vidéos" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnImages" Content="Images" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
                 </StackPanel>
             </Grid>
             
@@ -72,6 +72,7 @@
                 <Button x:Name="btnPlay" Content="Play" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="90,10,170,10" Width="70"/>
                 <Button x:Name="btnPause" Content="Pause" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="70"/>
                 <Button x:Name="btnStop" Content="Stop" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Margin="250,10,0,10" Width="70"/>
+                <Slider x:Name="volume" Orientation="Vertical" Minimum="0" Maximum="100" Margin="330,10,0,10" Width="30" Value="{Binding Path=Volume, Mode=TwoWay}" />
             </Grid>
         </Grid>
     </Grid>
