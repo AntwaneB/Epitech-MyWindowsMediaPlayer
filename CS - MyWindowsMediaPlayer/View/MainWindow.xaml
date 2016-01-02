@@ -7,9 +7,11 @@
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
         Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#1a1a1b" Foreground="White" FontFamily="Open Sans Light">
+    <!--
     <Window.DataContext>
         <viewmodel:MainWindowVM />
     </Window.DataContext>
+    -->
     <Grid x:Name="MainPanel" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -24,16 +26,16 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Background="#cbcac5">
+            <Grid x:Name="LeftMenu" Grid.Column="0" Background="#cbcac5">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Button x:Name="btnPlaylistList" Content="Playlists" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
-                    <Button x:Name="btnMusics" Content="Musiques" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
-                    <Button x:Name="btnVideos" Content="Vidéos" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
-                    <Button x:Name="btnImages" Content="Images" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnPlaylistList" Command="{Binding NavigatePlaylistsCommand}" Content="Playlists" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnMusics" Command="{Binding NavigateLibraryCommand}" CommandParameter="musics" Content="Musiques" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnVideos" Command="{Binding NavigateLibraryCommand}" CommandParameter="videos" Content="Vidéos" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnImages" Command="{Binding NavigateLibraryCommand}" CommandParameter="images" Content="Images" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
                 </StackPanel>
             </Grid>
             
-            <Frame x:Name="LeftContentFrame" Grid.Column="1" Background="#dad9d4" Source="PlaylistList.xaml" NavigationUIVisibility="Hidden" FontFamily="Open Sans Light" />
+            <Frame x:Name="LeftContentFrame" Grid.Column="1" Background="#dad9d4" NavigationUIVisibility="Hidden" FontFamily="Open Sans Light" />
             
             <GridSplitter x:Name="ContentSplitter" Grid.Column="2" HorizontalAlignment="Stretch" />
             

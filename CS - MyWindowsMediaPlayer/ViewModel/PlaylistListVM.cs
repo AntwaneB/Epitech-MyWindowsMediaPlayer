@@ -1,23 +1,69 @@
 ﻿using MyWindowsMediaPlayer.Model;
+using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class PlaylistListVM
+    class PlaylistListVM : ViewModelBase
     {
         #region Attributes
-        private List<Playlist> _playlists = new List<Playlist>();
+        private ObservableCollection<Playlist> _playlists = new ObservableCollection<Playlist>();
+
+        private string _newPlaylistName = "";
+
+        private DelegateCommand _createPlaylistCommand = null;
         #endregion
 
         #region Properties
-        public List<Playlist> Playlists
+        public ObservableCollection<Playlist> Playlists
         {
             get { return (_playlists); }
             set { _playlists = value; }
+        }
+
+        public string NewPlaylistName
+        {
+            get { return (_newPlaylistName); }
+            set
+            {
+                _newPlaylistName = value;
+                NotifyPropertyChanged("NewPlaylistName");
+            }
+        }
+
+        public ICommand CreatePlaylistCommand
+        {
+            get
+            {
+                if (_createPlaylistCommand == null)
+                    _createPlaylistCommand = new DelegateCommand(OnCreatePlaylist, CanCreatePlaylist);
+
+                return (_createPlaylistCommand);
+            }
+        }
+        #endregion
+
+        #region Delegate Commands
+        public void OnCreatePlaylist(object arg)
+        {
+            if (string.IsNullOrEmpty(NewPlaylistName))
+                return;
+
+            _playlists.Add(new Playlist(NewPlaylistName));
+            NotifyPropertyChanged("Playlists");
+
+            NewPlaylistName = "";
+        }
+
+        public bool CanCreatePlaylist(object arg)
+        {
+            return (true);
         }
         #endregion
 
@@ -28,7 +74,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             _playlists.Add(new Playlist("Films"));
             _playlists.Add(new Playlist("Séries"));
             _playlists.Add(new Playlist("Photos de vacance"));
-
+            
             _playlists[0].Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3"));
             _playlists[0].Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3"));
 

@@ -18,16 +18,20 @@ namespace MyWindowsMediaPlayer.ViewModel
     class MainWindowVM : ViewModelBase
     {
         #region Attributes
+        private NavigationService _navigationService = null;
+
         private Media _currentMedia = null;
         private Playlist _currentPlaylist = null;
         private MediaElement _mediaElement = null;
         private DispatcherTimer _mediaTimer = new DispatcherTimer();
-        private int _volume = 50;
+        private int _volume = 25;
 
         private DelegateCommand _loadCommand = null;
         private DelegateCommand _playCommand = null;
         private DelegateCommand _pauseCommand = null;
         private DelegateCommand _stopCommand = null;
+        private DelegateCommand _navigateLibraryCommand = null;
+        private DelegateCommand _navigatePlaylistsCommand = null;
         #endregion
 
         #region Properties
@@ -88,6 +92,26 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _stopCommand = new DelegateCommand(OnStop, CanStop);
 
                 return (_stopCommand);
+            }
+        }
+        public ICommand NavigateLibraryCommand
+        {
+            get
+            {
+                if (_navigateLibraryCommand == null)
+                    _navigateLibraryCommand = new DelegateCommand(OnNavigateLibrary, CanNavigateLibrary);
+
+                return (_navigateLibraryCommand);
+            }
+        }
+        public ICommand NavigatePlaylistsCommand
+        {
+            get
+            {
+                if (_navigatePlaylistsCommand == null)
+                    _navigatePlaylistsCommand = new DelegateCommand(OnNavigatePlaylists, CanNavigatePlaylists);
+
+                return (_navigatePlaylistsCommand);
             }
         }
         #endregion
@@ -170,15 +194,37 @@ namespace MyWindowsMediaPlayer.ViewModel
                 _stopCommand.RaiseCanExecuteChanged();
             }
         }
-
         public bool CanStop(object arg)
         {
             return (_currentMedia != null && _currentMedia.State != MediaState.Stop);
         }
+
+        public void OnNavigateLibrary(object arg)
+        {
+            string destination = (string)arg;
+
+            _navigationService.Navigate("View\\Library.xaml", destination);
+        }
+
+        public bool CanNavigateLibrary(object arg)
+        {
+            return (true);
+        }
+        public void OnNavigatePlaylists(object arg)
+        {
+            _navigationService.Navigate("View\\PlaylistList.xaml");
+        }
+
+        public bool CanNavigatePlaylists(object arg)
+        {
+            return (true);
+        }
         #endregion
 
-        public MainWindowVM()
+        public MainWindowVM(NavigationService navigationService)
         {
+            _navigationService = navigationService;
+
             _mediaElement = new MediaElement();
             _mediaElement.LoadedBehavior = MediaState.Manual;
             _mediaElement.UnloadedBehavior = MediaState.Stop;
@@ -192,6 +238,8 @@ namespace MyWindowsMediaPlayer.ViewModel
             _currentPlaylist = new Playlist();
             _currentPlaylist.Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3"));
             _currentPlaylist.Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4"));
+
+            _navigationService.Navigate("View\\PlaylistList.xaml");
         }
 
         #region Methods

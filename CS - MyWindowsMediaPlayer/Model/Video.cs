@@ -23,6 +23,7 @@ namespace MyWindowsMediaPlayer.Model
         {
             get
             {
+                /*
                 FFMpegConverter ff = new FFMpegConverter();
                 MemoryStream imgStream = new MemoryStream();
                 ff.GetVideoThumbnail(_path.LocalPath, imgStream, (float)(Duration.TotalSeconds / 2.0));
@@ -39,6 +40,8 @@ namespace MyWindowsMediaPlayer.Model
                 bitmapImage.EndInit();
 
                 return (bitmapImage);
+                */
+                return (null);
             }
         }
         public override string Information

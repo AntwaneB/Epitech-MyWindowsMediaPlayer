@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyWindowsMediaPlayer.Utils;
+using MyWindowsMediaPlayer.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -26,11 +28,15 @@ namespace MyWindowsMediaPlayer.View
     {
         private bool _fullscreen = false;
         private DispatcherTimer _doubleClickTimer = new DispatcherTimer();
-        private GridLength[] _columnsWidth = new GridLength[3];
+        private GridLength[] _columnsWidth = new GridLength[4];
 
         public MainWindow()
         {
             InitializeComponent();
+
+            var viewModel = new MainWindowVM(new NavigationService(this.LeftContentFrame));
+            this.DataContext = viewModel;
+
             _doubleClickTimer.Interval = TimeSpan.FromMilliseconds(GetDoubleClickTime());
             _doubleClickTimer.Tick += (s, e) => _doubleClickTimer.Stop();
         }
@@ -48,10 +54,13 @@ namespace MyWindowsMediaPlayer.View
 
                     this.ContentSplitter.Visibility = Visibility.Collapsed;
                     this.LeftContentFrame.Visibility = Visibility.Collapsed;
+                    this.LeftMenu.Visibility = Visibility.Collapsed;
                     _columnsWidth[0] = this.Content.ColumnDefinitions[0].Width;
                     _columnsWidth[1] = this.Content.ColumnDefinitions[1].Width;
+                    _columnsWidth[2] = this.Content.ColumnDefinitions[2].Width;
                     this.Content.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Auto);
                     this.Content.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Auto);
+                    this.Content.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Auto);
                 }
                 else
                 {
@@ -60,8 +69,10 @@ namespace MyWindowsMediaPlayer.View
 
                     this.Content.ColumnDefinitions[0].Width = _columnsWidth[0];
                     this.Content.ColumnDefinitions[1].Width = _columnsWidth[1];
+                    this.Content.ColumnDefinitions[2].Width = _columnsWidth[2];
                     this.ContentSplitter.Visibility = Visibility.Visible;
                     this.LeftContentFrame.Visibility = Visibility.Visible;
+                    this.LeftMenu.Visibility = Visibility.Visible;
                 }
 
                 _fullscreen = !_fullscreen;

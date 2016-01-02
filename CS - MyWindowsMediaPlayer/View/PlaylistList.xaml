@@ -12,7 +12,19 @@
         <Grid.DataContext>
             <viewmodel:PlaylistListVM />
         </Grid.DataContext>
-        <ListView ItemsSource="{Binding Playlists, UpdateSourceTrigger=PropertyChanged}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="PlaylistForm">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" x:Name="PlaylistName" Text="{Binding NewPlaylistName, Mode=TwoWay}" Margin="5" VerticalContentAlignment="Center" FontFamily="Open Sans Light" />
+            <Button Grid.Column="1" x:Name="btnCreatePlaylist" Content="Créer la playlist" Command="{Binding Path=CreatePlaylistCommand}" Margin="5" />
+        </Grid>
+        <ListView Grid.Row="1" x:Name="Playlists" ItemsSource="{Binding Playlists, UpdateSourceTrigger=PropertyChanged}"
                   Margin="5" Background="#FFDAD9D4"
                   BorderBrush="#FFDAD9D4" BorderThickness="0"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF333333" FontFamily="Open Sans Light" FontSize="14.667">

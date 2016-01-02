@@ -95,9 +95,14 @@
     <Compile Include="Model\Playlist.cs" />
     <Compile Include="Model\Video.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
+    <Compile Include="Utils\INavigationService.cs" />
+    <Compile Include="Utils\NavigationService.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\PlaylistListVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\Library.xaml.cs">
+      <DependentUpon>Library.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -134,6 +139,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Library.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
