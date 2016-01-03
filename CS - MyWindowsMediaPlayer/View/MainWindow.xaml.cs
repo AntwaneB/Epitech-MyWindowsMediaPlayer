@@ -55,21 +55,21 @@ namespace MyWindowsMediaPlayer.View
                     this.ContentSplitter.Visibility = Visibility.Collapsed;
                     this.LeftContentFrame.Visibility = Visibility.Collapsed;
                     this.LeftMenu.Visibility = Visibility.Collapsed;
-                    _columnsWidth[0] = this.Content.ColumnDefinitions[0].Width;
-                    _columnsWidth[1] = this.Content.ColumnDefinitions[1].Width;
-                    _columnsWidth[2] = this.Content.ColumnDefinitions[2].Width;
-                    this.Content.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Auto);
-                    this.Content.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Auto);
-                    this.Content.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Auto);
+                    _columnsWidth[0] = this.ContentGrid.ColumnDefinitions[0].Width;
+                    _columnsWidth[1] = this.ContentGrid.ColumnDefinitions[1].Width;
+                    _columnsWidth[2] = this.ContentGrid.ColumnDefinitions[2].Width;
+                    this.ContentGrid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Auto);
+                    this.ContentGrid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Auto);
+                    this.ContentGrid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Auto);
                 }
                 else
                 {
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     this.WindowState = WindowState.Normal;
 
-                    this.Content.ColumnDefinitions[0].Width = _columnsWidth[0];
-                    this.Content.ColumnDefinitions[1].Width = _columnsWidth[1];
-                    this.Content.ColumnDefinitions[2].Width = _columnsWidth[2];
+                    this.ContentGrid.ColumnDefinitions[0].Width = _columnsWidth[0];
+                    this.ContentGrid.ColumnDefinitions[1].Width = _columnsWidth[1];
+                    this.ContentGrid.ColumnDefinitions[2].Width = _columnsWidth[2];
                     this.ContentSplitter.Visibility = Visibility.Visible;
                     this.LeftContentFrame.Visibility = Visibility.Visible;
                     this.LeftMenu.Visibility = Visibility.Visible;

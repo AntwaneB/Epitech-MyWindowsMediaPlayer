@@ -1,0 +1,1 @@
+Gérer le cas où un fichier d'un playlist n'existe pas

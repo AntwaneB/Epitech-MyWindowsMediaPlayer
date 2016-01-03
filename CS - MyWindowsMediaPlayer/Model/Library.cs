@@ -11,6 +11,7 @@ namespace MyWindowsMediaPlayer.Model
     {
         #region Attributes
         private List<Uri> _folders = new List<Uri>();
+        private List<Media> _items = new List<Media>();
         #endregion
 
         #region Properties
@@ -20,7 +21,13 @@ namespace MyWindowsMediaPlayer.Model
             set
             {
                 _folders = value;
+                loadItems();
             }
+        }
+
+        public List<Media> Items
+        {
+            get { return (_items); }
         }
         #endregion
 
@@ -32,6 +39,13 @@ namespace MyWindowsMediaPlayer.Model
         public Library(List<Uri> folders)
         {
             _folders.AddRange(folders);
+        }
+        #endregion
+
+        #region Methods
+        private void loadItems()
+        {
+
         }
         #endregion
     }

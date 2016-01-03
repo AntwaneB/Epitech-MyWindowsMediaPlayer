@@ -97,14 +97,19 @@
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\INavigationService.cs" />
     <Compile Include="Utils\NavigationService.cs" />
+    <Compile Include="ViewModel\LibraryVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\MusicLibraryVM.cs" />
     <Compile Include="ViewModel\PlaylistListVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="View\Library.xaml.cs">
-      <DependentUpon>Library.xaml</DependentUpon>
+    <Compile Include="View\LibraryManagement.xaml.cs">
+      <DependentUpon>LibraryManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Musics.xaml.cs">
+      <DependentUpon>Musics.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PlaylistList.xaml.cs">
       <DependentUpon>PlaylistList.xaml</DependentUpon>
@@ -139,11 +144,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\Library.xaml">
+    <Page Include="View\LibraryManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Musics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

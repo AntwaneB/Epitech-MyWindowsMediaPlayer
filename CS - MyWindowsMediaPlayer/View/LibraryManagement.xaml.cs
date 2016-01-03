@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MyWindowsMediaPlayer.View
 {
     /// <summary>
-    /// Logique d'interaction pour Library.xaml
+    /// Logique d'interaction pour LibraryManagement.xaml
     /// </summary>
-    public partial class Library : Page
+    public partial class LibraryManagement : Window
     {
-        public Library()
+        public LibraryManagement()
         {
             InitializeComponent();
         }

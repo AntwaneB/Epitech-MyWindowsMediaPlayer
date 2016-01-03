@@ -53,6 +53,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
                 catch (Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine("Unable to load thumbnail image:" + e.ToString());
                     return (null);
                 }
             }
@@ -71,6 +72,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
                 catch (Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine("Unable to load informations:" + e.ToString());
                     return (null);
                 }
             }

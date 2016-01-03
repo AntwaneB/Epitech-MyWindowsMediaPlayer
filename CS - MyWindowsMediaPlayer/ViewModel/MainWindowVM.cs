@@ -203,7 +203,21 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             string destination = (string)arg;
 
-            _navigationService.Navigate("View\\Library.xaml", destination);
+            switch (destination)
+            {
+                case "musics":
+                    _navigationService.Navigate("View\\Musics.xaml");
+                    break;
+                case "videos":
+                    _navigationService.Navigate("View\\Videos.xaml");
+                    break;
+                case "images":
+                    _navigationService.Navigate("View\\Images.xaml");
+                    break;
+                default:
+                    System.Diagnostics.Debug.WriteLine("User tried to load an invalid page.");
+                    break;
+            }
         }
 
         public bool CanNavigateLibrary(object arg)
