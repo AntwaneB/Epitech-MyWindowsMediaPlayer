@@ -17,7 +17,7 @@ namespace MyWindowsMediaPlayer.View
     /// <summary>
     /// Logique d'interaction pour LibraryManagement.xaml
     /// </summary>
-    public partial class LibraryManagement : Window
+    public partial class LibraryManagement : UserControl
     {
         public LibraryManagement()
         {

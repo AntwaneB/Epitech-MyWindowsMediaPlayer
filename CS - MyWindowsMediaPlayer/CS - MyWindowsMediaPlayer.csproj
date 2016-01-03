@@ -96,7 +96,9 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\INavigationService.cs" />
+    <Compile Include="Utils\IWindowService.cs" />
     <Compile Include="Utils\NavigationService.cs" />
+    <Compile Include="Utils\WindowService.cs" />
     <Compile Include="ViewModel\LibraryVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\MusicLibraryVM.cs" />
