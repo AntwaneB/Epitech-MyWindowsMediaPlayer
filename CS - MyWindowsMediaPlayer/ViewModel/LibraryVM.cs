@@ -13,12 +13,12 @@ using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class LibraryVM : ViewModelBase
+    class LibraryVM<T> : ViewModelBase where T : Media
     {
         #region Attributes
         protected IWindowService _windowService = null;
 
-        protected Library _library = null;
+        protected Library<T> _library = null;
 
         protected ICommand _manageLibraryCommand = null;
         protected ICommand _addFolderCommand = null;
@@ -26,7 +26,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Properties
-        public Library Library
+        public Library<T> Library
         {
             get { return (_library); }
         }
@@ -86,6 +86,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             _library.AddFolder(new Uri(dialog.SelectedPath));
             NotifyPropertyChanged("Folders");
+            NotifyPropertyChanged("Library");
         }
 
         public bool CanAddFolder(object arg)
@@ -100,6 +101,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             _library.RemoveFolder(new Uri(folder));
             NotifyPropertyChanged("Folders");
+            NotifyPropertyChanged("Library.Items");
         }
 
         public bool CanRemoveFolder(object arg)

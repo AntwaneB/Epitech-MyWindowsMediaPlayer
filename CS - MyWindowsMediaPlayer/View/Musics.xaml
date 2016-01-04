@@ -15,11 +15,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button Content="Modifier la bibliothèque" Command="{Binding ManageLibraryCommand}" Grid.Row="0" />
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=Library.Items}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=Library.Items, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Piste" Width="*" />
                 <DataGridTextColumn Binding="{Binding Artists}" Header="Artiste" Width="*" />
-                <DataGridTextColumn Binding="{Binding Duration}" Header="Durée" Width="*" />
+                <DataGridTextColumn Binding="{Binding Album}" Header="Album" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
