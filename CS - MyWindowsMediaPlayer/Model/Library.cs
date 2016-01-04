@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyWindowsMediaPlayer.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyWindowsMediaPlayer.Model
 {
     [Serializable]
-    class Library
+    class Library : PropertyChangedBase
     {
         #region Attributes
         private List<Uri> _folders = new List<Uri>();
@@ -46,6 +47,24 @@ namespace MyWindowsMediaPlayer.Model
         private void loadItems()
         {
 
+        }
+
+        public void AddFolder(Uri folder)
+        {
+            if (!_folders.Contains(folder))
+            {
+                _folders.Add(folder);
+                OnPropertyChanged("Folders");
+            }
+        }
+
+        public void RemoveFolder(Uri folder)
+        {
+            if (_folders.Contains(folder))
+            {
+                _folders.Remove(folder);
+                OnPropertyChanged("Folders");
+            }
         }
         #endregion
     }

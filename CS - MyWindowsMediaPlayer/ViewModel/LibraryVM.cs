@@ -2,9 +2,12 @@
 using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -19,6 +22,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         protected ICommand _manageLibraryCommand = null;
         protected ICommand _addFolderCommand = null;
+        protected ICommand _removeFolderCommand = null;
         #endregion
 
         #region Properties
@@ -26,9 +30,9 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             get { return (_library); }
         }
-        public List<Uri> Folders
+        public ICollectionView Folders
         {
-            get { return (_library.Folders); }
+            get { return (new ListCollectionView(_library.Folders)); }
         }
 
         public ICommand ManageLibraryCommand
@@ -51,6 +55,16 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_addFolderCommand);
             }
         }
+        public ICommand RemoveFolderCommand
+        {
+            get
+            {
+                if (_removeFolderCommand == null)
+                    _removeFolderCommand = new DelegateCommand(OnRemoveFolder, CanRemoveFolder);
+
+                return (_removeFolderCommand);
+            }
+        }
         #endregion
 
         #region Commands
@@ -70,11 +84,25 @@ namespace MyWindowsMediaPlayer.ViewModel
             var dialog = new FolderBrowserDialog();
             dialog.ShowDialog();
 
-            _library.Folders.Add(new Uri(dialog.SelectedPath));
-            NotifyPropertyChanged("Library");
+            _library.AddFolder(new Uri(dialog.SelectedPath));
+            NotifyPropertyChanged("Folders");
         }
 
         public bool CanAddFolder(object arg)
+        {
+            return (true);
+        }
+
+        public void OnRemoveFolder(object arg)
+        {
+            string folder = ((Uri)arg).ToString();
+
+
+            _library.RemoveFolder(new Uri(folder));
+            NotifyPropertyChanged("Folders");
+        }
+
+        public bool CanRemoveFolder(object arg)
         {
             return (true);
         }
