@@ -147,4 +147,3 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
     }
 }
-

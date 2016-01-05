@@ -23,10 +23,46 @@
 
             <Grid x:Name="LeftMenu" Grid.Column="0" Background="#cbcac5">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Button x:Name="btnPlaylistList" Command="{Binding NavigatePlaylistsCommand}" Content="Playlists" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
-                    <Button x:Name="btnMusics" Command="{Binding NavigateLibraryCommand}" CommandParameter="musics" Content="Musiques" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
-                    <Button x:Name="btnVideos" Command="{Binding NavigateLibraryCommand}" CommandParameter="videos" Content="Vidéos" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
-                    <Button x:Name="btnImages" Command="{Binding NavigateLibraryCommand}" CommandParameter="images" Content="Images" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0" />
+                    <Button x:Name="btnPlaylistList" Command="{Binding NavigatePlaylistsCommand}" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" x:Name="imgPlaylist" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/playlist.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Playlist</TextBlock>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="btnMusics" Command="{Binding NavigateLibraryCommand}" CommandParameter="musics" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" x:Name="imgMusic" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/music.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Music</TextBlock>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="btnVideos" Command="{Binding NavigateLibraryCommand}" CommandParameter="videos" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" x:Name="imgVideo" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/moviz.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Videos</TextBlock>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="btnImages" Command="{Binding NavigateLibraryCommand}" CommandParameter="images" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" x:Name="imgImg" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/image.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Photos</TextBlock>
+                        </Grid>
+                    </Button>
                 </StackPanel>
             </Grid>
             
@@ -77,10 +113,18 @@
                     ></Slider>
             </Grid>
             <Grid Grid.Column="2" HorizontalAlignment="Center">
-                <Button x:Name="btnLoad" Content="Load file" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,250,10" Width="70"/>
-                <Button x:Name="btnPlay" Content="Play" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="90,10,170,10" Width="70"/>
-                <Button x:Name="btnPause" Content="Pause" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="70"/>
-                <Button x:Name="btnStop" Content="Stop" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Margin="250,10,0,10" Width="70"/>
+                <Button x:Name="btnLoad" Style="{StaticResource GelButton}" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,250,10" Width="70">
+                    <Image x:Name="imgLoad" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/notification_add.png"/>
+                </Button>
+                <Button x:Name="btnPlay" Style="{StaticResource GelButton}" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="90,10,170,10" Width="70">
+                    <Image x:Name="imgPlay" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/player_play.png"/>
+                </Button>
+                <Button x:Name="btnPause" Style="{StaticResource GelButton}" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="70">
+                    <Image x:Name="imgPause" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/player_pause.png"/>
+                </Button>
+                <Button x:Name="btnStop" Style="{StaticResource GelButton}" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Margin="250,10,0,10" Width="70">
+                    <Image x:Name="imgStop" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/player_stop.png"/>
+                </Button>
                 <Slider x:Name="volume" Orientation="Vertical" Minimum="0" Maximum="100" Margin="330,10,0,10" Width="30" Value="{Binding Path=Volume, Mode=TwoWay}" />
             </Grid>
         </Grid>
