@@ -9,9 +9,6 @@
       Title="PlaylistList">
 
     <Grid>
-        <Grid.DataContext>
-            <viewmodel:PlaylistListVM />
-        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />

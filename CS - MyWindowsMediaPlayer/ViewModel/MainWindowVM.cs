@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using System.Windows;
 using System.IO;
 using System.Windows.Media.Imaging;
+using MyWindowsMediaPlayer.Service;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
@@ -42,6 +43,20 @@ namespace MyWindowsMediaPlayer.ViewModel
         public Media CurrentMedia
         {
             get { return (_currentMedia); }
+            set
+            {
+                _currentMedia = value;
+                NotifyPropertyChanged("CurrentMedia");
+            }
+        }
+        public Playlist CurrentPlaylist
+        {
+            get { return (_currentPlaylist); }
+            set
+            {
+                _currentPlaylist = value;
+                NotifyPropertyChanged("CurrentPlaylist");
+            }
         }
         public int Volume
         {
@@ -122,15 +137,23 @@ namespace MyWindowsMediaPlayer.ViewModel
             var dialog = new System.Windows.Forms.OpenFileDialog();
             var result = dialog.ShowDialog();
 
-            _currentMedia = Media.Factory.make(dialog.FileName);
-            if (_currentMedia != null)
-                _currentMedia.State = MediaState.Stop;
-            if (_mediaElement != null)
-                _mediaElement.Stop();
+            if (!string.IsNullOrEmpty(dialog.FileName))
+            {
+                _currentMedia = Media.Factory.make(dialog.FileName);
+                if (_currentMedia != null)
+                    _currentMedia.State = MediaState.Stop;
+                if (_mediaElement != null)
+                    _mediaElement.Stop();
 
-            _playCommand.RaiseCanExecuteChanged();
-            _pauseCommand.RaiseCanExecuteChanged();
-            _stopCommand.RaiseCanExecuteChanged();
+                if (_currentPlaylist != null)
+                {
+                    _currentPlaylist = null;
+                    NotifyPropertyChanged("CurrentPlaylist");
+                }
+                _playCommand.RaiseCanExecuteChanged();
+                _pauseCommand.RaiseCanExecuteChanged();
+                _stopCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public bool CanLoad(object arg)
@@ -206,13 +229,13 @@ namespace MyWindowsMediaPlayer.ViewModel
             switch (destination)
             {
                 case "musics":
-                    _navigationService.Navigate("View\\Musics.xaml");
+                    _navigationService.Navigate(new MusicLibraryVM(new WindowService()));
                     break;
                 case "videos":
-                    _navigationService.Navigate("View\\Videos.xaml");
+                    _navigationService.Navigate("View\\Videos.xaml", new PlayerService(this));
                     break;
                 case "images":
-                    _navigationService.Navigate("View\\Images.xaml");
+                    _navigationService.Navigate("View\\Images.xaml", new PlayerService(this));
                     break;
                 default:
                     System.Diagnostics.Debug.WriteLine("User tried to load an invalid page.");
@@ -226,7 +249,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
         public void OnNavigatePlaylists(object arg)
         {
-            _navigationService.Navigate("View\\PlaylistList.xaml");
+            _navigationService.Navigate(new PlaylistListVM(new PlayerService(this)));
         }
 
         public bool CanNavigatePlaylists(object arg)
@@ -249,11 +272,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             _mediaTimer.Tick += new EventHandler(UpdateMediaPosition);
             _mediaTimer.Start();
 
-            _currentPlaylist = new Playlist();
-            _currentPlaylist.Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3"));
-            _currentPlaylist.Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4"));
-
-            _navigationService.Navigate("View\\PlaylistList.xaml");
+            OnNavigatePlaylists(null);
         }
 
         #region Methods

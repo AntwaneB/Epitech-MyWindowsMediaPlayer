@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace MyWindowsMediaPlayer.Utils
+namespace MyWindowsMediaPlayer.Service
 {
     sealed class NavigationService : INavigationService
     {
@@ -15,6 +15,11 @@ namespace MyWindowsMediaPlayer.Utils
         {
             if (_frame != null)
                 _frame.Navigate(new Uri(view, UriKind.Relative));
+        }
+
+        public void Navigate(object viewmodel)
+        {
+            _frame.Navigate(viewmodel);
         }
 
         public void Navigate(string view, object parameter)

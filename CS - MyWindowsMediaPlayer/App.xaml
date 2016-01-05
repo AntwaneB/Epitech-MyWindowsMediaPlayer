@@ -10,7 +10,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="View/Style.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type viewmodel:LibraryVM}">
+        <DataTemplate DataType="{x:Type viewmodel:PlaylistListVM}">
+            <view:PlaylistList />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MusicLibraryVM}">
+            <view:Musics />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MusicLibraryManagementVM}">
             <view:LibraryManagement />
         </DataTemplate>
         </ResourceDictionary>

@@ -15,6 +15,14 @@ namespace MyWindowsMediaPlayer.Model
         #endregion
 
         #region Properties
+        public static List<string> Extensions
+        {
+            get
+            {
+                return (new List<string>() { "mp3", "wav", "wma" });
+            }
+        }
+
         public override string Name
         {
             get
@@ -58,6 +66,44 @@ namespace MyWindowsMediaPlayer.Model
                 }
             }
         }
+
+        public string Artists
+        {
+            get
+            {
+                try
+                {
+                    var file = TagLib.File.Create(_path.LocalPath);
+                    if (file.Tag.AlbumArtists.Length > 0)
+                        return (string.Join(", ", file.Tag.Artists));
+                    else
+                        return (null);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Unable to load artist:" + e.ToString());
+                    return (null);
+                }
+            }
+        }
+
+        public string Album
+        {
+            get
+            {
+                try
+                {
+                    var file = TagLib.File.Create(_path.LocalPath);
+                    return (file.Tag.Album);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Unable to load album:" + e.ToString());
+                    return (null);
+                }
+            }
+        }
+
         public override string Information
         {
             get

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Height="430" Width="355">
+        Height="430" Width="355" x:Name="LibraryManagementForm">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -16,7 +16,7 @@
 
         <Label Grid.Row="0" Content="Liste des dossiers :" VerticalContentAlignment="Center" />
 
-        <ListBox x:Name="folders" Grid.Row="1" ItemsSource="{Binding Path=Library.Folders}" HorizontalContentAlignment="Stretch">
+        <ListBox x:Name="folders" Grid.Row="1" ItemsSource="{Binding Path=Folders, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -25,7 +25,7 @@
                             <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding}" VerticalAlignment="Center" />
-                        <Button Grid.Column="1" Content="X" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" Content="X" Command="{Binding ElementName=LibraryManagementForm, Path=DataContext.RemoveFolderCommand}" CommandParameter="{Binding}" VerticalAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -36,8 +36,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Content="Ajouter un dossier" Grid.Column="0" Margin="5,5,2,5" />
-            <Button Content="Sauvegarder" Grid.Column="1" Margin="3,5,5,5" />
+            <Button Content="Ajouter un dossier" Command="{Binding Path=AddFolderCommand}" Grid.Column="0" Margin="5,5,2,5" />
         </Grid>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using MyWindowsMediaPlayer.Model;
+using MyWindowsMediaPlayer.Service;
 using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
@@ -17,6 +19,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         private string _newPlaylistName = "";
 
+        private IPlayerService _playerService = null;
         private DelegateCommand _createPlaylistCommand = null;
         #endregion
 
@@ -59,6 +62,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             NotifyPropertyChanged("Playlists");
 
             NewPlaylistName = "";
+            SavePlaylist();//reset du XML / ajout de la nouvelle playlist
         }
 
         public bool CanCreatePlaylist(object arg)
@@ -67,21 +71,78 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
         #endregion
 
-        #region Ctor / Dtor
-        public PlaylistListVM()
+        #region Saving
+        public void SavePlaylist()
         {
-            _playlists.Add(new Playlist("Musique"));
-            _playlists.Add(new Playlist("Films"));
-            _playlists.Add(new Playlist("Séries"));
-            _playlists.Add(new Playlist("Photos de vacance"));
-            
-            _playlists[0].Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3"));
-            _playlists[0].Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3"));
 
-            _playlists[1].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4"));
-            _playlists[1].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video1.mp4"));
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"../../../Save/playlist.xml");
 
-            _playlists[2].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video3.mp4"));
+            XElement save = new XElement("playlists");
+            String media = "";
+            String path = "";
+            foreach (var item in _playlists)
+            {
+                XElement playlistName = new XElement("playlist");
+                media = item.Name;
+                playlistName.SetAttributeValue("name", media);
+                foreach (var elem in item)
+                {
+                    XElement xml = new XElement("media");
+                    path = elem.Path.LocalPath;
+                    xml.SetAttributeValue("path", path);
+                    playlistName.Add(xml);
+                }
+                save.Add(playlistName);
+            }
+            file.WriteLine(save);
+            file.Close();
+        }
+        #endregion
+
+        #region Ctor / Dtor
+        public PlaylistListVM(IPlayerService playerService)
+        {
+            _playerService = playerService;
+
+            //Todo : A virer
+            //SavePlaylist(); //Todo : Methode génération de la playlist dans un xml
+            //Todo : Path de Playlist.xml à changer
+
+            //var xdoc = XDocument.Load(@"E:\C# - MyWindowsMediaPlayer\Save\playlist.xml");
+            var xdoc = XDocument.Load(@"../../../Save/playlist.xml");
+
+            var names = from i in xdoc.Descendants("playlist")
+                        select new
+                        {
+                            Path = (string)i.Attribute("name")
+                        };
+
+            var paths1 = xdoc.Descendants("playlist")
+                            .SelectMany(x => x.Descendants("media"), (pl, media) => Tuple.Create(pl.Attribute("name").Value, media.Attribute("path").Value))
+                            .GroupBy(x => x.Item1)
+                            .ToList();
+
+            int inc = 0;
+
+            foreach (var name1 in names)
+            {
+                System.Diagnostics.Debug.WriteLine(name1.Path);
+                System.Diagnostics.Debug.WriteLine(inc);
+                _playlists.Add(new Playlist(name1.Path)); // ajout de la playlist
+                foreach (var name in paths1.Where(x => x.Key == name1.Path))
+                {
+                    foreach (var tuple in name)
+                    {
+                        if (tuple.Item2.Length > 0)
+                        {
+                            System.Diagnostics.Debug.WriteLine(tuple.Item2);
+                            _playlists[inc].Add(Media.Factory.make(tuple.Item2));//ajout des paths des fichiers
+                        }
+                    }
+                }
+                inc++;
+            }
+
         }
         #endregion
     }

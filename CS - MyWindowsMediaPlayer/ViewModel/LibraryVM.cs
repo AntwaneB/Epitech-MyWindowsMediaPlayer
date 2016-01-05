@@ -1,26 +1,31 @@
 ﻿using MyWindowsMediaPlayer.Model;
+using MyWindowsMediaPlayer.Service;
 using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class LibraryVM : ViewModelBase
+    abstract class LibraryVM<T> : ViewModelBase where T : Media
     {
         #region Attributes
         protected IWindowService _windowService = null;
 
-        protected Library _library = null;
+        protected Library<T> _library = null;
 
         protected ICommand _manageLibraryCommand = null;
         #endregion
 
         #region Properties
-        public Library Library
+        public Library<T> Library
         {
             get { return (_library); }
         }
@@ -38,11 +43,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Commands
-        public void OnManageLibrary(object arg)
-        {
-            if (_windowService != null)
-                _windowService.CreateWindow(this);
-        }
+        public abstract void OnManageLibrary(object arg);
 
         public bool CanManageLibrary(object arg)
         {
