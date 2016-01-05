@@ -59,5 +59,24 @@ namespace MyWindowsMediaPlayer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à &lt;playlists&gt;
+        ///  &lt;playlist name=&quot;Musique&quot;&gt;
+        ///    &lt;media path=&quot;E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3&quot; /&gt;
+        ///    &lt;media path=&quot;E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3&quot; /&gt;
+        ///  &lt;/playlist&gt;
+        ///  &lt;playlist name=&quot;Films&quot;&gt;
+        ///    &lt;media path=&quot;E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4&quot; /&gt;
+        ///    &lt;media path=&quot;E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video1.mp4&quot; /&gt;
+        ///  &lt;/playlist&gt;
+        ///  &lt;playlist name=&quot;Séries&quot;&gt;
+        ///    &lt;media path=&quot;E:\Projets\CS - MyWindo [le reste de la chaîne a été tronqué]&quot;;.
+        /// </summary>
+        internal static string playlist {
+            get {
+                return ResourceManager.GetString("playlist", resourceCulture);
+            }
+        }
     }
 }
