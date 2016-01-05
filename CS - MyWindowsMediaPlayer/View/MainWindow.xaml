@@ -7,11 +7,6 @@
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
         Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#1a1a1b" Foreground="White" FontFamily="Open Sans Light">
-    <!--
-    <Window.DataContext>
-        <viewmodel:MainWindowVM />
-    </Window.DataContext>
-    -->
     <Grid x:Name="MainPanel" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -22,7 +17,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="2" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 

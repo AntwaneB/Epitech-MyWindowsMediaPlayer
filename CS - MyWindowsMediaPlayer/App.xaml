@@ -6,7 +6,13 @@
              xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:PlaylistListVM}">
+            <view:PlaylistList />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodel:MusicLibraryVM}">
+            <view:Musics />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MusicLibraryManagementVM}">
             <view:LibraryManagement />
         </DataTemplate>
     </Application.Resources>

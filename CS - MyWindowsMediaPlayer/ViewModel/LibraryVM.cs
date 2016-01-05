@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class LibraryVM<T> : ViewModelBase where T : Media
+    abstract class LibraryVM<T> : ViewModelBase where T : Media
     {
         #region Attributes
         protected IWindowService _windowService = null;
@@ -22,18 +22,12 @@ namespace MyWindowsMediaPlayer.ViewModel
         protected Library<T> _library = null;
 
         protected ICommand _manageLibraryCommand = null;
-        protected ICommand _addFolderCommand = null;
-        protected ICommand _removeFolderCommand = null;
         #endregion
 
         #region Properties
         public Library<T> Library
         {
             get { return (_library); }
-        }
-        public ICollectionView Folders
-        {
-            get { return (new ListCollectionView(_library.Folders)); }
         }
 
         public ICommand ManageLibraryCommand
@@ -46,68 +40,14 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_manageLibraryCommand);
             }
         }
-        public ICommand AddFolderCommand
-        {
-            get
-            {
-                if (_addFolderCommand == null)
-                    _addFolderCommand = new DelegateCommand(OnAddFolder, CanAddFolder);
-
-                return (_addFolderCommand);
-            }
-        }
-        public ICommand RemoveFolderCommand
-        {
-            get
-            {
-                if (_removeFolderCommand == null)
-                    _removeFolderCommand = new DelegateCommand(OnRemoveFolder, CanRemoveFolder);
-
-                return (_removeFolderCommand);
-            }
-        }
         #endregion
 
         #region Commands
-        public void OnManageLibrary(object arg)
-        {
-            if (_windowService != null)
-                _windowService.CreateWindow(this);
-        }
+        public abstract void OnManageLibrary(object arg);
 
         public bool CanManageLibrary(object arg)
         {
             return (_library != null);
-        }
-
-        public void OnAddFolder(object arg)
-        {
-            var dialog = new FolderBrowserDialog();
-            dialog.ShowDialog();
-
-            _library.AddFolder(new Uri(dialog.SelectedPath));
-            NotifyPropertyChanged("Folders");
-            NotifyPropertyChanged("Library");
-        }
-
-        public bool CanAddFolder(object arg)
-        {
-            return (true);
-        }
-
-        public void OnRemoveFolder(object arg)
-        {
-            string folder = ((Uri)arg).ToString();
-
-
-            _library.RemoveFolder(new Uri(folder));
-            NotifyPropertyChanged("Folders");
-            NotifyPropertyChanged("Library.Items");
-        }
-
-        public bool CanRemoveFolder(object arg)
-        {
-            return (true);
         }
         #endregion
 

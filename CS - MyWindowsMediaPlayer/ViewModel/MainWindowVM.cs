@@ -43,10 +43,20 @@ namespace MyWindowsMediaPlayer.ViewModel
         public Media CurrentMedia
         {
             get { return (_currentMedia); }
+            set
+            {
+                _currentMedia = value;
+                NotifyPropertyChanged("CurrentMedia");
+            }
         }
         public Playlist CurrentPlaylist
         {
             get { return (_currentPlaylist); }
+            set
+            {
+                _currentPlaylist = value;
+                NotifyPropertyChanged("CurrentPlaylist");
+            }
         }
         public int Volume
         {
@@ -219,13 +229,13 @@ namespace MyWindowsMediaPlayer.ViewModel
             switch (destination)
             {
                 case "musics":
-                    _navigationService.Navigate("View\\Musics.xaml");
+                    _navigationService.Navigate(new MusicLibraryVM(new WindowService()));
                     break;
                 case "videos":
-                    _navigationService.Navigate("View\\Videos.xaml");
+                    _navigationService.Navigate("View\\Videos.xaml", new PlayerService(this));
                     break;
                 case "images":
-                    _navigationService.Navigate("View\\Images.xaml");
+                    _navigationService.Navigate("View\\Images.xaml", new PlayerService(this));
                     break;
                 default:
                     System.Diagnostics.Debug.WriteLine("User tried to load an invalid page.");
@@ -239,7 +249,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
         public void OnNavigatePlaylists(object arg)
         {
-            _navigationService.Navigate("View\\PlaylistList.xaml");
+            _navigationService.Navigate(new PlaylistListVM(new PlayerService(this)));
         }
 
         public bool CanNavigatePlaylists(object arg)
@@ -262,7 +272,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             _mediaTimer.Tick += new EventHandler(UpdateMediaPosition);
             _mediaTimer.Start();
 
-            _navigationService.Navigate("View\\PlaylistList.xaml");
+            OnNavigatePlaylists(null);
         }
 
         #region Methods

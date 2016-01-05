@@ -17,6 +17,11 @@ namespace MyWindowsMediaPlayer.Service
                 _frame.Navigate(new Uri(view, UriKind.Relative));
         }
 
+        public void Navigate(object viewmodel)
+        {
+            _frame.Navigate(viewmodel);
+        }
+
         public void Navigate(string view, object parameter)
         {
             if (_frame != null)

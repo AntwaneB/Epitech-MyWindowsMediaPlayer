@@ -1,4 +1,5 @@
 ﻿using MyWindowsMediaPlayer.Model;
+using MyWindowsMediaPlayer.Service;
 using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         private string _newPlaylistName = "";
 
+        private IPlayerService _playerService = null;
         private DelegateCommand _createPlaylistCommand = null;
         #endregion
 
@@ -68,8 +70,10 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Ctor / Dtor
-        public PlaylistListVM()
+        public PlaylistListVM(IPlayerService playerService)
         {
+            _playerService = playerService;
+
             _playlists.Add(new Playlist("Musique"));
             _playlists.Add(new Playlist("Films"));
             _playlists.Add(new Playlist("Séries"));
@@ -82,6 +86,11 @@ namespace MyWindowsMediaPlayer.ViewModel
             _playlists[1].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video1.mp4"));
 
             _playlists[2].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video3.mp4"));
+
+            _playlists[3].Add(new Music(@"E:\C# - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3"));
+            _playlists[3].Add(new Music(@"E:\C# - MyWindowsMediaPlayer\Example Medias\MusicInfos2.mp3"));
+
+            _playerService.SetPlaylist(_playlists[3]);
         }
         #endregion
     }

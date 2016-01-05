@@ -18,5 +18,11 @@ namespace MyWindowsMediaPlayer.ViewModel
             _library.Extensions = Music.Extensions;
             _library.Folders = new List<Uri>() { new Uri(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\"), new Uri(@"E:\C# - MyWindowsMediaPlayer\Example Medias") };
         }
+
+        public override void OnManageLibrary(object arg)
+        {
+            if (_windowService != null)
+                _windowService.CreateWindow(new MusicLibraryManagementVM(_library));
+        }
     }
 }
