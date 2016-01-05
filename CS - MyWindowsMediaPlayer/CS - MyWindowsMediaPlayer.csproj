@@ -162,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\1589528.jpg" />
@@ -177,6 +181,36 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\frwd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\player_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\player_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\player_rewind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\player_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\notification_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\moviz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\music.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\playlist.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

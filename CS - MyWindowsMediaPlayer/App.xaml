@@ -6,8 +6,13 @@
              xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewmodel:LibraryVM}">
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="View/Style.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewmodel:LibraryVM}">
             <view:LibraryManagement />
         </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
