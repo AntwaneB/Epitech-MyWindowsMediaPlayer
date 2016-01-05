@@ -1,4 +1,5 @@
-﻿using MyWindowsMediaPlayer.Utils;
+﻿using MyWindowsMediaPlayer.Service;
+using MyWindowsMediaPlayer.Utils;
 using MyWindowsMediaPlayer.ViewModel;
 using System;
 using System.Collections.Generic;
