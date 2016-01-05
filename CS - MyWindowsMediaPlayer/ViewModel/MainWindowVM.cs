@@ -55,7 +55,10 @@ namespace MyWindowsMediaPlayer.ViewModel
             set
             {
                 _currentPlaylist = value;
+                OnStop(null);
+                CurrentMedia = null;
                 NotifyPropertyChanged("CurrentPlaylist");
+                _playCommand.RaiseCanExecuteChanged();
             }
         }
         public int Volume

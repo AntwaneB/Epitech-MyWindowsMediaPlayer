@@ -16,11 +16,11 @@ namespace MyWindowsMediaPlayer.ViewModel
     {
         #region Attributes
         private ObservableCollection<Playlist> _playlists = new ObservableCollection<Playlist>();
-
         private string _newPlaylistName = "";
 
         private IPlayerService _playerService = null;
-        private DelegateCommand _createPlaylistCommand = null;
+        private ICommand _createPlaylistCommand = null;
+        private ICommand _playPlaylistCommand = null;
         #endregion
 
         #region Properties
@@ -50,6 +50,16 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_createPlaylistCommand);
             }
         }
+        public ICommand PlayPlaylistCommand
+        {
+            get
+            {
+                if (_playPlaylistCommand == null)
+                    _playPlaylistCommand = new DelegateCommand(OnPlayPlaylist, CanPlayPlaylist);
+
+                return (_playPlaylistCommand);
+            }
+        }
         #endregion
 
         #region Delegate Commands
@@ -66,6 +76,18 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
 
         public bool CanCreatePlaylist(object arg)
+        {
+            return (true);
+        }
+
+        public void OnPlayPlaylist(object arg)
+        {
+            Playlist playlist = arg as Playlist;
+
+            _playerService.SetPlaylist(playlist);
+        }
+
+        public bool CanPlayPlaylist(object arg)
         {
             return (true);
         }

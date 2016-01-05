@@ -27,11 +27,18 @@ namespace MyWindowsMediaPlayer.Model
         {
             get
             {
-                var file = TagLib.File.Create(_path.LocalPath);
-                if (!string.IsNullOrEmpty(file.Tag.Title))
-                    return (file.Tag.Title);
-                else
+                try
+                {
+                    var file = TagLib.File.Create(_path.LocalPath);
+                    if (!string.IsNullOrEmpty(file.Tag.Title))
+                        return (file.Tag.Title);
+                    else
+                        return (base.Name);
+                } catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Unable to load media informations:" + e.ToString());
                     return (base.Name);
+                }
             }
         }
 

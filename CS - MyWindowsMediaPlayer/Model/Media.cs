@@ -87,6 +87,14 @@ namespace MyWindowsMediaPlayer.Model
         {
             get { throw new NotImplementedException(); }
         }
+
+        public bool FileExists
+        {
+            get
+            {
+                return (File.Exists(_path.LocalPath));
+            }
+        }
         #endregion
 
         #region Ctor / Dtor

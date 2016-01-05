@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
       xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
       mc:Ignorable="d"
-      Title="PlaylistList">
+      Title="PlaylistList"
+      x:Name="PlaylistListPage">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -35,6 +36,18 @@
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="5">
                         <Image Source="{Binding Thumbnail}" Height="100" Width="100" />
                         <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis" />
+                        <Button x:Name="btnPlayPlaylist" Content="Play" Command="{Binding ElementName=PlaylistListPage, Path=DataContext.PlayPlaylistCommand}" CommandParameter="{Binding}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -1,7 +1,7 @@
 <playlists>
   <playlist name="Musique">
-    <media path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3" />
-    <media path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3" />
+    <media path="E:\C# - MyWindowsMediaPlayer\Example Medias\Music1.mp3" />
+    <media path="E:\C# - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3" />
   </playlist>
   <playlist name="Films">
     <media path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4" />
@@ -11,5 +11,5 @@
     <media path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video3.mp4" />
   </playlist>
   <playlist name="Photos de vacance" />
-  <playlist name="ghjk" />
+  <playlist name="Test" />
 </playlists>
