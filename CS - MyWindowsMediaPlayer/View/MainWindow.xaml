@@ -57,9 +57,21 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" x:Name="mediaName" Content="{Binding CurrentMedia.Name}" VerticalAlignment="Center" Foreground="White" Margin="0,0,10,0" />
-                    <Label Grid.Row="1" x:Name="mediaName2" Content="{Binding CurrentMedia.Information}" VerticalAlignment="Center" Foreground="#FFB6B6B6" Margin="0,0,10,0" />
+                    <Label Grid.Row="0" x:Name="playlistName" ContentStringFormat="Playlist : {0}" Content="{Binding CurrentPlaylist.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Foreground="White" Margin="0,0,10,0">
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentPlaylist}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                    <Label Grid.Row="1" x:Name="mediaName" Content="{Binding CurrentMedia.Name}" VerticalAlignment="Center" Foreground="White" Margin="0,0,10,0" />
+                    <Label Grid.Row="2" x:Name="mediaName2" Content="{Binding CurrentMedia.Information}" VerticalAlignment="Center" Foreground="#FFB6B6B6" Margin="0,0,10,0" />
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
