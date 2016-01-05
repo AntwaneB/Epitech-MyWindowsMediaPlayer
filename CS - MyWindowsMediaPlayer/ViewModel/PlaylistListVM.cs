@@ -62,8 +62,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             NotifyPropertyChanged("Playlists");
 
             NewPlaylistName = "";
-
-            // Ajouter la nouvelle playlist au XML
+            SavePlaylist();//reset du XML / ajout de la nouvelle playlist
         }
 
         public bool CanCreatePlaylist(object arg)
@@ -76,7 +75,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         public void SavePlaylist()
         {
 
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"E:\C# - MyWindowsMediaPlayer\Save\playlist.xml");
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"../../../Save/playlist.xml");
 
             XElement save = new XElement("playlists");
             String media = "";
@@ -109,7 +108,8 @@ namespace MyWindowsMediaPlayer.ViewModel
             //SavePlaylist(); //Todo : Methode génération de la playlist dans un xml
             //Todo : Path de Playlist.xml à changer
 
-            var xdoc = XDocument.Load(@"E:\C# - MyWindowsMediaPlayer\Save\playlist.xml");
+            //var xdoc = XDocument.Load(@"E:\C# - MyWindowsMediaPlayer\Save\playlist.xml");
+            var xdoc = XDocument.Load(@"../../../Save/playlist.xml");
 
             var names = from i in xdoc.Descendants("playlist")
                         select new
