@@ -88,11 +88,9 @@ namespace MyWindowsMediaPlayer.ViewModel
                     path = elem.Path.LocalPath;
                     xml.SetAttributeValue("path", path);
                     playlistName.Add(xml);
-                    System.Diagnostics.Debug.WriteLine(xml);
                 }
                 save.Add(playlistName);
             }
-            System.Diagnostics.Debug.WriteLine(save);
             file.WriteLine(save);
             file.Close();
         }
@@ -101,24 +99,50 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Ctor / Dtor
         public PlaylistListVM()
         {
-            _playlists.Add(new Playlist("Musique"));
-            _playlists.Add(new Playlist("Films"));
-            _playlists.Add(new Playlist("Séries"));
-            _playlists.Add(new Playlist("Photos de vacance"));
 
-            _playlists[0].Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Music1.mp3"));
-            _playlists[0].Add(new Music(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\MusicInfos1.mp3"));
+            //Todo : A virer
+            //SavePlaylist(); //Todo : Methode génération de la playlist dans un xml
+            //Todo : Path de Playlist.xml à changer
 
-            _playlists[1].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video2.mp4"));
-            _playlists[1].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video1.mp4"));
+            System.Diagnostics.Debug.WriteLine("\n*******************");
+            System.Diagnostics.Debug.WriteLine("*******************\n");
 
-            _playlists[2].Add(new Video(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\Video3.mp4"));
+            var xdoc = XDocument.Load(@"H:\C_sharp_WMP\epitech-mywindowsmediaplayer\Save\playlist.xml");
 
-            // Todo : A virer
-            //System.Diagnostics.Debug.WriteLine("**********");
-            SavePlaylist();
-            //System.Diagnostics.Debug.WriteLine("**********");
-            //
+            var names = from i in xdoc.Descendants("playlist")
+                        select new
+                        {
+                            Path = (string)i.Attribute("name")
+                        };
+
+            var paths1 = xdoc.Descendants("playlist")
+                            .SelectMany(x => x.Descendants("media"), (pl, media) => Tuple.Create(pl.Attribute("name").Value, media.Attribute("path").Value))
+                            .GroupBy(x => x.Item1)
+                            .ToList();
+
+            int inc = 0;
+
+            foreach (var name1 in names)
+            {
+                System.Diagnostics.Debug.WriteLine(name1.Path);
+                System.Diagnostics.Debug.WriteLine(inc);
+                _playlists.Add(new Playlist(name1.Path)); // ajout de la playlist
+                foreach (var name in paths1.Where(x => x.Key == name1.Path))
+                {
+                    foreach (var tuple in name)
+                    {
+                        if (tuple.Item2.Length > 0)
+                        {
+                            System.Diagnostics.Debug.WriteLine(tuple.Item2);
+                            _playlists[inc].Add(Media.Factory.make(tuple.Item2));//ajout des paths des fichiers
+                        }
+                    }
+                }
+                inc++;
+            }
+
+            System.Diagnostics.Debug.WriteLine("\n*******************");
+            System.Diagnostics.Debug.WriteLine("*******************\n");
         }
         #endregion
     }
