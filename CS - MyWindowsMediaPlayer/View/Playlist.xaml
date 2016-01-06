@@ -35,7 +35,9 @@
                     </TextBlock.Inlines>
                 </TextBlock>
             </Grid>
-            <Button Content="Play" Command="{Binding PlayPlaylistCommand}" Grid.Column="2" Margin="10" />
+            <Button Command="{Binding PlayPlaylistCommand}" Grid.Column="2" Margin="10" Background="Transparent" BorderThickness="0">
+                <Image x:Name="imgLoad" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/Assets/player_play.png"/>
+            </Button>
         </Grid>
 
         <DataGrid ItemsSource="{Binding Playlist, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">

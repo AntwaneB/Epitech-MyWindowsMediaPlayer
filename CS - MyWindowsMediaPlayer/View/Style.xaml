@@ -30,33 +30,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="Button" x:Key="TinyButton" >
-        <Setter Property ="Foreground" Value ="Black"/>
-        <Setter Property ="FontWeight" Value ="Bold"/>
-        <Setter Property ="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType ="{x:Type Button}">
-                    <Grid>
-                        <Ellipse Name ="OuterRing" Width ="25" Height ="25" Fill ="Gray"/>
-                        <Ellipse Name ="InnerRing" Width ="10" Height ="10" Fill ="MintCream"/>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property ="IsMouseOver" Value ="True">
-                            <Setter TargetName ="OuterRing" Property ="Fill" Value ="Gray"/>
-                        </Trigger>
-                        <Trigger Property ="IsPressed" Value ="True">
-                            <Setter TargetName ="OuterRing" Property ="Height" Value ="35"/>
-                            <Setter TargetName ="OuterRing" Property ="Width" Value ="35"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName ="InnerRing" Property="Fill" Value="Black" />
-                            <Setter TargetName ="OuterRing" Property="Fill" Value="Black" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>
