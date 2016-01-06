@@ -17,6 +17,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         private IPlayerService _playerService = null;
         private ICommand _playPlaylistCommand = null;
+        private ICommand _selectMediaCommand = null;
         #endregion
 
         #region Properties
@@ -35,6 +36,16 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_playPlaylistCommand);
             }
         }
+        public ICommand SelectMediaCommand
+        {
+            get
+            {
+                if (_selectMediaCommand == null)
+                    _selectMediaCommand = new DelegateCommand(OnSelectMedia, CanSelectMedia);
+
+                return (_selectMediaCommand);
+            }
+        }
         #endregion
 
         #region Commands
@@ -47,6 +58,17 @@ namespace MyWindowsMediaPlayer.ViewModel
         public bool CanPlayPlaylist(object arg)
         {
             return (true);
+        }
+
+        public void OnSelectMedia(object arg)
+        {
+            _playerService.SetMedia(arg as Media);
+            _playerService.Play();
+        }
+
+        public bool CanSelectMedia(object arg)
+        {
+            return (_playlist.Count > 0);
         }
         #endregion
 
