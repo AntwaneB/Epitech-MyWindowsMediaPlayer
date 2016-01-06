@@ -252,7 +252,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
         public void OnNavigatePlaylists(object arg)
         {
-            _navigationService.Navigate(new PlaylistListVM(new PlayerService(this)));
+            _navigationService.Navigate(new PlaylistListVM(new PlayerService(this), _navigationService));
         }
 
         public bool CanNavigatePlaylists(object arg)

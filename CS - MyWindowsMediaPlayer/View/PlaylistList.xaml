@@ -34,7 +34,18 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="5">
-                        <Image Source="{Binding Thumbnail}" Height="100" Width="100" />
+                        <Image Height="100" Width="100">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="{Binding Thumbnail}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Thumbnail}" Value="{x:Null}">
+                                            <Setter Property="Source" Value="/Assets/playlist.png" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
                         <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis" />
                         <Button x:Name="btnPlayPlaylist" Content="Play" Command="{Binding ElementName=PlaylistListPage, Path=DataContext.PlayPlaylistCommand}" CommandParameter="{Binding}">
                             <Button.Style>
@@ -48,6 +59,9 @@
                                 </Style>
                             </Button.Style>
                         </Button>
+                        <StackPanel.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectPlaylistCommand, ElementName=PlaylistListPage}" CommandParameter="{Binding}" />
+                        </StackPanel.InputBindings>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

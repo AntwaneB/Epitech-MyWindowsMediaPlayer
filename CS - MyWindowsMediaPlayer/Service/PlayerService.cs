@@ -23,6 +23,11 @@ namespace MyWindowsMediaPlayer.Service
             _mainWindow.CurrentPlaylist = playlist;
         }
 
+        public void Play()
+        {
+            _mainWindow.OnPlay(null);
+        }
+
         public PlayerService(MainWindowVM mainWindow)
         {
             _mainWindow = mainWindow;

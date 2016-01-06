@@ -57,7 +57,8 @@ namespace MyWindowsMediaPlayer.Model
             {
                 try
                 {
-                    items.AddRange(Directory.GetFiles(folder.LocalPath, "*.*").Where(s => Extensions.Any(e => s.EndsWith(e))));
+                    if (Directory.Exists(folder.LocalPath))
+                        items.AddRange(Directory.GetFiles(folder.LocalPath, "*.*").Where(s => Extensions.Any(e => s.EndsWith(e))));
                 } catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine("Unable to load media from folder \"" + folder + "\": " + e.ToString());

@@ -19,8 +19,10 @@ namespace MyWindowsMediaPlayer.ViewModel
         private string _newPlaylistName = "";
 
         private IPlayerService _playerService = null;
+        private INavigationService _navigationService = null;
         private ICommand _createPlaylistCommand = null;
         private ICommand _playPlaylistCommand = null;
+        private ICommand _selectPlaylistCommand = null;
         #endregion
 
         #region Properties
@@ -60,6 +62,16 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_playPlaylistCommand);
             }
         }
+        public ICommand SelectPlaylistCommand
+        {
+            get
+            {
+                if (_selectPlaylistCommand == null)
+                    _selectPlaylistCommand = new DelegateCommand(OnSelectPlaylist, CanSelectPlaylist);
+
+                return (_selectPlaylistCommand);
+            }
+        }
         #endregion
 
         #region Delegate Commands
@@ -85,9 +97,22 @@ namespace MyWindowsMediaPlayer.ViewModel
             Playlist playlist = arg as Playlist;
 
             _playerService.SetPlaylist(playlist);
+            _playerService.Play();
         }
 
         public bool CanPlayPlaylist(object arg)
+        {
+            return (true);
+        }
+
+        public void OnSelectPlaylist(object arg)
+        {
+            Playlist playlist = arg as Playlist;
+
+            _navigationService.Navigate(new PlaylistVM(playlist, _playerService));
+        }
+
+        public bool CanSelectPlaylist(object arg)
         {
             return (true);
         }
@@ -122,9 +147,10 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Ctor / Dtor
-        public PlaylistListVM(IPlayerService playerService)
+        public PlaylistListVM(IPlayerService playerService, INavigationService navigationService)
         {
             _playerService = playerService;
+            _navigationService = navigationService;
 
             //Todo : A virer
             //SavePlaylist(); //Todo : Methode génération de la playlist dans un xml
@@ -148,8 +174,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             foreach (var name1 in names)
             {
-                System.Diagnostics.Debug.WriteLine(name1.Path);
-                System.Diagnostics.Debug.WriteLine(inc);
+                //System.Diagnostics.Debug.WriteLine(name1.Path);
+                //System.Diagnostics.Debug.WriteLine(inc);
                 _playlists.Add(new Playlist(name1.Path)); // ajout de la playlist
                 foreach (var name in paths1.Where(x => x.Key == name1.Path))
                 {
@@ -157,7 +183,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                     {
                         if (tuple.Item2.Length > 0)
                         {
-                            System.Diagnostics.Debug.WriteLine(tuple.Item2);
+                            //System.Diagnostics.Debug.WriteLine(tuple.Item2);
                             _playlists[inc].Add(Media.Factory.make(tuple.Item2));//ajout des paths des fichiers
                         }
                     }
