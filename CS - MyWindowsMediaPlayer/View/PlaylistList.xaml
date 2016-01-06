@@ -42,6 +42,9 @@
                                         <DataTrigger Binding="{Binding Thumbnail}" Value="{x:Null}">
                                             <Setter Property="Source" Value="/Assets/playlist.png" />
                                         </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="/Assets/player_play.png"/>
+                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
