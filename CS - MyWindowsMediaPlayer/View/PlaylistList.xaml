@@ -42,9 +42,9 @@
                                         <DataTrigger Binding="{Binding Thumbnail}" Value="{x:Null}">
                                             <Setter Property="Source" Value="/Assets/playlist.png" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                        <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
                                             <Setter Property="Source" Value="/Assets/player_play.png"/>
-                                        </DataTrigger>
+                                        </DataTrigger>-->
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
