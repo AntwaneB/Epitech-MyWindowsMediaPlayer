@@ -51,6 +51,8 @@ namespace MyWindowsMediaPlayer.ViewModel
             {
                 if (_currentPlaylist != null && !_currentPlaylist.Contains(value))
                     CurrentPlaylist = null;
+                else if (_currentPlaylist != null && _currentPlaylist.Contains(value))
+                    _currentPlaylist.SetCurrentMedia(value);
                 _currentMedia = value;
                 _twitterCommand.RaiseCanExecuteChanged();
                 _playCommand.RaiseCanExecuteChanged();
@@ -63,13 +65,16 @@ namespace MyWindowsMediaPlayer.ViewModel
             get { return (_currentPlaylist); }
             set
             {
-                OnStop(null);
-                _currentMedia = null;
-                _currentPlaylist = value;
-                NotifyPropertyChanged("CurrentMedia");
-                NotifyPropertyChanged("CurrentPlaylist");
-                _twitterCommand.RaiseCanExecuteChanged();
-                _playCommand.RaiseCanExecuteChanged();
+                if (value != _currentPlaylist)
+                {
+                    OnStop(null);
+                    _currentMedia = null;
+                    _currentPlaylist = value;
+                    NotifyPropertyChanged("CurrentMedia");
+                    NotifyPropertyChanged("CurrentPlaylist");
+                    _twitterCommand.RaiseCanExecuteChanged();
+                    _playCommand.RaiseCanExecuteChanged();
+                }
             }
         }
         public int Volume
@@ -195,8 +200,9 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             if (_currentMedia != null)
             {
+                _mediaElement.Source = null;
                 _mediaElement.Source = _currentMedia.Path;
-                _mediaElement.Volume = Volume / 100.0;
+                _mediaElement.Volume = Volume / 2 / 100.0;
                 _mediaElement.Play();
                 _currentMedia.State = MediaState.Play;
 
