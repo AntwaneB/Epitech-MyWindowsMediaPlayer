@@ -89,7 +89,6 @@
                         <ColumnDefinition Width="50" />
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="0" Source="{Binding CurrentMedia.Thumbnail}" Height="60" Width="60" Margin="10,10,0,10" HorizontalAlignment="Left" />
-                    <!--<ContentControl Content="{Binding MediaThumbnail}" Height="60" Width="60" Margin="10,10,0,10" HorizontalAlignment="Left" />-->
                     <Grid Grid.Column="1" VerticalAlignment="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition />
