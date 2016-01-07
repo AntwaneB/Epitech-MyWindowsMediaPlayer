@@ -36,7 +36,7 @@ namespace MyWindowsMediaPlayer.Model
                         return (base.Name);
                 } catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine("Unable to load media informations:" + e.ToString());
+                    System.Diagnostics.Debug.WriteLine("Unable to load media informations: " + e.Message);
                     return (base.Name);
                 }
             }
@@ -68,7 +68,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine("Unable to load thumbnail image:" + e.ToString());
+                    System.Diagnostics.Debug.WriteLine("Unable to load thumbnail image: " + e.Message);
                     return (null);
                 }
             }
@@ -88,7 +88,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine("Unable to load artist:" + e.ToString());
+                    System.Diagnostics.Debug.WriteLine("Unable to load artist: " + e.Message);
                     return (null);
                 }
             }
@@ -105,7 +105,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine("Unable to load album:" + e.ToString());
+                    System.Diagnostics.Debug.WriteLine("Unable to load album: " + e.Message);
                     return (null);
                 }
             }
@@ -125,7 +125,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine("Unable to load informations:" + e.ToString());
+                    System.Diagnostics.Debug.WriteLine("Unable to load informations: " + e.Message);
                     return (null);
                 }
             }

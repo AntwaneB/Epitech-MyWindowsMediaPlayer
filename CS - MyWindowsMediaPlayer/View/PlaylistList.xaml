@@ -51,8 +51,8 @@
                         </Image>
                         <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,4,0,0" TextTrimming="CharacterEllipsis" />
                         <StackPanel.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" Command="{Binding Path=DataContext.PlayPlaylistCommand, ElementName=PlaylistListPage}" CommandParameter="{Binding}" />
-                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectPlaylistCommand, ElementName=PlaylistListPage}" CommandParameter="{Binding}" />
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.PlayPlaylistCommand, ElementName=PlaylistListPage}" CommandParameter="{Binding}" />
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding Path=DataContext.SelectPlaylistCommand, ElementName=PlaylistListPage}" CommandParameter="{Binding}" />
                         </StackPanel.InputBindings>
                     </StackPanel>
                 </DataTemplate>
