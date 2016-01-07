@@ -49,7 +49,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             get { return (_currentMedia); }
             set
             {
-                if (!_currentPlaylist.Contains(_currentMedia))
+                if (_currentPlaylist != null && !_currentPlaylist.Contains(value))
                     CurrentPlaylist = null;
                 _currentMedia = value;
                 _twitterCommand.RaiseCanExecuteChanged();
