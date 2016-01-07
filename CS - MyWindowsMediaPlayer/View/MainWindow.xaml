@@ -109,23 +109,14 @@
                         <Label Grid.Row="1" x:Name="mediaName" Content="{Binding CurrentMedia.Name}" VerticalAlignment="Center" Foreground="White" Margin="0,0,10,0" />
                         <Label Grid.Row="2" x:Name="mediaName2" Content="{Binding CurrentMedia.Information}" VerticalAlignment="Center" Foreground="#FFB6B6B6" Margin="0,0,10,0" />
                     </Grid>
-                    <Button Name="btnTwitter" Grid.Column="2" Command="{Binding TwitterCommand}" Background="Transparent" BorderThickness="0">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}" >
-                                <Style.Triggers>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                    <Button Name="btnTwitter" Grid.Column="2" Style="{StaticResource twit}" Command="{Binding TwitterCommand}" Background="Transparent" BorderThickness="0">
                         <Image Height="35" Width="35" Source="/Assets/twitter.png">
                             <Image.Style>
                                 <Style TargetType="Image">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Value="True">
-                                            <Setter Property="Source" Value="/Assets/twitter.png"/>
-                                        </DataTrigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.25" />
+                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
