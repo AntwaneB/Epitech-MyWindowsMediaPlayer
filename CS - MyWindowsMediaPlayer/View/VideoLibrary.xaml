@@ -12,13 +12,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
+            <RowDefinition Height="5" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button Content="Modifier la bibliothèque" Command="{Binding ManageLibraryCommand}" Grid.Row="0" />
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=Library.Items, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Name="MediaList" Grid.Row="2" ItemsSource="{Binding Path=Library.Items, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" IsReadOnly="True" AlternationCount="2" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0"
+                  ColumnHeaderStyle="{DynamicResource DataGridHeader}" RowStyle="{DynamicResource DataGridRow}" CellStyle="{DynamicResource DataGridCell}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Nom" Width="*" />
             </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectMediaCommand}" CommandParameter="{Binding ElementName=MediaList, Path=SelectedItem}" />
+            </DataGrid.InputBindings>
         </DataGrid>
     </Grid>
 </Page>

@@ -20,7 +20,21 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding Playlist.Thumbnail}" Height="80" Width="80" Grid.Column="0" />
+            <Image Height="80" Width="80" Grid.Column="0">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="{Binding Playlist.Thumbnail}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Playlist.Thumbnail}" Value="{x:Null}">
+                                <Setter Property="Source" Value="/CS - MyWindowsMediaPlayer;component/Assets/playlist.png" />
+                            </DataTrigger>
+                            <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                            <Setter Property="Source" Value="/Assets/player_play.png"/>
+                                        </DataTrigger>-->
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
             <Grid Grid.Column="1" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -41,7 +55,9 @@
             </Button>
         </Grid>
 
-        <DataGrid x:Name="MediaList" ItemsSource="{Binding Playlist, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="MediaList" ItemsSource="{Binding Playlist, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
+                  AutoGenerateColumns="False" IsReadOnly="True" AlternationCount="2" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0"
+                  ColumnHeaderStyle="{DynamicResource DataGridHeader}" RowStyle="{DynamicResource DataGridRow}" CellStyle="{DynamicResource DataGridCell}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Nom" Width="*" />
                 <DataGridTextColumn Binding="{Binding Information}" Header="Informations" Width="*" />

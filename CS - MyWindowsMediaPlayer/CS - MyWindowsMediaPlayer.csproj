@@ -152,8 +152,8 @@
     <Compile Include="View\TwitterLogin.xaml.cs">
       <DependentUpon>TwitterLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Videos.xaml.cs">
-      <DependentUpon>Videos.xaml</DependentUpon>
+    <Compile Include="View\VideoLibrary.xaml.cs">
+      <DependentUpon>VideoLibrary.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -217,7 +217,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Videos.xaml">
+    <Page Include="View\VideoLibrary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,6 +269,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\twitter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\icone.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\icone.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

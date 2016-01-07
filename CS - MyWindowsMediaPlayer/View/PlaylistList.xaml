@@ -40,7 +40,7 @@
                                     <Setter Property="Source" Value="{Binding Thumbnail}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Thumbnail}" Value="{x:Null}">
-                                            <Setter Property="Source" Value="/Assets/playlist.png" />
+                                            <Setter Property="Source" Value="/CS - MyWindowsMediaPlayer;component/Assets/playlist.png" />
                                         </DataTrigger>
                                         <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
                                             <Setter Property="Source" Value="/Assets/player_play.png"/>

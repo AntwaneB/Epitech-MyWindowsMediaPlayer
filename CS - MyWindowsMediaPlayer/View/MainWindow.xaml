@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#1a1a1b" Foreground="White" FontFamily="Open Sans Light">
+        Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#1a1a1b" Foreground="White" FontFamily="Open Sans Light" Icon="/CS - MyWindowsMediaPlayer;component/Assets/icone.png">
     <Grid x:Name="MainPanel" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -29,7 +29,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" x:Name="imgPlaylist" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/playlist.png"/>
+                            <Image Grid.Row="0" x:Name="imgPlaylist" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/playlist.png"/>
                             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Playlist</TextBlock>
                         </Grid>
                     </Button>
@@ -39,7 +39,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" x:Name="imgMusic" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/music.png"/>
+                            <Image Grid.Row="0" x:Name="imgMusic" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/music.png"/>
                             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Music</TextBlock>
                         </Grid>
                     </Button>
@@ -49,7 +49,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" x:Name="imgVideo" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/moviz.png"/>
+                            <Image Grid.Row="0" x:Name="imgVideo" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/moviz.png"/>
                             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Videos</TextBlock>
                         </Grid>
                     </Button>
@@ -59,8 +59,8 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" x:Name="imgImg" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/image.png"/>
-                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Photos</TextBlock>
+                            <Image Grid.Row="0" x:Name="imgImg" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/image.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Images</TextBlock>
                         </Grid>
                     </Button>
                 </StackPanel>
@@ -117,6 +117,9 @@
                                         <Trigger Property="IsEnabled" Value="False">
                                             <Setter Property="Opacity" Value="0.25" />
                                         </Trigger>
+                                        <DataTrigger Binding="{Binding CurrentMedia}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
@@ -125,6 +128,15 @@
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentMedia}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="35" />
@@ -139,29 +151,30 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="00:00:00" VerticalAlignment="Top" Margin="5,3,0,0">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Style.Triggers>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
+                    <TextBlock Grid.Column="0" Text="00:00:00" VerticalAlignment="Top" Margin="5,3,0,0" />
+                    <TextBlock Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,5,0">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0:00}:{1:00;00}:{1:00;00}">
+                                <Binding Path="CurrentMedia.Duration.Hours" />
+                                <Binding Path="CurrentMedia.Duration.Minutes" />
+                                <Binding Path="CurrentMedia.Duration.Seconds" />
+                            </MultiBinding>
+                        </TextBlock.Text>
                     </TextBlock>
-                    <TextBlock Grid.Column="1" Text="{Binding CurrentMedia.Duration}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,5,0" />
                 </Grid>
             </Grid>
             <Grid Grid.Column="2" HorizontalAlignment="Center">
                 <Button x:Name="btnLoad" Style="{StaticResource GelButton}" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,250,10" Width="70">
-                    <Image x:Name="imgLoad" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/notification_add.png"/>
+                    <Image x:Name="imgLoad" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/notification_add.png"/>
                 </Button>
                 <Button x:Name="btnPlay" Style="{StaticResource GelButton}" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="90,10,170,10" Width="70">
-                    <Image x:Name="imgPlay" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/player_play.png"/>
+                    <Image x:Name="imgPlay" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_play.png"/>
                 </Button>
                 <Button x:Name="btnPause" Style="{StaticResource GelButton}" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="70">
-                    <Image x:Name="imgPause" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/player_pause.png"/>
+                    <Image x:Name="imgPause" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_pause.png"/>
                 </Button>
                 <Button x:Name="btnStop" Style="{StaticResource GelButton}" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Margin="250,10,0,10" Width="70">
-                    <Image x:Name="imgStop" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/Assets/player_stop.png"/>
+                    <Image x:Name="imgStop" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_stop.png"/>
                 </Button>
                 <Slider x:Name="volume" Orientation="Vertical" Minimum="0" Maximum="100" Margin="330,10,0,10" Width="30" Value="{Binding Path=Volume, Mode=TwoWay}" />
             </Grid>
