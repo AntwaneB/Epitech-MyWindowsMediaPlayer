@@ -22,6 +22,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Attributes
         private INavigationService _navigationService = null;
         private IWindowService _windowService = null;
+        private PopupService _twitterPopup = null;
 
         private Media _currentMedia = null;
         private Playlist _currentPlaylist = null;
@@ -196,6 +197,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 _playCommand.RaiseCanExecuteChanged();
                 _pauseCommand.RaiseCanExecuteChanged();
                 _stopCommand.RaiseCanExecuteChanged();
+                _twitterCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -250,10 +252,10 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _navigationService.Navigate(new MusicLibraryVM(new WindowService()));
                     break;
                 case "videos":
-                    _navigationService.Navigate("View\\Videos.xaml", new PlayerService(this));
+                    _navigationService.Navigate(new VideoLibraryVM(new WindowService()));
                     break;
                 case "images":
-                    _navigationService.Navigate("View\\Images.xaml", new PlayerService(this));
+                    _navigationService.Navigate(new ImageLibraryVM(new WindowService()));
                     break;
                 default:
                     System.Diagnostics.Debug.WriteLine("User tried to load an invalid page.");
@@ -304,19 +306,32 @@ namespace MyWindowsMediaPlayer.ViewModel
                     message = "Entrain de lire le média " + _currentMedia.Name + " sur #MyWindowsMediaPlayer";
 
                 if (twitterService.SendTweet(message) == false)
+                {
+                    _twitterCommand.RaiseCanExecuteChanged();
+                    _twitterPopup.Message = "Erreur : " + twitterService.LastError;
+                    _twitterPopup.Show(5);
                     System.Diagnostics.Debug.WriteLine("Unable to send tweet: " + twitterService.LastError);
+                }
+                else
+                {
+                    _currentMedia.Tweeted = true;
+                    _twitterCommand.RaiseCanExecuteChanged();
+                    _twitterPopup.Message = "Votre tweet a bien été envoyé !";
+                    _twitterPopup.Show(3);
+                }
             }
         }
 
         public bool CanTwitterCommand(object arg)
         {
-            return (_currentMedia != null);
+            return (_currentMedia != null && !_currentMedia.Tweeted);
         }
         #endregion
 
-        public MainWindowVM(INavigationService navigationService)
+        public MainWindowVM(INavigationService navigationService, PopupService twitterPopup)
         {
             _navigationService = navigationService;
+            _twitterPopup = twitterPopup;
 
             _mediaElement = new MediaElement();
             _mediaElement.LoadedBehavior = MediaState.Manual;

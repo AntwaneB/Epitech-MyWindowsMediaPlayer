@@ -1,5 +1,4 @@
 ﻿using MyWindowsMediaPlayer.Service;
-using MyWindowsMediaPlayer.Utils;
 using MyWindowsMediaPlayer.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,15 +18,15 @@ using System.Windows.Shapes;
 namespace MyWindowsMediaPlayer.View
 {
     /// <summary>
-    /// Logique d'interaction pour Musics.xaml
+    /// Logique d'interaction pour VideoLibrary.xaml
     /// </summary>
-    public partial class Musics : Page
+    public partial class VideoLibrary : Page
     {
-        public Musics()
+        public VideoLibrary()
         {
             InitializeComponent();
 
-            this.DataContext = new MusicLibraryVM(new WindowService());
+            this.DataContext = new VideoLibraryVM(new WindowService());
         }
     }
 }

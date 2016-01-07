@@ -110,6 +110,7 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="Service\IPlayerService.cs" />
     <Compile Include="Service\PlayerService.cs" />
+    <Compile Include="Service\PopupService.cs" />
     <Compile Include="Service\TwitterService.cs" />
     <Compile Include="Utils\PropertyChangedBase.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
@@ -117,14 +118,19 @@
     <Compile Include="Service\IWindowService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="Service\WindowService.cs" />
+    <Compile Include="Utils\UIHelper.cs" />
+    <Compile Include="ViewModel\ImageLibraryManagementVM.cs" />
     <Compile Include="ViewModel\LibraryManagementVM.cs" />
     <Compile Include="ViewModel\LibraryVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\MusicLibraryManagementVM.cs" />
     <Compile Include="ViewModel\MusicLibraryVM.cs" />
+    <Compile Include="ViewModel\ImageLibraryVM.cs" />
     <Compile Include="ViewModel\PlaylistListVM.cs" />
     <Compile Include="ViewModel\PlaylistVM.cs" />
     <Compile Include="ViewModel\TwitterLoginVM.cs" />
+    <Compile Include="ViewModel\VideoLibraryManagementVM.cs" />
+    <Compile Include="ViewModel\VideoLibraryVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LibraryManagement.xaml.cs">
       <DependentUpon>LibraryManagement.xaml</DependentUpon>
@@ -132,8 +138,11 @@
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Musics.xaml.cs">
-      <DependentUpon>Musics.xaml</DependentUpon>
+    <Compile Include="View\MusicLibrary.xaml.cs">
+      <DependentUpon>MusicLibrary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ImageLibrary.xaml.cs">
+      <DependentUpon>ImageLibrary.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Playlist.xaml.cs">
       <DependentUpon>Playlist.xaml</DependentUpon>
@@ -143,6 +152,9 @@
     </Compile>
     <Compile Include="View\TwitterLogin.xaml.cs">
       <DependentUpon>TwitterLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Videos.xaml.cs">
+      <DependentUpon>Videos.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -182,7 +194,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Musics.xaml">
+    <Page Include="View\MusicLibrary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ImageLibrary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TwitterLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Videos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,9 +14,21 @@
                 <view:PlaylistList />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:MusicLibraryVM}">
-                <view:Musics />
+                <view:MusicLibrary />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:MusicLibraryManagementVM}">
+                <view:LibraryManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:VideoLibraryVM}">
+                <view:VideoLibrary />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:VideoLibraryManagementVM}">
+                <view:LibraryManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:ImageLibraryVM}">
+                <view:ImageLibrary />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:ImageLibraryManagementVM}">
                 <view:LibraryManagement />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:PlaylistVM}">
