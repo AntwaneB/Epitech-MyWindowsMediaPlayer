@@ -10,8 +10,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 {
     class VideoLibraryVM : LibraryVM<Video>
     {
-        public VideoLibraryVM(IWindowService windowService)
-            : base(windowService)
+        public VideoLibraryVM(IWindowService windowService, IPlayerService playerService)
+            : base(windowService, playerService)
         {
             _library = new Library<Video>();
             _library.Extensions = Video.Extensions;

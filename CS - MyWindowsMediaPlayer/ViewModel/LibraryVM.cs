@@ -18,10 +18,12 @@ namespace MyWindowsMediaPlayer.ViewModel
     {
         #region Attributes
         protected IWindowService _windowService = null;
+        protected IPlayerService _playerService = null;
 
         protected Library<T> _library = null;
 
         protected ICommand _manageLibraryCommand = null;
+        private ICommand _selectMediaCommand = null;
         #endregion
 
         #region Properties
@@ -40,6 +42,16 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_manageLibraryCommand);
             }
         }
+        public ICommand SelectMediaCommand
+        {
+            get
+            {
+                if (_selectMediaCommand == null)
+                    _selectMediaCommand = new DelegateCommand(OnSelectMedia, CanSelectMedia);
+
+                return (_selectMediaCommand);
+            }
+        }
         #endregion
 
         #region Commands
@@ -49,15 +61,27 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             return (_library != null);
         }
+
+        public void OnSelectMedia(object arg)
+        {
+            _playerService.SetMedia(arg as Media);
+            _playerService.Play();
+        }
+
+        public bool CanSelectMedia(object arg)
+        {
+            return (_library.Items.Count > 0);
+        }
         #endregion
 
         public LibraryVM()
         {
         }
 
-        public LibraryVM(IWindowService windowService)
+        public LibraryVM(IWindowService windowService, IPlayerService playerService)
         {
             _windowService = windowService;
+            _playerService = playerService;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private Playlist _currentPlaylist = null;
         private MediaElement _mediaElement = null;
         private DispatcherTimer _mediaTimer = new DispatcherTimer();
-        private int _volume = 25;
+        private int _volume = 0;
 
         private DelegateCommand _loadCommand = null;
         private DelegateCommand _playCommand = null;
@@ -49,8 +49,12 @@ namespace MyWindowsMediaPlayer.ViewModel
             get { return (_currentMedia); }
             set
             {
+                if (!_currentPlaylist.Contains(_currentMedia))
+                    CurrentPlaylist = null;
                 _currentMedia = value;
                 _twitterCommand.RaiseCanExecuteChanged();
+                _playCommand.RaiseCanExecuteChanged();
+                NotifyPropertyChanged("CurrentPlaylist");
                 NotifyPropertyChanged("CurrentMedia");
             }
         }
@@ -59,10 +63,12 @@ namespace MyWindowsMediaPlayer.ViewModel
             get { return (_currentPlaylist); }
             set
             {
-                _currentPlaylist = value;
                 OnStop(null);
-                CurrentMedia = null;
+                _currentMedia = null;
+                _currentPlaylist = value;
+                NotifyPropertyChanged("CurrentMedia");
                 NotifyPropertyChanged("CurrentPlaylist");
+                _twitterCommand.RaiseCanExecuteChanged();
                 _playCommand.RaiseCanExecuteChanged();
             }
         }
@@ -73,7 +79,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             {
                 _volume = value;
                 if (_mediaElement != null)
-                    _mediaElement.Volume = _volume / 100.0;
+                    _mediaElement.Volume = _volume / 2 / 100.0;
             }
         }
 
@@ -249,13 +255,13 @@ namespace MyWindowsMediaPlayer.ViewModel
             switch (destination)
             {
                 case "musics":
-                    _navigationService.Navigate(new MusicLibraryVM(new WindowService()));
+                    _navigationService.Navigate(new MusicLibraryVM(new WindowService(), new PlayerService(this)));
                     break;
                 case "videos":
-                    _navigationService.Navigate(new VideoLibraryVM(new WindowService()));
+                    _navigationService.Navigate(new VideoLibraryVM(new WindowService(), new PlayerService(this)));
                     break;
                 case "images":
-                    _navigationService.Navigate(new ImageLibraryVM(new WindowService()));
+                    _navigationService.Navigate(new ImageLibraryVM(new WindowService(), new PlayerService(this)));
                     break;
                 default:
                     System.Diagnostics.Debug.WriteLine("User tried to load an invalid page.");

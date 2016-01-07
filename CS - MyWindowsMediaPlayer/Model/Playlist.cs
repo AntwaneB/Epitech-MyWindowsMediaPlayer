@@ -65,6 +65,17 @@ namespace MyWindowsMediaPlayer.Model
             }
         }
 
+        public Media CurrentMedia()
+        {
+            if (this.Count() > _currentIdx)
+            {
+                Media media = this.ElementAt(_currentIdx);
+                return (media.FileExists ? media : Next());
+            }
+            else
+                return (null);
+        }
+
         public bool HasNext()
         {
             return (this.Count() > _currentIdx);

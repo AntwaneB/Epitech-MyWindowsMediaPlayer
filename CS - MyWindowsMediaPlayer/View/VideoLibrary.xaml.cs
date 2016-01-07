@@ -25,8 +25,6 @@ namespace MyWindowsMediaPlayer.View
         public VideoLibrary()
         {
             InitializeComponent();
-
-            this.DataContext = new VideoLibraryVM(new WindowService());
         }
     }
 }

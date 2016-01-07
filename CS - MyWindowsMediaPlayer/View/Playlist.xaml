@@ -50,8 +50,8 @@
                     </TextBlock.Inlines>
                 </TextBlock>
             </Grid>
-            <Button Command="{Binding PlayPlaylistCommand}" Grid.Column="2" Margin="10" Background="Transparent" BorderThickness="0">
-                <Image x:Name="imgLoad" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/Assets/player_play.png"/>
+            <Button Command="{Binding PlayPlaylistCommand}" Grid.Column="2" Margin="10" Background="Transparent" BorderThickness="0" Width="55" Height="55">
+                <Image x:Name="imgLoad" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/Assets/player_play.png" Margin="5"/>
             </Button>
         </Grid>
 

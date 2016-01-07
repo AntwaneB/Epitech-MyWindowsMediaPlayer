@@ -26,8 +26,6 @@ namespace MyWindowsMediaPlayer.View
         public MusicLibrary()
         {
             InitializeComponent();
-
-            this.DataContext = new MusicLibraryVM(new WindowService());
         }
     }
 }
