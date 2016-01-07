@@ -13,13 +13,15 @@ using System.Windows;
 using System.IO;
 using System.Windows.Media.Imaging;
 using MyWindowsMediaPlayer.Service;
+using System.Diagnostics;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
     class MainWindowVM : ViewModelBase
     {
         #region Attributes
-        private NavigationService _navigationService = null;
+        private INavigationService _navigationService = null;
+        private IWindowService _windowService = null;
 
         private Media _currentMedia = null;
         private Playlist _currentPlaylist = null;
@@ -33,6 +35,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private DelegateCommand _stopCommand = null;
         private DelegateCommand _navigateLibraryCommand = null;
         private DelegateCommand _navigatePlaylistsCommand = null;
+        private DelegateCommand _twitterCommand = null;
         #endregion
 
         #region Properties
@@ -46,6 +49,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             set
             {
                 _currentMedia = value;
+                _twitterCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("CurrentMedia");
             }
         }
@@ -132,6 +136,16 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_navigatePlaylistsCommand);
             }
         }
+        public ICommand TwitterCommand
+        {
+            get
+            {
+                if (_twitterCommand == null)
+                    _twitterCommand = new DelegateCommand(OnTwitterCommand, CanTwitterCommand);
+
+                return (_twitterCommand);
+            }
+        }
         #endregion
 
         #region Delegate Commands
@@ -156,6 +170,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 _playCommand.RaiseCanExecuteChanged();
                 _pauseCommand.RaiseCanExecuteChanged();
                 _stopCommand.RaiseCanExecuteChanged();
+                _twitterCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -168,7 +183,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             if (_currentPlaylist != null && _currentMedia == null)
             {
-                _currentMedia = _currentPlaylist.Next();
+                CurrentMedia = _currentPlaylist.Next();
             }
 
             if (_currentMedia != null)
@@ -250,6 +265,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             return (true);
         }
+
         public void OnNavigatePlaylists(object arg)
         {
             _navigationService.Navigate(new PlaylistListVM(new PlayerService(this), _navigationService));
@@ -259,9 +275,46 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             return (true);
         }
+
+        public void OnTwitterCommand(object arg)
+        {
+            TwitterService twitterService = new TwitterService();
+
+            if (twitterService.AuthenticationRequired())
+            {
+                if (_windowService == null)
+                    _windowService = new WindowService();
+
+                _windowService.CreateWindow(new TwitterLoginVM());
+            }
+            else
+            {
+                string message;
+
+                if (_currentMedia.GetType() == typeof(Music))
+                {
+                    if ((_currentMedia as Music).Artists != null)
+                        message = "Entrain d'écouter " + _currentMedia.Name + " de " + (_currentMedia as Music).Artists + " sur #MyWindowsMediaPlayer";
+                    else
+                        message = "Entrain d'écouter " + _currentMedia.Name + " sur #MyWindowsMediaPlayer";
+                }
+                else if (_currentMedia.GetType() == typeof(Video))
+                    message = "Entrain de regarder " + _currentMedia.Name + " sur #MyWindowsMediaPlayer";
+                else
+                    message = "Entrain de lire le média " + _currentMedia.Name + " sur #MyWindowsMediaPlayer";
+
+                if (twitterService.SendTweet(message) == false)
+                    System.Diagnostics.Debug.WriteLine("Unable to send tweet: " + twitterService.LastError);
+            }
+        }
+
+        public bool CanTwitterCommand(object arg)
+        {
+            return (_currentMedia != null);
+        }
         #endregion
 
-        public MainWindowVM(NavigationService navigationService)
+        public MainWindowVM(INavigationService navigationService)
         {
             _navigationService = navigationService;
 

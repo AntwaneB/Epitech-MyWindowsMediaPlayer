@@ -51,6 +51,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Hammock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NReco.VideoConverter">
       <HintPath>..\Libs\NReco.VideoConverter.dll</HintPath>
     </Reference>
@@ -76,6 +85,10 @@
       <HintPath>..\packages\taglib.2.1.0.0\lib\taglib-sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\TweetSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -97,6 +110,7 @@
     <Compile Include="Model\Video.cs" />
     <Compile Include="Service\IPlayerService.cs" />
     <Compile Include="Service\PlayerService.cs" />
+    <Compile Include="Service\TwitterService.cs" />
     <Compile Include="Utils\PropertyChangedBase.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Service\INavigationService.cs" />
@@ -110,6 +124,7 @@
     <Compile Include="ViewModel\MusicLibraryVM.cs" />
     <Compile Include="ViewModel\PlaylistListVM.cs" />
     <Compile Include="ViewModel\PlaylistVM.cs" />
+    <Compile Include="ViewModel\TwitterLoginVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LibraryManagement.xaml.cs">
       <DependentUpon>LibraryManagement.xaml</DependentUpon>
@@ -125,6 +140,9 @@
     </Compile>
     <Compile Include="View\PlaylistList.xaml.cs">
       <DependentUpon>PlaylistList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TwitterLogin.xaml.cs">
+      <DependentUpon>TwitterLogin.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +198,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\TwitterLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -225,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\twitter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -22,5 +22,41 @@ namespace MyWindowsMediaPlayer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TwitterToken {
+            get {
+                return ((string)(this["TwitterToken"]));
+            }
+            set {
+                this["TwitterToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TwitterAccess {
+            get {
+                return ((string)(this["TwitterAccess"]));
+            }
+            set {
+                this["TwitterAccess"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TwitterAccessSecret {
+            get {
+                return ((string)(this["TwitterAccessSecret"]));
+            }
+            set {
+                this["TwitterAccessSecret"] = value;
+            }
+        }
     }
 }
