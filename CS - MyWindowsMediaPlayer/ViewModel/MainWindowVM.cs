@@ -217,6 +217,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             if (_currentMedia != null)
             {
+                _mediaTimer.Start();
                 if (_mediaElement.Source != _currentMedia.Path)
                     _mediaElement.Source = null;
                 _mediaElement.Source = _currentMedia.Path;
@@ -241,6 +242,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             if (_currentMedia != null)
             {
+                _mediaTimer.Stop();
                 _mediaElement.Pause();
                 _currentMedia.State = MediaState.Pause;
 
@@ -259,6 +261,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             if (_currentMedia != null)
             {
+                _mediaTimer.Stop();
                 _mediaElement.Stop();
                 _currentMedia.State = MediaState.Stop;
 

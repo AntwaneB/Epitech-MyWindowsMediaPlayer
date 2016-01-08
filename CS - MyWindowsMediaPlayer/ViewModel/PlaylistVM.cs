@@ -85,7 +85,6 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnSelectMedia(object arg)
         {
-            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name);
             _playerService.SetPlaylist(_playlist);
             _playerService.SetMedia(arg as Media);
             _playerService.Play();

@@ -81,8 +81,12 @@ namespace MyWindowsMediaPlayer.Model
                 try
                 {
                     var file = TagLib.File.Create(_path.LocalPath);
-                    if (file.Tag.AlbumArtists.Length > 0)
+                    if (file.Tag.Performers.Length > 0)
+                        return (string.Join(", ", file.Tag.Performers));
+                    else if (file.Tag.Artists.Length > 0)
                         return (string.Join(", ", file.Tag.Artists));
+                    else if (file.Tag.AlbumArtists.Length > 0)
+                        return (string.Join(", ", file.Tag.AlbumArtists));
                     else
                         return (null);
                 }

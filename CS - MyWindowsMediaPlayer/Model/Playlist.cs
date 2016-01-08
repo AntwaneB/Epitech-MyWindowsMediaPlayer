@@ -88,7 +88,7 @@ namespace MyWindowsMediaPlayer.Model
 
             _currentIdx = 0;
             while (this.ElementAt(_currentIdx++) != media);
-            _currentIdx--;
+            //_currentIdx--;
         }
     }
 }

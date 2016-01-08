@@ -23,7 +23,7 @@ namespace MyWindowsMediaPlayer.Model
             set
             {
                 _folders = value;
-                loadItems();
+                LoadItems();
             }
         }
 
@@ -38,18 +38,18 @@ namespace MyWindowsMediaPlayer.Model
         #region Ctor / Dtor
         public Library()
         {
-            loadItems();
+            LoadItems();
         }
 
         public Library(List<Uri> folders)
         {
             _folders.AddRange(folders);
-            loadItems();
+            LoadItems();
         }
         #endregion
 
         #region Methods
-        protected void loadItems()
+        public void LoadItems()
         {
             var items = new List<string>();
 
@@ -86,7 +86,7 @@ namespace MyWindowsMediaPlayer.Model
             if (!_folders.Contains(folder))
             {
                 _folders.Add(folder);
-                loadItems();
+                LoadItems();
                 OnPropertyChanged("Folders");
             }
         }
@@ -96,7 +96,7 @@ namespace MyWindowsMediaPlayer.Model
             if (_folders.Contains(folder))
             {
                 _folders.Remove(folder);
-                loadItems();
+                LoadItems();
                 OnPropertyChanged("Folders");
             }
         }
