@@ -85,6 +85,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnSelectMedia(object arg)
         {
+            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name);
             _playerService.SetPlaylist(_playlist);
             _playerService.SetMedia(arg as Media);
             _playerService.Play();
@@ -97,9 +98,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnRemoveMedia(object arg)
         {
-            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name + " -- Found? " + _playlist.Contains(arg as Media));
             _playlist.Remove(arg as Media);
-            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name + " -- Found? " + _playlist.Contains(arg as Media));
             NotifyPropertyChanged("Playlist");
             NotifyPropertyChanged("Items");
         }
