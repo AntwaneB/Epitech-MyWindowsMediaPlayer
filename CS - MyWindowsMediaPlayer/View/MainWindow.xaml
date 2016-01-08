@@ -63,6 +63,16 @@
                             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Images</TextBlock>
                         </Grid>
                     </Button>
+                    <Button x:Name="btnYoutube" Command="{Binding YoutubeCommand}" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" x:Name="imgYt" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/youtube.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Margin="0,5,0,0">Youtube</TextBlock>
+                        </Grid>
+                    </Button>
                 </StackPanel>
             </Grid>
             

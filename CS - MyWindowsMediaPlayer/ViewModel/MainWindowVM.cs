@@ -37,6 +37,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private DelegateCommand _navigateLibraryCommand = null;
         private DelegateCommand _navigatePlaylistsCommand = null;
         private DelegateCommand _twitterCommand = null;
+        private DelegateCommand _youtubeCommand = null;
         #endregion
 
         #region Properties
@@ -156,6 +157,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _twitterCommand = new DelegateCommand(OnTwitterCommand, CanTwitterCommand);
 
                 return (_twitterCommand);
+            }
+        }
+
+        internal ICommand YoutubeCommand
+        {
+            get
+            {
+                if (_youtubeCommand == null)
+                    _youtubeCommand = new DelegateCommand(OnYoutubeCommand, CanYoutubeCommand);
+
+                return (_youtubeCommand);
             }
         }
         #endregion
@@ -337,6 +349,16 @@ namespace MyWindowsMediaPlayer.ViewModel
         public bool CanTwitterCommand(object arg)
         {
             return (_currentMedia != null && !_currentMedia.Tweeted);
+        }
+
+        public void OnYoutubeCommand(object arg)
+        {
+           System.Windows.Forms.MessageBox.Show("My message here");
+        }
+
+        public bool CanYoutubeCommand(object arg)
+        {
+            return (true);
         }
         #endregion
 
