@@ -25,8 +25,8 @@
                             <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding}" VerticalAlignment="Center" />
-                        <Button Grid.Column="1" Command="{Binding ElementName=LibraryManagementForm, Path=DataContext.RemoveFolderCommand}" CommandParameter="{Binding}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" >
-                            <Image x:Name="imgLoad" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Source="/CS - MyWindowsMediaPlayer;component/Assets/cross.png"/>
+                        <Button Grid.Column="1" Command="{Binding ElementName=LibraryManagementForm, Path=DataContext.RemoveFolderCommand}" CommandParameter="{Binding}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
+                            <Image x:Name="imgDelete" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Source="/CS - MyWindowsMediaPlayer;component/Assets/cross.png"/>
                         </Button>
                     </Grid>
                 </DataTemplate>

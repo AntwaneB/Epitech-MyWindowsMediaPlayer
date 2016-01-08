@@ -25,8 +25,7 @@ namespace MyWindowsMediaPlayer.Service
 
         public void Play()
         {
-            if (_mainWindow.CanPlay(null))
-                _mainWindow.OnPlay(null);
+            _mainWindow.OnPlay(null);
         }
 
         public PlayerService(MainWindowVM mainWindow)

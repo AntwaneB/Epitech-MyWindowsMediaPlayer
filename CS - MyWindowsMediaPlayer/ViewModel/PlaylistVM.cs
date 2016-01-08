@@ -3,14 +3,16 @@ using MyWindowsMediaPlayer.Service;
 using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class PlaylistVM
+    class PlaylistVM : ViewModelBase
     {
         #region Attributes
         private Playlist _playlist = null;
@@ -18,12 +20,21 @@ namespace MyWindowsMediaPlayer.ViewModel
         private IPlayerService _playerService = null;
         private ICommand _playPlaylistCommand = null;
         private ICommand _selectMediaCommand = null;
+        private ICommand _removeMediaCommand = null;
         #endregion
 
         #region Properties
         public Playlist Playlist
         {
             get { return (_playlist); }
+        }
+
+        public ICollectionView Items
+        {
+            get
+            {
+                return (new ListCollectionView(_playlist));
+            }
         }
 
         public ICommand PlayPlaylistCommand
@@ -36,6 +47,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_playPlaylistCommand);
             }
         }
+
         public ICommand SelectMediaCommand
         {
             get
@@ -44,6 +56,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _selectMediaCommand = new DelegateCommand(OnSelectMedia, CanSelectMedia);
 
                 return (_selectMediaCommand);
+            }
+        }
+
+        public ICommand RemoveMediaCommand
+        {
+            get
+            {
+                if (_removeMediaCommand == null)
+                    _removeMediaCommand = new DelegateCommand(OnRemoveMedia, CanRemoveMedia);
+
+                return (_removeMediaCommand);
             }
         }
         #endregion
@@ -62,6 +85,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnSelectMedia(object arg)
         {
+            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name);
             _playerService.SetPlaylist(_playlist);
             _playerService.SetMedia(arg as Media);
             _playerService.Play();
@@ -70,6 +94,18 @@ namespace MyWindowsMediaPlayer.ViewModel
         public bool CanSelectMedia(object arg)
         {
             return (_playlist.Count > 0);
+        }
+
+        public void OnRemoveMedia(object arg)
+        {
+            _playlist.Remove(arg as Media);
+            NotifyPropertyChanged("Playlist");
+            NotifyPropertyChanged("Items");
+        }
+
+        public bool CanRemoveMedia(object arg)
+        {
+            return (true);
         }
         #endregion
 
