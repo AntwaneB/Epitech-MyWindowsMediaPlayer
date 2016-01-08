@@ -362,7 +362,6 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnYoutubeCommand(object arg)
         {
-            //string url = Microsoft.VisualBasic.Interaction.InputBox("Url de la video youtube ?", "Youtube", "https://www.youtube.com/watch?v=vAEwLvxHVVk", 0, 0);
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la vidéo Youtube", "Youtube");
 

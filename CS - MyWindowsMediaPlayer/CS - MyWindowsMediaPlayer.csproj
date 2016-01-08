@@ -134,6 +134,9 @@
     <Compile Include="ViewModel\VideoLibraryManagementVM.cs" />
     <Compile Include="ViewModel\VideoLibraryVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\Dialogs\SelectDialog.xaml.cs">
+      <DependentUpon>SelectDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialogs\TextBoxDialog.xaml.cs">
       <DependentUpon>TextBoxDialog.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Dialogs\SelectDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Dialogs\TextBoxDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

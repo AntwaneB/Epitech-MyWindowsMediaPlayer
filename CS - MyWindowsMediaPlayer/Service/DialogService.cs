@@ -34,5 +34,15 @@ namespace MyWindowsMediaPlayer.Service
             else
                 return (null);
         }
+
+        public string SelectDialog(string message, string title, List<string> items)
+        {
+            var dialog = new SelectDialog(title, message, items);
+
+            if (dialog.ShowDialog() == true)
+                return (dialog.Input);
+            else
+                return (null);
+        }
     }
 }
