@@ -20,9 +20,9 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         private IPlayerService _playerService = null;
         private INavigationService _navigationService = null;
-        private ICommand _createPlaylistCommand = null;
-        private ICommand _playPlaylistCommand = null;
-        private ICommand _selectPlaylistCommand = null;
+        private DelegateCommand _createPlaylistCommand = null;
+        private DelegateCommand _playPlaylistCommand = null;
+        private DelegateCommand _selectPlaylistCommand = null;
         #endregion
 
         #region Properties
@@ -38,6 +38,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             set
             {
                 _newPlaylistName = value;
+                _createPlaylistCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("NewPlaylistName");
             }
         }
@@ -82,7 +83,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             if (string.IsNullOrEmpty(NewPlaylistName))
                 return;
 
-            PlaylistsService.Instance.Add(new Playlist(NewPlaylistName));
+            PlaylistsService.Instance.Add(new Playlist(NewPlaylistName.Trim()));
             NotifyPropertyChanged("Playlists");
 
             NewPlaylistName = "";
@@ -91,7 +92,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public bool CanCreatePlaylist(object arg)
         {
-            return (true);
+            return (!string.IsNullOrWhiteSpace(NewPlaylistName) && !PlaylistsService.Instance.ContainsByName(NewPlaylistName));
         }
 
         public void OnPlayPlaylist(object arg)

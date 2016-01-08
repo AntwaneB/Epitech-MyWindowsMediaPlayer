@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
@@ -19,6 +20,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Attributes
         protected IWindowService _windowService = null;
         protected IPlayerService _playerService = null;
+        private DispatcherTimer _mediaTimer = new DispatcherTimer();
 
         protected Library<T> _library = null;
 
@@ -74,14 +76,22 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
         #endregion
 
-        public LibraryVM()
+        #region Methods
+        private void UpdateLibrary(Object sender, EventArgs e)
         {
+            if (_library != null)
+                _library.LoadItems();
         }
+        #endregion
 
         public LibraryVM(IWindowService windowService, IPlayerService playerService)
         {
             _windowService = windowService;
             _playerService = playerService;
+
+            _mediaTimer.Interval = TimeSpan.FromMilliseconds(20000);
+            _mediaTimer.Tick += new EventHandler(UpdateLibrary);
+            _mediaTimer.Start();
         }
     }
 }

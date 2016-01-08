@@ -23,6 +23,15 @@ namespace MyWindowsMediaPlayer.Service
         #endregion
 
         #region Methods
+        public bool ContainsByName(string name)
+        {
+            string tmpName = name.Trim().ToLower();
+
+            var matches = this.Where(p => p.Name.ToLower() == tmpName);
+
+            return (matches.Count() > 0);
+        }
+
         public void ImportOnce(string file)
         {
             if (!_importedFiles.Contains(file))

@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="120" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" x:Name="PlaylistName" Text="{Binding NewPlaylistName, Mode=TwoWay}" Margin="5" VerticalContentAlignment="Center" FontFamily="Open Sans Light" />
+            <TextBox Grid.Column="0" x:Name="PlaylistName" Text="{Binding NewPlaylistName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalContentAlignment="Center" FontFamily="Open Sans Light" />
             <Button Grid.Column="1" x:Name="btnCreatePlaylist" Content="Créer la playlist" Command="{Binding Path=CreatePlaylistCommand}" Margin="5" />
         </Grid>
         <ListView Grid.Row="1" x:Name="Playlists" ItemsSource="{Binding Playlists, UpdateSourceTrigger=PropertyChanged}"
