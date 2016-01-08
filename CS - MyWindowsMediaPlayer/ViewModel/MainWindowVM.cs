@@ -14,6 +14,9 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using MyWindowsMediaPlayer.Service;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.Net;
+using System.Web;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
@@ -162,7 +165,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             }
         }
 
-        internal ICommand YoutubeCommand
+        public ICommand YoutubeCommand
         {
             get
             {
@@ -356,7 +359,56 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnYoutubeCommand(object arg)
         {
-            System.Diagnostics.Debug.WriteLine("Coucou youtube");
+            string url = Microsoft.VisualBasic.Interaction.InputBox("Url de la video youtube ?", "Youtube", "https://www.youtube.com/watch?v=vAEwLvxHVVk", 0, 0);
+
+            if (!string.IsNullOrEmpty(url))
+            {
+                string URL = @"http://francois.kiene.fr/music/download.php?download="+ url;
+
+                WebRequest MyRequest = HttpWebRequest.Create(URL);
+                WebResponse MyResponse = MyRequest.GetResponse();
+
+                string RealURL = MyResponse.ResponseUri.ToString();
+
+                HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(RealURL);
+
+                HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+
+                Stream receiveStream = myHttpWebResponse.GetResponseStream();
+                StreamReader reader = new StreamReader(receiveStream, Encoding.UTF8);
+                String responseString = reader.ReadToEnd();
+
+                url = System.Web.HttpUtility.UrlPathEncode(responseString);
+
+                Uri uri = new Uri(url);
+                string filename = System.IO.Path.GetFileName(uri.LocalPath);
+
+                String tempfile = Path.Combine(Path.GetTempPath(), filename);
+                if (filename != ".mp3")
+                {
+                    using (WebClient client = new WebClient())
+                        client.DownloadFile(url, tempfile);
+
+                    _currentMedia = Media.Factory.make(tempfile);
+
+                    if (_currentMedia != null)
+                        _currentMedia.State = MediaState.Stop;
+                    if (_mediaElement != null)
+                        _mediaElement.Stop();
+
+                    if (_currentPlaylist != null)
+                    {
+                        _currentPlaylist = null;
+                        NotifyPropertyChanged("CurrentPlaylist");
+                    }
+                    _playCommand.RaiseCanExecuteChanged();
+                    _pauseCommand.RaiseCanExecuteChanged();
+                    _stopCommand.RaiseCanExecuteChanged();
+                    _twitterCommand.RaiseCanExecuteChanged();
+                }
+                else
+                    System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");
+            }
         }
 
         public bool CanYoutubeCommand(object arg)
