@@ -389,31 +389,37 @@ namespace MyWindowsMediaPlayer.ViewModel
                 Uri uri = new Uri(url);
                 string filename = System.IO.Path.GetFileName(uri.LocalPath);
 
-                String tempfile = Path.Combine(Path.GetTempPath(), filename);
+                //String tempfile = Path.Combine(Path.GetTempPath(), filename);
                 if (filename != ".mp3")
                 {
-                    using (WebClient client = new WebClient())
-                        client.DownloadFile(url, tempfile);
+                    /*using (WebClient client = new WebClient())
+                        client.DownloadFile(url, tempfile);*/
 
-                    _currentMedia = Media.Factory.make(tempfile);
+                    _currentMedia = Media.Factory.make(url);
 
-                    if (_currentMedia != null)
-                        _currentMedia.State = MediaState.Stop;
-                    if (_mediaElement != null)
-                        _mediaElement.Stop();
-
-                    if (_currentPlaylist != null)
-                    {
-                        _currentPlaylist = null;
-                        NotifyPropertyChanged("CurrentPlaylist");
-                    }
-                    _playCommand.RaiseCanExecuteChanged();
-                    _pauseCommand.RaiseCanExecuteChanged();
-                    _stopCommand.RaiseCanExecuteChanged();
-                    _twitterCommand.RaiseCanExecuteChanged();
+                    OnPlay(null);
                 }
                 else
                     System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");
+               /* IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(url);
+                VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 360);
+                String url2 = video.DownloadUrl;
+
+                Console.WriteLine(url2);*/
+                /*if (video.RequiresDecryption)
+                {
+                    DownloadUrlResolver.DecryptDownloadUrl(video);
+                }
+
+                String tempfile = Path.Combine(Path.GetTempPath(), video.Title + video.VideoExtension);
+                var videoDownloader = new VideoDownloader(video, tempfile);
+                videoDownloader.DownloadProgressChanged += (sender, args) => Console.WriteLine(args.ProgressPercentage);
+                videoDownloader.Execute();*/
+                /*_currentMedia = Media.Factory.make(url2);
+
+                OnPlay(null);*/
+                /*else
+                    System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");*/
             }
         }
 
