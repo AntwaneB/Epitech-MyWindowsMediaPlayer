@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyWindowsMediaPlayer.View.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,16 @@ namespace MyWindowsMediaPlayer.Service
                 return (true);
             else
                 return (false);
+        }
+
+        public string InputDialog(string message, string title)
+        {
+            var dialog = new TextBoxDialog(title, message);
+
+            if (dialog.ShowDialog() == true)
+                return (dialog.Input);
+            else
+                return (null);
         }
     }
 }

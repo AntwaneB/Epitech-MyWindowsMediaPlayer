@@ -60,17 +60,14 @@ namespace MyWindowsMediaPlayer.Service
 
             foreach (var name1 in names)
             {
-                //System.Diagnostics.Debug.WriteLine(name1.Path);
-                //System.Diagnostics.Debug.WriteLine(inc);
-                this.Add(new Playlist(name1.Path)); // ajout de la playlist
+                this.Add(new Playlist(name1.Path));
                 foreach (var name in paths1.Where(x => x.Key == name1.Path))
                 {
                     foreach (var tuple in name)
                     {
                         if (tuple.Item2.Length > 0)
                         {
-                            //System.Diagnostics.Debug.WriteLine(tuple.Item2);
-                            this[inc].Add(Media.Factory.make(tuple.Item2));//ajout des paths des fichiers
+                            this[inc].Add(Media.Factory.make(tuple.Item2));
                         }
                     }
                 }
