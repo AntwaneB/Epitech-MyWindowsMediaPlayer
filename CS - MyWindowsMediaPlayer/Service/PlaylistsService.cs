@@ -22,7 +22,24 @@ namespace MyWindowsMediaPlayer.Service
         }
         #endregion
 
+        #region Properties
+        public List<string> Names
+        {
+            get
+            {
+                return (this.Select(x => x.Name).ToList());
+            }
+        }
+        #endregion
+
         #region Methods
+        public Playlist FindByName(string name)
+        {
+            var matches = this.Where(p => p.Name == name);
+
+            return (matches.Count() > 0 ? matches.First() : null);
+        }
+
         public bool ContainsByName(string name)
         {
             string tmpName = name.Trim().ToLower();

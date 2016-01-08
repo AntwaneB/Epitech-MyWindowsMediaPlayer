@@ -1,4 +1,4 @@
 Suppression / Rename playlist
-Ajout d'un media à une playlist
 Diapo images
-Autorefresh folders
+Save playlists à l'ajout / suppression d'une musique
+Précédent / Suivant

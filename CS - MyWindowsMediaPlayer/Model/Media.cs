@@ -45,6 +45,7 @@ namespace MyWindowsMediaPlayer.Model
         protected Uri _path;
         protected string _name;
         protected MediaState _state;
+        protected BitmapImage _thumbnail = null;
         #endregion
 
         #region Properties

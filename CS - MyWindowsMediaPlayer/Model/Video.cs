@@ -31,27 +31,29 @@ namespace MyWindowsMediaPlayer.Model
         {
             get
             {
-                /*
-                FFMpegConverter ff = new FFMpegConverter();
-                MemoryStream imgStream = new MemoryStream();
-                ff.GetVideoThumbnail(_path.LocalPath, imgStream, (float)(Duration.TotalSeconds / 2.0));
+                if (_thumbnail == null)
+                {
+                    FFMpegConverter ff = new FFMpegConverter();
+                    MemoryStream imgStream = new MemoryStream();
+                    ff.GetVideoThumbnail(_path.LocalPath, imgStream, (float)(Duration.TotalSeconds / 2.0));
 
-                Bitmap bmp = (Bitmap)Bitmap.FromStream(imgStream);
+                    Bitmap bmp = (Bitmap)Bitmap.FromStream(imgStream);
 
-                MemoryStream memory = new MemoryStream();
-                bmp.Save(memory, ImageFormat.Png);
-                memory.Position = 0;
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
+                    MemoryStream memory = new MemoryStream();
+                    bmp.Save(memory, ImageFormat.Png);
+                    memory.Position = 0;
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = memory;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    _thumbnail = bitmapImage;
+                }
 
-                return (bitmapImage);
-                */
-                return (null);
+                return (_thumbnail);
             }
         }
+
         public override string Information
         {
             get { return (null); }

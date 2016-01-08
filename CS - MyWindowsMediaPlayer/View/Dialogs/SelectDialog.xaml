@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View.Dialogs"
         mc:Ignorable="d"
-        Title="SelectDialog" SizeToContent="WidthAndHeight">
+        Title="SelectDialog" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
-        <StackPanel Width="250">
+        <StackPanel Width="300">
             <TextBlock x:Name="Label" Margin="5,5,5,0" />
-            <ListBox x:Name="Items" Grid.Row="1" HorizontalContentAlignment="Stretch" MinHeight="150" Margin="5">
+            <ListBox x:Name="Items" Grid.Row="1" HorizontalContentAlignment="Stretch" MinHeight="200" MaxHeight="400" Margin="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -19,7 +19,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="{Binding}" VerticalAlignment="Center" />
                             <Button Grid.Column="1" Tag="{Binding}" Click="SelectButton_Click" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
-                                <Image x:Name="imgValidate" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Source="/CS - MyWindowsMediaPlayer;component/Assets/cross.png"/>
+                                <Image x:Name="imgValidate" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Source="/CS - MyWindowsMediaPlayer;component/Assets/validate.png"/>
                             </Button>
                         </Grid>
                     </DataTemplate>

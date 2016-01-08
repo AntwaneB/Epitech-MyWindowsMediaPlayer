@@ -29,9 +29,14 @@ namespace MyWindowsMediaPlayer.Model
             {
                 try
                 {
-                    var file = TagLib.File.Create(_path.LocalPath);
-                    if (!string.IsNullOrEmpty(file.Tag.Title))
-                        return (file.Tag.Title);
+                    if (File.Exists(_path.LocalPath))
+                    {
+                        var file = TagLib.File.Create(_path.LocalPath);
+                        if (!string.IsNullOrEmpty(file.Tag.Title))
+                            return (file.Tag.Title);
+                        else
+                            return (base.Name);
+                    }
                     else
                         return (base.Name);
                 } catch (Exception e)
@@ -48,23 +53,29 @@ namespace MyWindowsMediaPlayer.Model
             {
                 try
                 {
-                    var file = TagLib.File.Create(_path.LocalPath);
-                    if (file.Tag.Pictures.Length >= 1)
+                    if (_thumbnail == null)
                     {
-                        var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
-                        System.Drawing.Image bmp = System.Drawing.Image.FromStream(new MemoryStream(bin)).GetThumbnailImage(100, 100, null, IntPtr.Zero);
-                        MemoryStream ms = new MemoryStream();
-                        bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        ms.Position = 0;
-                        BitmapImage bi = new BitmapImage();
-                        bi.BeginInit();
-                        bi.StreamSource = ms;
-                        bi.EndInit();
+                        if (File.Exists(_path.LocalPath))
+                        {
+                            var file = TagLib.File.Create(_path.LocalPath);
+                            if (file.Tag.Pictures.Length >= 1)
+                            {
+                                var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
+                                System.Drawing.Image bmp = System.Drawing.Image.FromStream(new MemoryStream(bin)).GetThumbnailImage(100, 100, null, IntPtr.Zero);
+                                MemoryStream ms = new MemoryStream();
+                                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                ms.Position = 0;
+                                BitmapImage bi = new BitmapImage();
+                                bi.BeginInit();
+                                bi.StreamSource = ms;
+                                bi.EndInit();
 
-                        return (bi);
+                                _thumbnail = bi;
+                            }
+                        }
                     }
-                    else
-                        return (null);
+
+                    return (_thumbnail);
                 }
                 catch (Exception e)
                 {
@@ -80,15 +91,19 @@ namespace MyWindowsMediaPlayer.Model
             {
                 try
                 {
-                    var file = TagLib.File.Create(_path.LocalPath);
-                    if (file.Tag.Performers.Length > 0)
-                        return (string.Join(", ", file.Tag.Performers));
-                    else if (file.Tag.Artists.Length > 0)
-                        return (string.Join(", ", file.Tag.Artists));
-                    else if (file.Tag.AlbumArtists.Length > 0)
-                        return (string.Join(", ", file.Tag.AlbumArtists));
-                    else
-                        return (null);
+                    if (File.Exists(_path.LocalPath))
+                    {
+                        var file = TagLib.File.Create(_path.LocalPath);
+                        if (file.Tag.Performers.Length > 0)
+                            return (string.Join(", ", file.Tag.Performers));
+                        else if (file.Tag.Artists.Length > 0)
+                            return (string.Join(", ", file.Tag.Artists));
+                        else if (file.Tag.AlbumArtists.Length > 0)
+                            return (string.Join(", ", file.Tag.AlbumArtists));
+                        else
+                            return (null);
+                    }
+                    return (null);
                 }
                 catch (Exception e)
                 {
@@ -104,8 +119,13 @@ namespace MyWindowsMediaPlayer.Model
             {
                 try
                 {
-                    var file = TagLib.File.Create(_path.LocalPath);
-                    return (file.Tag.Album);
+                    if (File.Exists(_path.LocalPath))
+                    {
+                        var file = TagLib.File.Create(_path.LocalPath);
+                        return (file.Tag.Album);
+                    }
+                    else
+                        return (null);
                 }
                 catch (Exception e)
                 {
@@ -121,11 +141,16 @@ namespace MyWindowsMediaPlayer.Model
             {
                 try
                 {
-                    var file = TagLib.File.Create(_path.LocalPath);
-                    if (file.Tag.AlbumArtists.Length > 0)
-                        return (file.Tag.Album + " - " + string.Join(", ", file.Tag.Artists));
+                    if (File.Exists(_path.LocalPath))
+                    {
+                        var file = TagLib.File.Create(_path.LocalPath);
+                        if (file.Tag.Artists.Length > 0)
+                            return (file.Tag.Album + " - " + string.Join(", ", file.Tag.Artists));
+                        else
+                            return (file.Tag.Album);
+                    }
                     else
-                        return (file.Tag.Album);
+                        return (null);
                 }
                 catch (Exception e)
                 {

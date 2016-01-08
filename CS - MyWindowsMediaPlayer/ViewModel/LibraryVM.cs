@@ -24,8 +24,9 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         protected Library<T> _library = null;
 
-        protected ICommand _manageLibraryCommand = null;
-        private ICommand _selectMediaCommand = null;
+        private DelegateCommand _manageLibraryCommand = null;
+        private DelegateCommand _addToPlaylistCommand = null;
+        private DelegateCommand _selectMediaCommand = null;
         #endregion
 
         #region Properties
@@ -44,6 +45,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_manageLibraryCommand);
             }
         }
+
         public ICommand SelectMediaCommand
         {
             get
@@ -52,6 +54,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _selectMediaCommand = new DelegateCommand(OnSelectMedia, CanSelectMedia);
 
                 return (_selectMediaCommand);
+            }
+        }
+
+        public ICommand AddToPlaylistCommand
+        {
+            get
+            {
+                if (_addToPlaylistCommand == null)
+                    _addToPlaylistCommand = new DelegateCommand(OnAddToPlaylist, CanAddToPlaylist);
+
+                return (_addToPlaylistCommand);
             }
         }
         #endregion
@@ -73,6 +86,31 @@ namespace MyWindowsMediaPlayer.ViewModel
         public bool CanSelectMedia(object arg)
         {
             return (_library.Items.Count > 0);
+        }
+
+        public void OnAddToPlaylist(object arg)
+        {
+            if (arg != null)
+            {
+                var dialogService = new DialogService();
+
+                string playlistName = dialogService.SelectDialog("Sélectionnez la playlist", "Ajout à une playlist", PlaylistsService.Instance.Names);
+
+                if (!string.IsNullOrWhiteSpace(playlistName))
+                {
+                    Playlist playlist = PlaylistsService.Instance.FindByName(playlistName);
+
+                    if (playlist != null)
+                    {
+                        playlist.Add(arg as Media);
+                    }
+                }
+            }
+        }
+
+        public bool CanAddToPlaylist(object arg)
+        {
+            return (true);
         }
         #endregion
 
