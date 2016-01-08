@@ -52,7 +52,7 @@
             </Button>
         </Grid>
 
-        <DataGrid x:Name="MediaList" ItemsSource="{Binding Playlist, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
+        <DataGrid x:Name="MediaList" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
                   AutoGenerateColumns="False" IsReadOnly="True" AlternationCount="2" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0"
                   ColumnHeaderStyle="{DynamicResource DataGridHeader}" RowStyle="{DynamicResource DataGridRow}" CellStyle="{DynamicResource DataGridCell}">
             <DataGrid.Columns>

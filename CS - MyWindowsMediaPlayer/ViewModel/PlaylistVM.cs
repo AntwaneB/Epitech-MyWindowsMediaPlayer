@@ -3,9 +3,11 @@ using MyWindowsMediaPlayer.Service;
 using MyWindowsMediaPlayer.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
@@ -25,6 +27,14 @@ namespace MyWindowsMediaPlayer.ViewModel
         public Playlist Playlist
         {
             get { return (_playlist); }
+        }
+
+        public ICollectionView Items
+        {
+            get
+            {
+                return (new ListCollectionView(_playlist));
+            }
         }
 
         public ICommand PlayPlaylistCommand
@@ -91,6 +101,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             _playlist.Remove(arg as Media);
             System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name + " -- Found? " + _playlist.Contains(arg as Media));
             NotifyPropertyChanged("Playlist");
+            NotifyPropertyChanged("Items");
         }
 
         public bool CanRemoveMedia(object arg)
