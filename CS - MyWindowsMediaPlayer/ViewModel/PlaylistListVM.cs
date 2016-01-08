@@ -28,8 +28,8 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Properties
         public ObservableCollection<Playlist> Playlists
         {
-            get { return (_playlists); }
-            set { _playlists = value; }
+            get { return (new ObservableCollection<Playlist>(PlaylistsService.Instance)); }
+            //set { _playlists = value; }
         }
 
         public string NewPlaylistName
@@ -52,6 +52,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_createPlaylistCommand);
             }
         }
+
         public ICommand PlayPlaylistCommand
         {
             get
@@ -62,6 +63,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_playPlaylistCommand);
             }
         }
+
         public ICommand SelectPlaylistCommand
         {
             get
@@ -80,7 +82,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             if (string.IsNullOrEmpty(NewPlaylistName))
                 return;
 
-            _playlists.Add(new Playlist(NewPlaylistName));
+            PlaylistsService.Instance.Add(new Playlist(NewPlaylistName));
             NotifyPropertyChanged("Playlists");
 
             NewPlaylistName = "";
@@ -121,28 +123,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Saving
         public void SavePlaylist()
         {
-
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"../../../Save/playlist.xml");
-
-            XElement save = new XElement("playlists");
-            String media = "";
-            String path = "";
-            foreach (var item in _playlists)
-            {
-                XElement playlistName = new XElement("playlist");
-                media = item.Name;
-                playlistName.SetAttributeValue("name", media);
-                foreach (var elem in item)
-                {
-                    XElement xml = new XElement("media");
-                    path = elem.Path.LocalPath;
-                    xml.SetAttributeValue("path", path);
-                    playlistName.Add(xml);
-                }
-                save.Add(playlistName);
-            }
-            file.WriteLine(save);
-            file.Close();
+            PlaylistsService.Instance.Export(@"../../../Save/playlist.xml");
         }
         #endregion
 
@@ -152,45 +133,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             _playerService = playerService;
             _navigationService = navigationService;
 
-            //Todo : A virer
-            //SavePlaylist(); //Todo : Methode génération de la playlist dans un xml
-            //Todo : Path de Playlist.xml à changer
-
-            //var xdoc = XDocument.Load(@"E:\C# - MyWindowsMediaPlayer\Save\playlist.xml");
-            var xdoc = XDocument.Load(@"../../../Save/playlist.xml");
-
-            var names = from i in xdoc.Descendants("playlist")
-                        select new
-                        {
-                            Path = (string)i.Attribute("name")
-                        };
-
-            var paths1 = xdoc.Descendants("playlist")
-                            .SelectMany(x => x.Descendants("media"), (pl, media) => Tuple.Create(pl.Attribute("name").Value, media.Attribute("path").Value))
-                            .GroupBy(x => x.Item1)
-                            .ToList();
-
-            int inc = 0;
-
-            foreach (var name1 in names)
-            {
-                //System.Diagnostics.Debug.WriteLine(name1.Path);
-                //System.Diagnostics.Debug.WriteLine(inc);
-                _playlists.Add(new Playlist(name1.Path)); // ajout de la playlist
-                foreach (var name in paths1.Where(x => x.Key == name1.Path))
-                {
-                    foreach (var tuple in name)
-                    {
-                        if (tuple.Item2.Length > 0)
-                        {
-                            //System.Diagnostics.Debug.WriteLine(tuple.Item2);
-                            _playlists[inc].Add(Media.Factory.make(tuple.Item2));//ajout des paths des fichiers
-                        }
-                    }
-                }
-                inc++;
-            }
-
+            PlaylistsService.Instance.ImportOnce(@"../../../Save/playlist.xml");
         }
         #endregion
     }

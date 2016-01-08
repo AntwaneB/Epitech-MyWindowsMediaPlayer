@@ -107,8 +107,10 @@
     <Compile Include="Model\Media.cs" />
     <Compile Include="Model\Playlist.cs" />
     <Compile Include="Model\Video.cs" />
+    <Compile Include="Service\DialogService.cs" />
     <Compile Include="Service\IPlayerService.cs" />
     <Compile Include="Service\PlayerService.cs" />
+    <Compile Include="Service\PlaylistsService.cs" />
     <Compile Include="Service\PopupService.cs" />
     <Compile Include="Service\TwitterService.cs" />
     <Compile Include="Utils\PropertyChangedBase.cs" />
