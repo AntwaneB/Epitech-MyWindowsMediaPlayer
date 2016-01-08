@@ -200,7 +200,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             if (_currentMedia != null)
             {
-                _mediaElement.Source = null;
+                if (_mediaElement.Source != _currentMedia.Path)
+                    _mediaElement.Source = null;
                 _mediaElement.Source = _currentMedia.Path;
                 _mediaElement.Volume = Volume / 2 / 100.0;
                 _mediaElement.Play();

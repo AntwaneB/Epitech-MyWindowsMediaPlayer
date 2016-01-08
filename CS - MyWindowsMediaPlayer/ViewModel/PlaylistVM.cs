@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class PlaylistVM
+    class PlaylistVM : ViewModelBase
     {
         #region Attributes
         private Playlist _playlist = null;
@@ -18,6 +18,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private IPlayerService _playerService = null;
         private ICommand _playPlaylistCommand = null;
         private ICommand _selectMediaCommand = null;
+        private ICommand _removeMediaCommand = null;
         #endregion
 
         #region Properties
@@ -36,6 +37,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_playPlaylistCommand);
             }
         }
+
         public ICommand SelectMediaCommand
         {
             get
@@ -44,6 +46,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _selectMediaCommand = new DelegateCommand(OnSelectMedia, CanSelectMedia);
 
                 return (_selectMediaCommand);
+            }
+        }
+
+        public ICommand RemoveMediaCommand
+        {
+            get
+            {
+                if (_removeMediaCommand == null)
+                    _removeMediaCommand = new DelegateCommand(OnRemoveMedia, CanRemoveMedia);
+
+                return (_removeMediaCommand);
             }
         }
         #endregion
@@ -70,6 +83,19 @@ namespace MyWindowsMediaPlayer.ViewModel
         public bool CanSelectMedia(object arg)
         {
             return (_playlist.Count > 0);
+        }
+
+        public void OnRemoveMedia(object arg)
+        {
+            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name + " -- Found? " + _playlist.Contains(arg as Media));
+            _playlist.Remove(arg as Media);
+            System.Diagnostics.Debug.WriteLine("Media Name: " + (arg as Media).Name + " -- Found? " + _playlist.Contains(arg as Media));
+            NotifyPropertyChanged("Playlist");
+        }
+
+        public bool CanRemoveMedia(object arg)
+        {
+            return (true);
         }
         #endregion
 
