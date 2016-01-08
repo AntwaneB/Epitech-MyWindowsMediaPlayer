@@ -356,7 +356,7 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnYoutubeCommand(object arg)
         {
-           System.Windows.Forms.MessageBox.Show("My message here");
+            System.Diagnostics.Debug.WriteLine("Coucou youtube");
         }
 
         public bool CanYoutubeCommand(object arg)
