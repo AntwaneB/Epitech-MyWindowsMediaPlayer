@@ -20,6 +20,11 @@ namespace MyWindowsMediaPlayer.Service
                 return (false);
         }
 
+        public void InformationDialog(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK);
+        }
+
         public string InputDialog(string message, string title)
         {
             var dialog = new TextBoxDialog(title, message);

@@ -24,7 +24,7 @@ namespace MyWindowsMediaPlayer.View.Dialogs
             InitializeComponent();
 
             this.Title = title;
-            this.Label.Text = label;
+            this.Label.Text = label + " :";
         }
 
         public string Input

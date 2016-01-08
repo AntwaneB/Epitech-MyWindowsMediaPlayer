@@ -365,7 +365,6 @@ namespace MyWindowsMediaPlayer.ViewModel
             //string url = Microsoft.VisualBasic.Interaction.InputBox("Url de la video youtube ?", "Youtube", "https://www.youtube.com/watch?v=vAEwLvxHVVk", 0, 0);
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la vidéo Youtube", "Youtube");
-            System.Windows.Forms.MessageBox.Show(url);
 
             if (!string.IsNullOrEmpty(url))
             {
@@ -395,31 +394,30 @@ namespace MyWindowsMediaPlayer.ViewModel
                     /*using (WebClient client = new WebClient())
                         client.DownloadFile(url, tempfile);*/
 
-                    _currentMedia = Media.Factory.make(url);
-
+                    CurrentMedia = Media.Factory.make(url);
                     OnPlay(null);
                 }
                 else
-                    System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");
+                    dialogService.InformationDialog("Le lien fourni est invalide", "Youtube");
                /* IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(url);
                 VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 360);
                 String url2 = video.DownloadUrl;
 
                 Console.WriteLine(url2);*/
-                /*if (video.RequiresDecryption)
-                {
-                    DownloadUrlResolver.DecryptDownloadUrl(video);
-                }
+               /*if (video.RequiresDecryption)
+               {
+                   DownloadUrlResolver.DecryptDownloadUrl(video);
+               }
 
-                String tempfile = Path.Combine(Path.GetTempPath(), video.Title + video.VideoExtension);
-                var videoDownloader = new VideoDownloader(video, tempfile);
-                videoDownloader.DownloadProgressChanged += (sender, args) => Console.WriteLine(args.ProgressPercentage);
-                videoDownloader.Execute();*/
-                /*_currentMedia = Media.Factory.make(url2);
+               String tempfile = Path.Combine(Path.GetTempPath(), video.Title + video.VideoExtension);
+               var videoDownloader = new VideoDownloader(video, tempfile);
+               videoDownloader.DownloadProgressChanged += (sender, args) => Console.WriteLine(args.ProgressPercentage);
+               videoDownloader.Execute();*/
+               /*_currentMedia = Media.Factory.make(url2);
 
-                OnPlay(null);*/
-                /*else
-                    System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");*/
+               OnPlay(null);*/
+               /*else
+                   System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");*/
             }
         }
 
@@ -434,13 +432,11 @@ namespace MyWindowsMediaPlayer.ViewModel
             _navigationService = navigationService;
             _twitterPopup = twitterPopup;
 
-            /*
             _mediaElement = new MediaElement();
             _mediaElement.LoadedBehavior = MediaState.Manual;
             _mediaElement.UnloadedBehavior = MediaState.Stop;
             _mediaElement.MediaOpened += new RoutedEventHandler(MediaOpened);
             _mediaElement.MediaEnded += new RoutedEventHandler(MediaEnded);
-            */
 
             _mediaTimer.Interval = TimeSpan.FromMilliseconds(100);
             _mediaTimer.Tick += new EventHandler(UpdateMediaPosition);
