@@ -378,6 +378,9 @@ namespace MyWindowsMediaPlayer.ViewModel
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la vidéo Youtube", "Youtube");
 
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+
             Regex rgx = new Regex(@"^(?:https?\:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v\=))([\w-]{10,12})(?:$|\&|\?\#).*");
             if (!string.IsNullOrEmpty(url) && rgx.IsMatch(url))
             {
@@ -453,7 +456,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la musique sur Soundcloud", "Soundcloud");
-            if (!string.IsNullOrEmpty(url))
+            if (!string.IsNullOrWhiteSpace(url))
             {
                 string URL = @"http://api.soundcloud.com/resolve?url="+url+ "&client_id=df3f321110a6cf9290a08ba6dbd501fa";
                WebClient c = new WebClient();
