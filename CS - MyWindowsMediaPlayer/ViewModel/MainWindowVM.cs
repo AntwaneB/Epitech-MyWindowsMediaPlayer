@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.Web;
+using System.Threading;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
@@ -440,6 +441,14 @@ namespace MyWindowsMediaPlayer.ViewModel
             return (true);
         }
 
+        public void download(string stream, string name)
+        {
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(stream, name);
+            }
+        }
+
         public void OnSoundcloudCommand(object arg)
         {
             var dialogService = new DialogService();
@@ -447,14 +456,20 @@ namespace MyWindowsMediaPlayer.ViewModel
             if (!string.IsNullOrEmpty(url))
             {
                 string URL = @"http://api.soundcloud.com/resolve?url="+url+ "&client_id=df3f321110a6cf9290a08ba6dbd501fa";
-                WebClient c = new WebClient();
+               WebClient c = new WebClient();
                 var data = c.DownloadString(URL);
                 Newtonsoft.Json.Linq.JObject results = Newtonsoft.Json.Linq.JObject.Parse(data);
-                String stream = results["download_url"].ToString() + @"?client_id=df3f321110a6cf9290a08ba6dbd501fa";
+                string stream = results["stream_url"].ToString() + @"?client_id=df3f321110a6cf9290a08ba6dbd501fa";
+                string name = results["title"].ToString() + ".mp3";
                 if (stream.Length > 0)
                 {
+                    string tempfile = Path.Combine(Path.GetTempPath(), name);
+                    Thread thread = new Thread(() => download(stream, tempfile));
+                    thread.Start();
+                    System.Threading.Thread.Sleep(2000);
+                    Console.Write(tempfile + "\n");
                     Console.Write(stream + "\n");
-                    CurrentMedia = Media.Factory.make(stream);
+                    CurrentMedia = Media.Factory.make(tempfile);
                     OnPlay(null);
                 }
             }
