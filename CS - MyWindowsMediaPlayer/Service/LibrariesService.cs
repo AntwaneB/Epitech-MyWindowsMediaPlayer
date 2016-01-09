@@ -26,36 +26,57 @@ namespace MyWindowsMediaPlayer.Service
         {
             var xdoc = XDocument.Load(file);
 
-            var names = from i in xdoc.Descendants("libraries")
+            var names = from i in xdoc.Descendants("library")
                         select new
                         {
-                            Path = (string)i.Attribute("name")
+                            Type = (string)i.Attribute("type")
                         };
+
+            var paths1 = xdoc.Descendants("library")
+                            .SelectMany(x => x.Descendants("media"), (pl, media) => Tuple.Create(pl.Attribute("type").Value, media.Attribute("path").Value))
+                            .GroupBy(x => x.Item1)
+                            .ToList();
+
+            foreach (var libtype in names)
+            {
+                List<Uri> pathList = new List<Uri>();
+                foreach (var name in paths1.Where(x => x.Key == libtype.Type))
+                {
+                    foreach (var tuple in name)
+                    {
+                        if (tuple.Item2.Length > 0)
+                        {
+                            Uri myUri = new Uri(tuple.Item2);
+                            pathList.Add(myUri);
+                        }
+                    }
+                }
+                this.Add(new Library<Type.GetType(libtype) > (pathList));
+            }
         }
 
         public void Export(string file)
         {
             System.IO.StreamWriter outFile = new System.IO.StreamWriter(file);
 
-            XElement save = new XElement("libraries");
+            XElement libSave = new XElement("libraries");
+            String type = "";
             String dir = "";
-            String path = "";
             foreach (var item in this)
             {
-                XElement playlistName = new XElement("libraries");
-                dir = item.Folders.ToString();
-                System.Diagnostics.Debug.WriteLine(dir);
-                //playlistName.SetAttributeValue("name", media);
-                /*foreach (var elem in item)
+                XElement libType = new XElement("library");
+                type = item.MediaType.ToString();
+                libSave.SetAttributeValue("type", type);
+                foreach (var elem in item.Folders)
                 {
                     XElement xml = new XElement("media");
-                    path = elem.Path.LocalPath;
-                    xml.SetAttributeValue("path", path);
-                    playlistName.Add(xml);
+
+                    dir = elem.ToString();
+                    xml.SetAttributeValue("path", dir);
+                    libType.Add(xml);
                 }
-                save.Add(playlistName);*/
             }
-            //outFile.WriteLine(save);
+            outFile.WriteLine(libSave);
             outFile.Close();
         }
         #endregion
