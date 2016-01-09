@@ -152,24 +152,10 @@
                     <RowDefinition Height="35" />
                 </Grid.RowDefinitions>
                 <Slider Grid.Row="0"  x:Name="sliderPosition"
-                    VerticalAlignment="Bottom" Margin="5,0,5,5"
+                    VerticalAlignment="Bottom" Margin="5,0,5,0"
                     Minimum="0" Maximum="{Binding CurrentMedia.Duration.TotalMilliseconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                     Value="{Binding CurrentMedia.Position.TotalMilliseconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsEnabled="False"
-                    >
-                    <Slider.Style>
-                        <Style TargetType="{x:Type Slider}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding CurrentMedia, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
-                                    <Setter Property="Maximum" Value="1" />
-                                    <Setter Property="Value" Value="0" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding CurrentMedia.Duration.TotalMilliseconds, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                    <Setter Property="Maximum" Value="1" />
-                                    <Setter Property="Value" Value="0" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Slider.Style>
+                     Style="{StaticResource Horizontal_Slider}">
                 </Slider>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
