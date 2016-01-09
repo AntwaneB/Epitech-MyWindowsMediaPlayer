@@ -7,8 +7,8 @@
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
         Title="MyWindowsMediaPlayer"
-        Height="720" Width="1280"
-        MinHeight="720" MinWidth="1280"
+        Height="755" Width="1280"
+        MinHeight="755" MinWidth="1280"
         Background="#1a1a1b" Foreground="White"
         FontFamily="Open Sans Light" Icon="/CS - MyWindowsMediaPlayer;component/Assets/icone.png">
     <Grid x:Name="MainPanel" Margin="0">
@@ -85,6 +85,16 @@
                             </Grid.RowDefinitions>
                             <Image Grid.Row="0" x:Name="imgSc" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/soundcloud.png"/>
                             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" Margin="0,5,0,0">Soundcloud</TextBlock>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="btnLoad"  Command="{Binding Path=LoadCommand}" Margin="10,5" MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="50" Source="/CS - MyWindowsMediaPlayer;component/Assets/load.png"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" Margin="0,5,0,0">Parcourir</TextBlock>
                         </Grid>
                     </Button>
                 </StackPanel>
@@ -202,9 +212,11 @@
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="70" />
                 </Grid.ColumnDefinitions>
+                <!--
                 <Button Grid.Column="0" x:Name="btnLoad" Style="{StaticResource GelButton}" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Width="70">
                     <Image x:Name="imgLoad" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/notification_add.png"/>
                 </Button>
+                -->
                 <Button Grid.Column="1" x:Name="btnPlay" Style="{StaticResource AlternatedButton}" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Width="70">
                     <Image x:Name="imgPlay" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_play.png"/>
                 </Button>
