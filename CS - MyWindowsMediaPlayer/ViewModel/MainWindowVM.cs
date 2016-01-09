@@ -364,8 +364,8 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la vidéo Youtube", "Youtube");
-
-            if (!string.IsNullOrEmpty(url))
+            Regex rgx = new Regex(@"^(?:https?\:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v\=))([\w-]{10,12})(?:$|\&|\?\#).*");
+            if (!string.IsNullOrEmpty(url) && rgx.IsMatch(url))
             {
                 string URL = @"http://francois.kiene.fr/music/download.php?download="+ url;
 
@@ -418,6 +418,8 @@ namespace MyWindowsMediaPlayer.ViewModel
                /*else
                    System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");*/
             }
+            else
+                dialogService.InformationDialog("Le lien fourni est invalide", "Youtube");
         }
 
         public bool CanYoutubeCommand(object arg)
