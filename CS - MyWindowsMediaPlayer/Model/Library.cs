@@ -17,6 +17,11 @@ namespace MyWindowsMediaPlayer.Model
         #endregion
 
         #region Properties
+        public Type MediaType
+        {
+            get { return (typeof(T)); }
+        }
+
         public List<Uri> Folders
         {
             get { return (_folders); }
