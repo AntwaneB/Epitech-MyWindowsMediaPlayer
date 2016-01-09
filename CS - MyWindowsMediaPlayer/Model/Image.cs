@@ -14,6 +14,14 @@ namespace MyWindowsMediaPlayer.Model
         #endregion
 
         #region Properties
+        public static List<string> Extensions
+        {
+            get
+            {
+                return (new List<string>() { "jpg" });
+            }
+        }
+
         public override BitmapImage Thumbnail
         {
             get { return (null); }

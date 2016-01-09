@@ -45,6 +45,7 @@ namespace MyWindowsMediaPlayer.Model
         protected Uri _path;
         protected string _name;
         protected MediaState _state;
+        protected BitmapImage _thumbnail = null;
         #endregion
 
         #region Properties
@@ -87,12 +88,28 @@ namespace MyWindowsMediaPlayer.Model
         {
             get { throw new NotImplementedException(); }
         }
+
+        public bool FileExists
+        {
+            get
+            {
+                return (File.Exists(_path.LocalPath));
+            }
+        }
+
+        public bool Tweeted
+        {
+            get; set;
+        }
         #endregion
 
         #region Ctor / Dtor
         public Media()
         {
             _path = null;
+            _state = MediaState.Stop;
+
+            Tweeted = false;
         }
 
         public Media(string path)
@@ -101,6 +118,8 @@ namespace MyWindowsMediaPlayer.Model
             _state = MediaState.Stop;
 
             this.parseName();
+
+            Tweeted = false;
         }
         #endregion
 

@@ -35,8 +35,10 @@ namespace MyWindowsMediaPlayer.View
         {
             InitializeComponent();
 
-            var viewModel = new MainWindowVM(new NavigationService(this.LeftContentFrame));
+            var viewModel = new MainWindowVM(new NavigationService(this.LeftContentFrame), new PopupService(this.TwitterResult, this.PopupMessage));
             this.DataContext = viewModel;
+
+            Closing += viewModel.OnWindowClosing;
 
             _doubleClickTimer.Interval = TimeSpan.FromMilliseconds(GetDoubleClickTime());
             _doubleClickTimer.Tick += (s, e) => _doubleClickTimer.Stop();

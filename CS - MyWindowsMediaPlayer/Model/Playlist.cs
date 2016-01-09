@@ -55,7 +55,8 @@ namespace MyWindowsMediaPlayer.Model
         {
             if (this.Count() > _currentIdx)
             {
-                return (this.ElementAt(_currentIdx++));
+                Media media = this.ElementAt(_currentIdx++);
+                return (media.FileExists ? media : Next());
             }
             else
             {
@@ -64,9 +65,30 @@ namespace MyWindowsMediaPlayer.Model
             }
         }
 
+        public Media CurrentMedia()
+        {
+            if (this.Count() > _currentIdx)
+            {
+                Media media = this.ElementAt(_currentIdx);
+                return (media.FileExists ? media : Next());
+            }
+            else
+                return (null);
+        }
+
         public bool HasNext()
         {
             return (this.Count() > _currentIdx);
+        }
+
+        public void SetCurrentMedia(Media media)
+        {
+            if (!this.Contains(media))
+                return;
+
+            _currentIdx = 0;
+            while (this.ElementAt(_currentIdx++) != media);
+            //_currentIdx--;
         }
     }
 }

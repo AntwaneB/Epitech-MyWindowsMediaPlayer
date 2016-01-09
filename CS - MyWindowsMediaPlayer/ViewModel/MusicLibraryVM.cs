@@ -11,8 +11,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 {
     class MusicLibraryVM : LibraryVM<Music>
     {
-        public MusicLibraryVM(IWindowService windowService)
-            : base(windowService)
+        public MusicLibraryVM(IWindowService windowService, IPlayerService playerService)
+            : base(windowService, playerService)
         {
             _library = new Library<Music>();
             _library.Extensions = Music.Extensions;

@@ -6,14 +6,37 @@
              xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewmodel:PlaylistListVM}">
-            <view:PlaylistList />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodel:MusicLibraryVM}">
-            <view:Musics />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodel:MusicLibraryManagementVM}">
-            <view:LibraryManagement />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="View/Style.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewmodel:PlaylistListVM}">
+                <view:PlaylistList />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:MusicLibraryVM}">
+                <view:MusicLibrary />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:MusicLibraryManagementVM}">
+                <view:LibraryManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:VideoLibraryVM}">
+                <view:VideoLibrary />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:VideoLibraryManagementVM}">
+                <view:LibraryManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:ImageLibraryVM}">
+                <view:ImageLibrary />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:ImageLibraryManagementVM}">
+                <view:LibraryManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:PlaylistVM}">
+                <view:Playlist />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:TwitterLoginVM}">
+                <view:TwitterLogin />
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

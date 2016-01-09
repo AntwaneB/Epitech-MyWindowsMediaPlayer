@@ -11,5 +11,6 @@ namespace MyWindowsMediaPlayer.Service
         void Navigate(string page);
         void Navigate(object viewModel);
         void Navigate(string page, object parameter);
+        void GoBack();
     }
 }

@@ -11,5 +11,6 @@ namespace MyWindowsMediaPlayer.Service
     {
         void SetMedia(Media media);
         void SetPlaylist(Playlist playlist);
+        void Play();
     }
 }
