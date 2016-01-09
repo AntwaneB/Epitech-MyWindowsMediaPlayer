@@ -55,13 +55,18 @@ namespace MyWindowsMediaPlayer.ViewModel
             get { return (_currentMedia); }
             set
             {
-                if (_currentMedia != value)
-                    _mediaElement.Source = null;
-                if (_currentPlaylist != null && !_currentPlaylist.Contains(value))
-                    CurrentPlaylist = null;
-                else if (_currentPlaylist != null && _currentPlaylist.Contains(value))
-                    _currentPlaylist.SetCurrentMedia(value);
-                _currentMedia = value;
+                if (value != null && value.FileExists)
+                {
+                    if (_currentMedia != value)
+                        _mediaElement.Source = null;
+                    if (_currentPlaylist != null && !_currentPlaylist.Contains(value))
+                        CurrentPlaylist = null;
+                    else if (_currentPlaylist != null && _currentPlaylist.Contains(value))
+                        _currentPlaylist.SetCurrentMedia(value);
+                    _currentMedia = value;
+                }
+                else
+                    _currentMedia = null;
                 _twitterCommand.RaiseCanExecuteChanged();
                 _playCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("CurrentPlaylist");
@@ -75,6 +80,8 @@ namespace MyWindowsMediaPlayer.ViewModel
             {
                 if (value != _currentPlaylist)
                 {
+                    if (_currentPlaylist != null)
+                        _currentPlaylist.ResetCurrentMedia();
                     OnStop(null);
                     _currentMedia = null;
                     _currentPlaylist = value;

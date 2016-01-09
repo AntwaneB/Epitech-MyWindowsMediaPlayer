@@ -90,5 +90,10 @@ namespace MyWindowsMediaPlayer.Model
             while (this.ElementAt(_currentIdx++) != media);
             //_currentIdx--;
         }
+
+        public void ResetCurrentMedia()
+        {
+            _currentIdx = 0;
+        }
     }
 }
