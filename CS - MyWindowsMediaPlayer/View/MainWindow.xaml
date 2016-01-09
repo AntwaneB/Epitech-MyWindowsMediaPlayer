@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:MyWindowsMediaPlayer.View"
         xmlns:viewmodel="clr-namespace:MyWindowsMediaPlayer.ViewModel"
         mc:Ignorable="d"
-        Title="MyWindowsMediaPlayer" Height="720" Width="1280" Background="#1a1a1b" Foreground="White" FontFamily="Open Sans Light" Icon="/CS - MyWindowsMediaPlayer;component/Assets/icone.png">
+        Title="MyWindowsMediaPlayer"
+        Height="720" Width="1280"
+        MinHeight="720" MinWidth="1280"
+        Background="#1a1a1b" Foreground="White"
+        FontFamily="Open Sans Light" Icon="/CS - MyWindowsMediaPlayer;component/Assets/icone.png">
     <Grid x:Name="MainPanel" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -192,19 +196,25 @@
                 </Grid>
             </Grid>
             <Grid Grid.Column="2" HorizontalAlignment="Center">
-                <Button x:Name="btnLoad" Style="{StaticResource GelButton}" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Margin="10,10,250,10" Width="70">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="btnLoad" Style="{StaticResource GelButton}" Command="{Binding Path=LoadCommand}" HorizontalAlignment="Left" Width="70">
                     <Image x:Name="imgLoad" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/notification_add.png"/>
                 </Button>
-                <Button x:Name="btnPlay" Style="{StaticResource GelButton}" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Margin="90,10,170,10" Width="70">
+                <Button Grid.Column="1" x:Name="btnPlay" Style="{StaticResource AlternatedButton}" Command="{Binding Path=PlayCommand}" HorizontalAlignment="Left" Width="70">
                     <Image x:Name="imgPlay" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_play.png"/>
                 </Button>
-                <Button x:Name="btnPause" Style="{StaticResource GelButton}" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Margin="170,10,0,10" Width="70">
+                <Button Grid.Column="1" x:Name="btnPause" Style="{StaticResource AlternatedButton}" Command="{Binding Path=PauseCommand}" HorizontalAlignment="Left" Width="70">
                     <Image x:Name="imgPause" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_pause.png"/>
                 </Button>
-                <Button x:Name="btnStop" Style="{StaticResource GelButton}" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Margin="250,10,0,10" Width="70">
+                <Button Grid.Column="2" x:Name="btnStop" Style="{StaticResource AlternatedButton}" Command="{Binding Path=StopCommand}" HorizontalAlignment="Left" Width="70">
                     <Image x:Name="imgStop" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Source="/CS - MyWindowsMediaPlayer;component/Assets/player_stop.png"/>
                 </Button>
-                <Slider x:Name="volume" Orientation="Vertical" Minimum="0" Maximum="100" Margin="330,10,0,10" Value="{Binding Path=Volume, Mode=TwoWay}" />
+                <Slider Grid.Column="3" x:Name="volume" Orientation="Vertical" Minimum="0" Maximum="100" Margin="25,10" Value="{Binding Path=Volume, Mode=TwoWay}" />
             </Grid>
         </Grid>
 

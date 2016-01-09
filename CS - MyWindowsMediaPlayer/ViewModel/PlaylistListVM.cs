@@ -112,7 +112,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             Playlist playlist = arg as Playlist;
 
-            _navigationService.Navigate(new PlaylistVM(playlist, _playerService));
+            _navigationService.Navigate(new PlaylistVM(playlist, _playerService, _navigationService));
         }
 
         public bool CanSelectPlaylist(object arg)

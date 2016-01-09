@@ -28,9 +28,15 @@ namespace MyWindowsMediaPlayer.Service
                 _frame.Navigate(new Uri(view, UriKind.Relative), parameter);
         }
 
+        public void GoBack()
+        {
+            _frame.GoBack();
+        }
+
         public NavigationService(Frame frame)
         {
             _frame = frame;
         }
+
     }
 }

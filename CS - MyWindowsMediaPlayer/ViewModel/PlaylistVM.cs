@@ -18,10 +18,12 @@ namespace MyWindowsMediaPlayer.ViewModel
         private Playlist _playlist = null;
 
         private IPlayerService _playerService = null;
+        private INavigationService _nagivationService = null;
         private ICommand _playPlaylistCommand = null;
         private ICommand _selectMediaCommand = null;
         private ICommand _removeMediaCommand = null;
         private ICommand _renamePlaylistCommand = null;
+        private ICommand _deletePlaylistCommand = null;
         #endregion
 
         #region Properties
@@ -81,6 +83,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_renamePlaylistCommand);
             }
         }
+
+        public ICommand DeletePlaylistCommand
+        {
+            get
+            {
+                if (_deletePlaylistCommand == null)
+                    _deletePlaylistCommand = new DelegateCommand(OnDeletePlaylist, CanDeletePlaylist);
+
+                return (_deletePlaylistCommand);
+            }
+        }
         #endregion
 
         #region Commands
@@ -138,13 +151,34 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             return (true);
         }
+
+        public void OnDeletePlaylist(object arg)
+        {
+            var dialogService = new DialogService();
+            string confirmation = dialogService.InputDialog("Entrez \"SUPPRIMER\" pour valider", "Supprimer une playlist");
+
+            if (confirmation == "SUPPRIMER")
+            {
+                if (_playlist != null)
+                    PlaylistsService.Instance.Remove(_playlist);
+
+                if (_nagivationService != null)
+                    _nagivationService.GoBack();
+            }
+        }
+
+        public bool CanDeletePlaylist(object arg)
+        {
+            return (_playlist != null);
+        }
         #endregion
 
         #region Ctor / Dtor
-        public PlaylistVM(Playlist playlist, IPlayerService playerService)
+        public PlaylistVM(Playlist playlist, IPlayerService playerService, INavigationService nagivationService)
         {
             _playlist = playlist;
             _playerService = playerService;
+            _nagivationService = nagivationService;
         }
         #endregion
 
