@@ -41,6 +41,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private DelegateCommand _navigatePlaylistsCommand = null;
         private DelegateCommand _twitterCommand = null;
         private DelegateCommand _youtubeCommand = null;
+        private DelegateCommand _soundcloudCommand = null;
         #endregion
 
         #region Properties
@@ -173,6 +174,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                     _youtubeCommand = new DelegateCommand(OnYoutubeCommand, CanYoutubeCommand);
 
                 return (_youtubeCommand);
+            }
+        }
+
+        public ICommand SoundcloudCommand
+        {
+            get
+            {
+                if (_soundcloudCommand == null)
+                    _soundcloudCommand = new DelegateCommand(OnSoundcloudCommand, CanSoundcloudCommand);
+
+                return (_soundcloudCommand);
             }
         }
         #endregion
@@ -423,6 +435,30 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
 
         public bool CanYoutubeCommand(object arg)
+        {
+            return (true);
+        }
+
+        public void OnSoundcloudCommand(object arg)
+        {
+            var dialogService = new DialogService();
+            string url = dialogService.InputDialog("Adresse de la musique sur Soundcloud", "Soundcloud");
+            if (!string.IsNullOrEmpty(url))
+            {
+                string URL = @"http://api.soundcloud.com/resolve?url="+url+ "&client_id=df3f321110a6cf9290a08ba6dbd501fa";
+                WebClient c = new WebClient();
+                var data = c.DownloadString(URL);
+                Newtonsoft.Json.Linq.JObject results = Newtonsoft.Json.Linq.JObject.Parse(data);
+                String stream = results["download_url"].ToString() + @"?client_id=df3f321110a6cf9290a08ba6dbd501fa";
+                if (stream.Length > 0)
+                {
+                    Console.Write(stream + "\n");
+                    CurrentMedia = Media.Factory.make(stream);
+                    OnPlay(null);
+                }
+            }
+        }
+        public bool CanSoundcloudCommand(object arg)
         {
             return (true);
         }
