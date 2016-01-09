@@ -31,7 +31,7 @@ namespace MyWindowsMediaPlayer.Model
         {
             get
             {
-                if (_thumbnail == null)
+                if (_thumbnail == null && File.Exists(_path.LocalPath))
                 {
                     FFMpegConverter ff = new FFMpegConverter();
                     MemoryStream imgStream = new MemoryStream();
