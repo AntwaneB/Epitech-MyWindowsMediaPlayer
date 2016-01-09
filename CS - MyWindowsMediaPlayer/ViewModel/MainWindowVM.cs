@@ -364,6 +364,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la vidéo Youtube", "Youtube");
+
             Regex rgx = new Regex(@"^(?:https?\:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v\=))([\w-]{10,12})(?:$|\&|\?\#).*");
             if (!string.IsNullOrEmpty(url) && rgx.IsMatch(url))
             {
