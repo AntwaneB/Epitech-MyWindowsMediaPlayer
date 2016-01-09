@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Windows.Input;
+using System.IO;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
@@ -109,9 +110,11 @@ namespace MyWindowsMediaPlayer.ViewModel
             //Todo : Path de Playlist.xml à changer
 
             //var xdoc = XDocument.Load(@"E:\C# - MyWindowsMediaPlayer\Save\playlist.xml");
-            var xdoc = XDocument.Load(@"../../../Save/playlist.xml");
+           
+            // String filename = GetResourceTextFile("playlist.xml");     
+            var xdoc = XDocument.Load(@".\playlist.xml");
 
-            var names = from i in xdoc.Descendants("playlist")
+            var playlistNames = from i in xdoc.Descendants("playlist")
                         select new
                         {
                             Path = (string)i.Attribute("name")
@@ -124,14 +127,14 @@ namespace MyWindowsMediaPlayer.ViewModel
 
             int inc = 0;
 
-            foreach (var name1 in names)
+            foreach (var playlistName in playlistNames)
             {
-                System.Diagnostics.Debug.WriteLine(name1.Path);
+                System.Diagnostics.Debug.WriteLine(playlistName.Path);
                 System.Diagnostics.Debug.WriteLine(inc);
-                _playlists.Add(new Playlist(name1.Path)); // ajout de la playlist
-                foreach (var name in paths1.Where(x => x.Key == name1.Path))
+                _playlists.Add(new Playlist(playlistName.Path)); // ajout de la playlist
+                foreach (var onlyPlaylistName in paths1.Where(x => x.Key == playlistName.Path))
                 {
-                    foreach (var tuple in name)
+                    foreach (var tuple in onlyPlaylistName)
                     {
                         if (tuple.Item2.Length > 0)
                         {
@@ -145,5 +148,20 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         }
         #endregion
+
+        public string GetResourceTextFile(string filename)
+        {
+            string result = string.Empty;
+
+            using (Stream stream = this.GetType().Assembly.
+                       GetManifestResourceStream("epitech-mywindowsmediaplayer.Save." + filename))
+            {
+                using (StreamReader sr = new StreamReader(stream))
+                {
+                    result = sr.ReadToEnd();
+                }
+            }
+            return result;
+        }
     }
 }
