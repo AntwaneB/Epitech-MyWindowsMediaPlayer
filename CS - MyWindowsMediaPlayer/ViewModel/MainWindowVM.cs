@@ -388,7 +388,7 @@ namespace MyWindowsMediaPlayer.ViewModel
                 string filename = System.IO.Path.GetFileName(uri.LocalPath);
 
                 //String tempfile = Path.Combine(Path.GetTempPath(), filename);
-                if (filename != ".mp3")
+                if (filename != ".mp4")
                 {
                     /*using (WebClient client = new WebClient())
                         client.DownloadFile(url, tempfile);*/
