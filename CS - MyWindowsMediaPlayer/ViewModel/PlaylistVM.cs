@@ -21,6 +21,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         private ICommand _playPlaylistCommand = null;
         private ICommand _selectMediaCommand = null;
         private ICommand _removeMediaCommand = null;
+        private ICommand _renamePlaylistCommand = null;
         #endregion
 
         #region Properties
@@ -69,6 +70,17 @@ namespace MyWindowsMediaPlayer.ViewModel
                 return (_removeMediaCommand);
             }
         }
+
+        public ICommand RenamePlaylistCommand
+        {
+            get
+            {
+                if (_renamePlaylistCommand == null)
+                    _renamePlaylistCommand = new DelegateCommand(OnRenamePlaylist, CanRenamePlaylist);
+
+                return (_renamePlaylistCommand);
+            }
+        }
         #endregion
 
         #region Commands
@@ -103,6 +115,26 @@ namespace MyWindowsMediaPlayer.ViewModel
         }
 
         public bool CanRemoveMedia(object arg)
+        {
+            return (true);
+        }
+
+        public void OnRenamePlaylist(object arg)
+        {
+            var dialogService = new DialogService();
+
+            string newName = dialogService.InputDialog("Entrez le nouveau nom", "Renommer une playlist");
+            while (newName != null && PlaylistsService.Instance.ContainsByName(newName))
+            {
+                newName = dialogService.InputDialog("Le nom saisi est déjà pris", "Renommer une playlist");
+            }
+
+            if (newName != null)
+                _playlist.Name = newName;
+            NotifyPropertyChanged("Playlist");
+        }
+
+        public bool CanRenamePlaylist(object arg)
         {
             return (true);
         }
