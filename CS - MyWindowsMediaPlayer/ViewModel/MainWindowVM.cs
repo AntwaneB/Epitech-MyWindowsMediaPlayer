@@ -404,36 +404,13 @@ namespace MyWindowsMediaPlayer.ViewModel
                 Uri uri = new Uri(url);
                 string filename = System.IO.Path.GetFileName(uri.LocalPath);
 
-                //String tempfile = Path.Combine(Path.GetTempPath(), filename);
                 if (filename != ".mp4")
                 {
-                    /*using (WebClient client = new WebClient())
-                        client.DownloadFile(url, tempfile);*/
-
                     CurrentMedia = Media.Factory.make(url);
                     OnPlay(null);
                 }
                 else
                     dialogService.InformationDialog("Le lien fourni est invalide", "Youtube");
-               /* IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(url);
-                VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 360);
-                String url2 = video.DownloadUrl;
-
-                Console.WriteLine(url2);*/
-               /*if (video.RequiresDecryption)
-               {
-                   DownloadUrlResolver.DecryptDownloadUrl(video);
-               }
-
-               String tempfile = Path.Combine(Path.GetTempPath(), video.Title + video.VideoExtension);
-               var videoDownloader = new VideoDownloader(video, tempfile);
-               videoDownloader.DownloadProgressChanged += (sender, args) => Console.WriteLine(args.ProgressPercentage);
-               videoDownloader.Execute();*/
-               /*_currentMedia = Media.Factory.make(url2);
-
-               OnPlay(null);*/
-               /*else
-                   System.Windows.Forms.MessageBox.Show("Lien youtube invalide.");*/
             }
             else
                 dialogService.InformationDialog("Le lien fourni est invalide", "Youtube");
@@ -456,26 +433,42 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             var dialogService = new DialogService();
             string url = dialogService.InputDialog("Adresse de la musique sur Soundcloud", "Soundcloud");
-            if (!string.IsNullOrWhiteSpace(url))
+
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+
+            Regex rgx = new Regex(@"^(?:https?\:\/\/)?(?:www\.)?(?:soundcloud\.com\/).*");
+            string data = null;
+            if (!string.IsNullOrWhiteSpace(url) && rgx.IsMatch(url))
             {
-                string URL = @"http://api.soundcloud.com/resolve?url="+url+ "&client_id=df3f321110a6cf9290a08ba6dbd501fa";
-               WebClient c = new WebClient();
-                var data = c.DownloadString(URL);
-                Newtonsoft.Json.Linq.JObject results = Newtonsoft.Json.Linq.JObject.Parse(data);
-                string stream = results["stream_url"].ToString() + @"?client_id=df3f321110a6cf9290a08ba6dbd501fa";
-                string name = results["title"].ToString() + ".mp3";
-                if (stream.Length > 0)
+                try
                 {
-                    string tempfile = Path.Combine(Path.GetTempPath(), name);
-                    Thread thread = new Thread(() => download(stream, tempfile));
-                    thread.Start();
-                    System.Threading.Thread.Sleep(2000);
-                    Console.Write(tempfile + "\n");
-                    Console.Write(stream + "\n");
-                    CurrentMedia = Media.Factory.make(tempfile);
-                    OnPlay(null);
+                    string URL = @"http://api.soundcloud.com/resolve?url=" + url + "&client_id=df3f321110a6cf9290a08ba6dbd501fa";
+                    WebClient c = new WebClient();
+                    data = c.DownloadString(URL);
+                }
+                catch (WebException wex)
+                {
+                    if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
+                        return;
+                }
+                if (!string.IsNullOrWhiteSpace(data))
+                {
+                    Newtonsoft.Json.Linq.JObject results = Newtonsoft.Json.Linq.JObject.Parse(data);
+                    string stream = results["stream_url"].ToString() + @"?client_id=df3f321110a6cf9290a08ba6dbd501fa";
+                    string name = results["title"].ToString() + ".mp3";
+
+                    if (stream.Length > 0)
+                    {
+                        string tempfile = Path.Combine(Path.GetTempPath(), name);
+                        download(stream, tempfile);
+                        CurrentMedia = Media.Factory.make(tempfile);
+                        OnPlay(null);
+                    }
                 }
             }
+            else
+                dialogService.InformationDialog("Le lien fourni est invalide", "Soundcloud");
         }
         public bool CanSoundcloudCommand(object arg)
         {
