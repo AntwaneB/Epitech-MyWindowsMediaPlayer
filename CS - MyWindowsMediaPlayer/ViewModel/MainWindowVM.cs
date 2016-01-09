@@ -463,6 +463,11 @@ namespace MyWindowsMediaPlayer.ViewModel
         {
             return (true);
         }
+
+        public void OnWindowClosing(object sender, EventArgs e)
+        {
+            PlaylistsService.Instance.Export(@"../../../Save/playlist.xml");
+        }
         #endregion
 
         public MainWindowVM(INavigationService navigationService, PopupService twitterPopup)
