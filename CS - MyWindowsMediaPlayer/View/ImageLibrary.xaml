@@ -16,7 +16,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Button Content="Modifier la bibliothèque" Command="{Binding ManageLibraryCommand}" Grid.Row="0" />
-            <DataGrid Name="MediaList" Grid.Row="2" ItemsSource="{Binding Path=Library.Items, UpdateSourceTrigger=PropertyChanged}"
+            <DataGrid Name="MediaList" Grid.Row="2" ItemsSource="{Binding Path=Library.ItemsAsImage, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" AlternationCount="2" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0"
                   ColumnHeaderStyle="{DynamicResource DataGridHeader}" RowStyle="{DynamicResource DataGridRow}" CellStyle="{DynamicResource DataGridCell}">
                 <DataGrid.Columns>
