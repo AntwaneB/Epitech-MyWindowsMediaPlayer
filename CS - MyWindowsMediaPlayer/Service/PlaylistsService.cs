@@ -1,6 +1,7 @@
 ﻿using MyWindowsMediaPlayer.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,12 @@ namespace MyWindowsMediaPlayer.Service
 
         public void Import(string file)
         {
+            if (!File.Exists(file))
+            {
+                LoadDefault(file);
+                return;
+            }
+
             var xdoc = XDocument.Load(file);
 
             var names = from i in xdoc.Descendants("playlist")
@@ -115,6 +122,14 @@ namespace MyWindowsMediaPlayer.Service
             }
             outFile.WriteLine(save);
             outFile.Close();
+        }
+
+        private void LoadDefault(string file)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(file)))
+                Directory.CreateDirectory(Path.GetDirectoryName(file));
+
+            Export(file);
         }
         #endregion
     }

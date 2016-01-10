@@ -15,10 +15,10 @@
             <RowDefinition Height="5" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Content="Modifier la bibliothèque" Command="{Binding ManageLibraryCommand}" Grid.Row="0" />
+        <Button Content="Modifier la bibliothèque" Command="{Binding ManageLibraryCommand}" Grid.Row="0" Margin="5,5,5,0" />
         <DataGrid Name="MediaList" Grid.Row="2" ItemsSource="{Binding Path=Library.ItemsAsMusic, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" AlternationCount="2" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0"
-                  ColumnHeaderStyle="{DynamicResource DataGridHeader}" RowStyle="{DynamicResource DataGridRow}" CellStyle="{DynamicResource DataGridCell}">
+                  ColumnHeaderStyle="{DynamicResource DataGridHeader}" RowStyle="{DynamicResource DataGridRow}" CellStyle="{DynamicResource DataGridCell}" Margin="5,0,5,5">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="TITRE" Width="*" />
                 <DataGridTextColumn Binding="{Binding Artists}" Header="ARTISTE" Width="*" />

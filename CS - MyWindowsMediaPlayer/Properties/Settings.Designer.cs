@@ -58,5 +58,32 @@ namespace MyWindowsMediaPlayer.Properties {
                 this["TwitterAccessSecret"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MyWindowsMediaPlayer_buchse_a\\playlists.xml")]
+        public string PlaylistsPath {
+            get {
+                return ((string)(this["PlaylistsPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MyWindowsMediaPlayer_buchse_a\\libraries.xml")]
+        public string LibrariesPath {
+            get {
+                return ((string)(this["LibrariesPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MyWindowsMediaPlayer_buchse_a")]
+        public string AppDataFolder {
+            get {
+                return ((string)(this["AppDataFolder"]));
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -118,13 +119,15 @@ namespace MyWindowsMediaPlayer.ViewModel
         private void UpdateLibrary(Object sender, EventArgs e)
         {
             if (_library != null)
+            {
                 _library.LoadItems();
+            }
         }
         #endregion
 
         public LibraryVM(IWindowService windowService, IPlayerService playerService)
         {
-            LibrariesService.Instance.ImportOnce(@"../../../Save/libraries.xml");
+            LibrariesService.Instance.ImportOnce(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Settings.Default.LibrariesPath));
             
             _windowService = windowService;
             _playerService = playerService;

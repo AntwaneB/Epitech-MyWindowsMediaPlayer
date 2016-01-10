@@ -484,8 +484,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public void OnWindowClosing(object sender, EventArgs e)
         {
-            PlaylistsService.Instance.Export(@"../../../Save/playlist.xml");
-            LibrariesService.Instance.Export(@"../../../Save/libraries.xml");
+            PlaylistsService.Instance.Export(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Settings.Default.PlaylistsPath));
+            LibrariesService.Instance.Export(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Settings.Default.LibrariesPath));
         }
         #endregion
 

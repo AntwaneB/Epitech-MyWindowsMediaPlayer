@@ -134,6 +134,9 @@ namespace MyWindowsMediaPlayer.Model
             _items = medias;
             
             OnPropertyChanged("Items");
+            OnPropertyChanged("ItemsAsMusic");
+            OnPropertyChanged("ItemsAsVideo");
+            OnPropertyChanged("ItemsAsImage");
         }
 
         public void AddFolder(Uri folder)

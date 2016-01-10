@@ -88,7 +88,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             NotifyPropertyChanged("Playlists");
 
             NewPlaylistName = "";
-            SavePlaylist();//reset du XML / ajout de la nouvelle playlist
+            SavePlaylist();
         }
 
         public bool CanCreatePlaylist(object arg)
@@ -125,7 +125,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #region Saving
         public void SavePlaylist()
         {
-            PlaylistsService.Instance.Export(@"../../../Save/playlist.xml");
+            PlaylistsService.Instance.Export(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Settings.Default.PlaylistsPath));
         }
         #endregion
 
@@ -135,7 +135,7 @@ namespace MyWindowsMediaPlayer.ViewModel
             _playerService = playerService;
             _navigationService = navigationService;
 
-            PlaylistsService.Instance.ImportOnce(@"../../../Save/playlist.xml");
+            PlaylistsService.Instance.ImportOnce(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Settings.Default.PlaylistsPath));
         }
         #endregion
 

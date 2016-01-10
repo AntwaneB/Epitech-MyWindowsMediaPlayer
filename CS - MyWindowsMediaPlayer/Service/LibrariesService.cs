@@ -1,6 +1,7 @@
 ﻿using MyWindowsMediaPlayer.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,12 @@ namespace MyWindowsMediaPlayer.Service
 
         public void Import(string file)
         {
+            if (!File.Exists(file))
+            {
+                LoadDefault(file);
+                return;
+            }
+
             var xdoc = XDocument.Load(file);
 
             var names = from i in xdoc.Descendants("library")
@@ -68,20 +75,6 @@ namespace MyWindowsMediaPlayer.Service
                         }
                     }
                 }
-
-                /*
-                Type libraryType = typeof(Library<>);
-                Type libraryCurrentType = Type.GetType("MyWindowsMediaPlayer.Model." + libtype.Type);
-                Type libraryConstructed = libraryType.MakeGenericType(libraryCurrentType);
-                object libraryInstance = Activator.CreateInstance(libraryConstructed);
-                Library<Media> library = libraryInstance as Library<Media>;
-                if (libraryInstance == null)
-                    System.Diagnostics.Debug.WriteLine("CONNARD");
-                if (library == null)
-                    System.Diagnostics.Debug.WriteLine("CONNARD");
-                library.Folders = pathList;
-                this.Add(library);
-                */
 
                 Library library = new Library();
                 library.Folders = pathList;
@@ -113,6 +106,40 @@ namespace MyWindowsMediaPlayer.Service
             }
             outFile.WriteLine(libSave);
             outFile.Close();
+        }
+
+        private void LoadDefault(string file)
+        {
+            Library musics = new Library()
+            {
+                MediaType = typeof(Music),
+                Folders = new List<Uri>() {
+                    new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic))
+                }
+            };
+            Library videos = new Library()
+            {
+                MediaType = typeof(Video),
+                Folders = new List<Uri>() {
+                    new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos))
+                }
+            };
+            Library images = new Library()
+            {
+                MediaType = typeof(Image),
+                Folders = new List<Uri>() {
+                    new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures))
+                }
+            };
+
+            this.Add(musics);
+            this.Add(videos);
+            this.Add(images);
+
+            if (!Directory.Exists(Path.GetDirectoryName(file)))
+                Directory.CreateDirectory(Path.GetDirectoryName(file));
+
+            Export(file);
         }
         #endregion
     }
