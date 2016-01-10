@@ -15,14 +15,14 @@ using System.Windows.Threading;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    abstract class LibraryVM<T> : ViewModelBase where T : Media
+    abstract class LibraryVM : ViewModelBase
     {
         #region Attributes
         protected IWindowService _windowService = null;
         protected IPlayerService _playerService = null;
         private DispatcherTimer _mediaTimer = new DispatcherTimer();
 
-        protected Library<T> _library = null;
+        protected Library _library = null;
 
         private DelegateCommand _manageLibraryCommand = null;
         private DelegateCommand _addToPlaylistCommand = null;
@@ -30,7 +30,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Properties
-        public Library<T> Library
+        public Library Library
         {
             get { return (_library); }
         }

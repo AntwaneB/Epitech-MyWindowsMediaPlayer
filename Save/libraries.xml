@@ -7,5 +7,6 @@
   </library>
   <library type="MyWindowsMediaPlayer.Model.Image">
     <folder path="E:\Users\Antoine\Pictures" />
+    <folder path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias" />
   </library>
 </libraries>

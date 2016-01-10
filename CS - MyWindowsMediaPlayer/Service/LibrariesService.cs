@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace MyWindowsMediaPlayer.Service
 {
-    class LibrariesService : List<Library<Media>>
+    class LibrariesService : List<Library>
     {
         #region Singleton
         static LibrariesService _instance = new LibrariesService();
@@ -23,7 +23,7 @@ namespace MyWindowsMediaPlayer.Service
         #endregion
 
         #region Methods
-        public Library<Media> FindByType(Type type)
+        public Library FindByType(Type type)
         {
             var matches = this.Where(p => p.MediaType == type);
 
@@ -83,7 +83,7 @@ namespace MyWindowsMediaPlayer.Service
                 this.Add(library);
                 */
 
-                Library<Media> library = new Library<Media>();
+                Library library = new Library();
                 library.Folders = pathList;
                 library.MediaType = Type.GetType(libtype.Type);
                 this.Add(library);

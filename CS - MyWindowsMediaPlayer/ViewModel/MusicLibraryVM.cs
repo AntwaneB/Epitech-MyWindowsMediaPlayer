@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class MusicLibraryVM : LibraryVM<Media>
+    class MusicLibraryVM : LibraryVM
     {
 
         public MusicLibraryVM(IWindowService windowService, IPlayerService playerService)

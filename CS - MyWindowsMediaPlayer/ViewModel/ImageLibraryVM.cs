@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class ImageLibraryVM : LibraryVM<Media>
+    class ImageLibraryVM : LibraryVM
     {
         public ImageLibraryVM(IWindowService windowService, IPlayerService playerService)
             : base(windowService, playerService)

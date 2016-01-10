@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MyWindowsMediaPlayer.Model
 {
     [Serializable]
-    class Library<T> : PropertyChangedBase where T : Media
+    class Library : PropertyChangedBase
     {
         #region Attributes
         protected List<Uri> _folders = new List<Uri>();
@@ -66,11 +66,11 @@ namespace MyWindowsMediaPlayer.Model
             }
         }
 
-        public List<T> Items
+        public List<Media> Items
         {
             get
             {
-                return (_items.Cast<T>().ToList());
+                return (_items);
             }
         }
 
@@ -127,7 +127,7 @@ namespace MyWindowsMediaPlayer.Model
 
                 var existingMedias = _items.Where(i => i.Path == path);
                 if (existingMedias.Count() == 0)
-                    medias.Add((T)Media.Factory.make(item));
+                    medias.Add(Media.Factory.make(item));
                 else
                     medias.AddRange(existingMedias);
             }

@@ -18,11 +18,11 @@ namespace MyWindowsMediaPlayer.ViewModel
         private ICommand _addFolderCommand = null;
         private ICommand _removeFolderCommand = null;
 
-        private Library<Media> _library = null;
+        private Library _library = null;
         #endregion
 
         #region Properties
-        public Library<Media> Library
+        public Library Library
         {
             get { return (_library); }
         }
@@ -88,7 +88,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Ctor / Dtor
-        public LibraryManagementVM(Library<Media> library)
+        public LibraryManagementVM(Library library)
         {
             _library = library;
         }
