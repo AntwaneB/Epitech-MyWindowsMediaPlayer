@@ -124,6 +124,8 @@ namespace MyWindowsMediaPlayer.ViewModel
 
         public LibraryVM(IWindowService windowService, IPlayerService playerService)
         {
+            LibrariesService.Instance.ImportOnce(@"../../../Save/libraries.xml");
+            
             _windowService = windowService;
             _playerService = playerService;
 

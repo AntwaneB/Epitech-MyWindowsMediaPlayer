@@ -12,6 +12,7 @@ namespace MyWindowsMediaPlayer.Service
     {
         #region Singleton
         static LibrariesService _instance = new LibrariesService();
+        static List<string> _importedFiles = new List<string>();
 
         private LibrariesService() { }
 
@@ -22,6 +23,22 @@ namespace MyWindowsMediaPlayer.Service
         #endregion
 
         #region Methods
+        public Library<Media> FindByType(Type type)
+        {
+            var matches = this.Where(p => p.MediaType == type);
+
+            return (matches.Count() > 0 ? matches.First() : null);
+        }
+
+        public void ImportOnce(string file)
+        {
+            if (!_importedFiles.Contains(file))
+            {
+                _importedFiles.Add(file);
+                this.Import(file);
+            }
+        }
+
         public void Import(string file)
         {
             var xdoc = XDocument.Load(file);
@@ -33,7 +50,7 @@ namespace MyWindowsMediaPlayer.Service
                         };
 
             var paths1 = xdoc.Descendants("library")
-                            .SelectMany(x => x.Descendants("media"), (pl, media) => Tuple.Create(pl.Attribute("type").Value, media.Attribute("path").Value))
+                            .SelectMany(x => x.Descendants("folder"), (pl, media) => Tuple.Create(pl.Attribute("type").Value, media.Attribute("path").Value))
                             .GroupBy(x => x.Item1)
                             .ToList();
 
@@ -51,7 +68,25 @@ namespace MyWindowsMediaPlayer.Service
                         }
                     }
                 }
-                this.Add(new Library<Type.GetType(libtype) > (pathList));
+
+                /*
+                Type libraryType = typeof(Library<>);
+                Type libraryCurrentType = Type.GetType("MyWindowsMediaPlayer.Model." + libtype.Type);
+                Type libraryConstructed = libraryType.MakeGenericType(libraryCurrentType);
+                object libraryInstance = Activator.CreateInstance(libraryConstructed);
+                Library<Media> library = libraryInstance as Library<Media>;
+                if (libraryInstance == null)
+                    System.Diagnostics.Debug.WriteLine("CONNARD");
+                if (library == null)
+                    System.Diagnostics.Debug.WriteLine("CONNARD");
+                library.Folders = pathList;
+                this.Add(library);
+                */
+
+                Library<Media> library = new Library<Media>();
+                library.Folders = pathList;
+                library.MediaType = Type.GetType(libtype.Type);
+                this.Add(library);
             }
         }
 
@@ -66,15 +101,15 @@ namespace MyWindowsMediaPlayer.Service
             {
                 XElement libType = new XElement("library");
                 type = item.MediaType.ToString();
-                libSave.SetAttributeValue("type", type);
+                libType.SetAttributeValue("type", type);
                 foreach (var elem in item.Folders)
                 {
-                    XElement xml = new XElement("media");
-
-                    dir = elem.ToString();
+                    XElement xml = new XElement("folder");
+                    dir = elem.LocalPath;
                     xml.SetAttributeValue("path", dir);
                     libType.Add(xml);
                 }
+                libSave.Add(libType);
             }
             outFile.WriteLine(libSave);
             outFile.Close();

@@ -9,20 +9,26 @@ using System.Threading.Tasks;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class MusicLibraryVM : LibraryVM<Music>
+    class MusicLibraryVM : LibraryVM<Media>
     {
+
         public MusicLibraryVM(IWindowService windowService, IPlayerService playerService)
             : base(windowService, playerService)
         {
-            _library = new Library<Music>();
-            _library.Extensions = Music.Extensions;
-            _library.Folders = new List<Uri>() { new Uri(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\"), new Uri(@"E:\C# - MyWindowsMediaPlayer\Example Medias") };
+            _library = LibrariesService.Instance.FindByType(typeof(Music));
+            if (_library != null)
+            {
+                _library.Extensions = Music.Extensions;
+                _library.LoadOnce();
+            }
+            //_library = new Library<Music>();
+            //_library.Folders = new List<Uri>() { new Uri(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\"), new Uri(@"E:\C# - MyWindowsMediaPlayer\Example Medias") };
         }
 
         public override void OnManageLibrary(object arg)
         {
             if (_windowService != null)
-                _windowService.CreateWindow(new MusicLibraryManagementVM(_library));
+                _windowService.CreateWindow(new LibraryManagementVM(_library));
         }
     }
 }

@@ -16,20 +16,14 @@
             <DataTemplate DataType="{x:Type viewmodel:MusicLibraryVM}">
                 <view:MusicLibrary />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodel:MusicLibraryManagementVM}">
+            <DataTemplate DataType="{x:Type viewmodel:LibraryManagementVM}">
                 <view:LibraryManagement />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:VideoLibraryVM}">
                 <view:VideoLibrary />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodel:VideoLibraryManagementVM}">
-                <view:LibraryManagement />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:ImageLibraryVM}">
                 <view:ImageLibrary />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodel:ImageLibraryManagementVM}">
-                <view:LibraryManagement />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:PlaylistVM}">
                 <view:Playlist />

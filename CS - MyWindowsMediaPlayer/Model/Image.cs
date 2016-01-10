@@ -18,7 +18,7 @@ namespace MyWindowsMediaPlayer.Model
         {
             get
             {
-                return (new List<string>() { "jpg" });
+                return (new List<string>() { "jpg", "png" });
             }
         }
 

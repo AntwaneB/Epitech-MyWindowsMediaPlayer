@@ -24,6 +24,7 @@ namespace MyWindowsMediaPlayer.Model
                 { "wav", ((string path) => new Music(path)) },
                 { "wma", ((string path) => new Music(path)) },
                 { "jpg", ((string path) => new Image(path)) },
+                { "png", ((string path) => new Image(path)) },
             };
 
             public static Media make(string path)

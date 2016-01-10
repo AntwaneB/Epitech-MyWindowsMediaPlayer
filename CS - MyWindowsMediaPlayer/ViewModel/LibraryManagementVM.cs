@@ -12,17 +12,17 @@ using System.Windows.Input;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class LibraryManagementVM<T> : ViewModelBase where T : Media
+    class LibraryManagementVM : ViewModelBase
     {
         #region Attributes
         private ICommand _addFolderCommand = null;
         private ICommand _removeFolderCommand = null;
 
-        private Library<T> _library = null;
+        private Library<Media> _library = null;
         #endregion
 
         #region Properties
-        public Library<T> Library
+        public Library<Media> Library
         {
             get { return (_library); }
         }
@@ -88,7 +88,7 @@ namespace MyWindowsMediaPlayer.ViewModel
         #endregion
 
         #region Ctor / Dtor
-        public LibraryManagementVM(Library<T> library)
+        public LibraryManagementVM(Library<Media> library)
         {
             _library = library;
         }

@@ -12,14 +12,15 @@ namespace MyWindowsMediaPlayer.Model
     class Library<T> : PropertyChangedBase where T : Media
     {
         #region Attributes
-        private List<Uri> _folders = new List<Uri>();
-        private List<T> _items = new List<T>();
+        protected List<Uri> _folders = new List<Uri>();
+        protected List<Media> _items = null;
+        protected List<string> _extensions = new List<string>();
         #endregion
 
         #region Properties
         public Type MediaType
         {
-            get { return (typeof(T)); }
+            get; set;
         }
 
         public List<Uri> Folders
@@ -32,30 +33,79 @@ namespace MyWindowsMediaPlayer.Model
             }
         }
 
-        public List<T> Items
+        public List<Music> ItemsAsMusic
         {
-            get { return (_items); }
+            get
+            {
+                if (MediaType != typeof(Music))
+                    throw new NotImplementedException();
+
+                return (_items.Cast<Music>().ToList());
+            }
         }
 
-        public List<string> Extensions;
+        public List<Video> ItemsAsVideo
+        {
+            get
+            {
+                if (MediaType != typeof(Video))
+                    throw new NotImplementedException();
+
+                return (_items.Cast<Video>().ToList());
+            }
+        }
+
+        public List<Image> ItemsAsImage
+        {
+            get
+            {
+                if (MediaType != typeof(Image))
+                    throw new NotImplementedException();
+
+                return (_items.Cast<Image>().ToList());
+            }
+        }
+
+        public List<T> Items
+        {
+            get
+            {
+                return (_items.Cast<T>().ToList());
+            }
+        }
+
+        public List<string> Extensions
+        {
+            get { return (_extensions); }
+            set
+            {
+                _extensions = value;
+                LoadItems();
+            }
+        }
         #endregion
 
         #region Ctor / Dtor
         public Library()
         {
-            LoadItems();
         }
 
         public Library(List<Uri> folders)
         {
             _folders.AddRange(folders);
-            LoadItems();
         }
         #endregion
 
         #region Methods
+        public void LoadOnce()
+        {
+            if (_items == null)
+                LoadItems();
+        }
+
         public void LoadItems()
         {
+            _items = new List<Media>();
             var items = new List<string>();
 
             foreach (var folder in _folders)
@@ -70,7 +120,7 @@ namespace MyWindowsMediaPlayer.Model
                 }
             }
 
-            var medias = new List<T>();
+            var medias = new List<Media>();
             foreach (var item in items)
             {
                 Uri path = new Uri(item);
@@ -105,7 +155,6 @@ namespace MyWindowsMediaPlayer.Model
                 OnPropertyChanged("Folders");
             }
         }
-
         #endregion
     }
 }

@@ -1,0 +1,11 @@
+<libraries>
+  <library type="MyWindowsMediaPlayer.Model.Music">
+    <folder path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias" />
+  </library>
+  <library type="MyWindowsMediaPlayer.Model.Video">
+    <folder path="E:\Projets\CS - MyWindowsMediaPlayer\Example Medias" />
+  </library>
+  <library type="MyWindowsMediaPlayer.Model.Image">
+    <folder path="E:\Users\Antoine\Pictures" />
+  </library>
+</libraries>

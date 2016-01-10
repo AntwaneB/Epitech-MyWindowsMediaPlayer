@@ -123,17 +123,14 @@
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="Service\WindowService.cs" />
     <Compile Include="Utils\UIHelper.cs" />
-    <Compile Include="ViewModel\ImageLibraryManagementVM.cs" />
     <Compile Include="ViewModel\LibraryManagementVM.cs" />
     <Compile Include="ViewModel\LibraryVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
-    <Compile Include="ViewModel\MusicLibraryManagementVM.cs" />
     <Compile Include="ViewModel\MusicLibraryVM.cs" />
     <Compile Include="ViewModel\ImageLibraryVM.cs" />
     <Compile Include="ViewModel\PlaylistListVM.cs" />
     <Compile Include="ViewModel\PlaylistVM.cs" />
     <Compile Include="ViewModel\TwitterLoginVM.cs" />
-    <Compile Include="ViewModel\VideoLibraryManagementVM.cs" />
     <Compile Include="ViewModel\VideoLibraryVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\Dialogs\SelectDialog.xaml.cs">

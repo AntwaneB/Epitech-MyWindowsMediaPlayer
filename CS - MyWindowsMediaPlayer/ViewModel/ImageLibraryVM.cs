@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace MyWindowsMediaPlayer.ViewModel
 {
-    class ImageLibraryVM : LibraryVM<Image>
+    class ImageLibraryVM : LibraryVM<Media>
     {
         public ImageLibraryVM(IWindowService windowService, IPlayerService playerService)
             : base(windowService, playerService)
         {
-            _library = new Library<Image>();
-            _library.Extensions = Image.Extensions;
-            _library.Folders = new List<Uri>() { new Uri(@"E:\Projets\CS - MyWindowsMediaPlayer\Example Medias\"), new Uri(@"E:\C# - MyWindowsMediaPlayer\Example Medias") };
+            _library = LibrariesService.Instance.FindByType(typeof(Image));
+            if (_library != null)
+            {
+                _library.Extensions = Image.Extensions;
+                _library.LoadOnce();
+            }
         }
 
         public override void OnManageLibrary(object arg)
         {
             if (_windowService != null)
-                _windowService.CreateWindow(new ImageLibraryManagementVM(_library));
+                _windowService.CreateWindow(new LibraryManagementVM(_library));
         }
     }
 }
