@@ -1,4 +1,4 @@
-42sh
+My Windows Media Player
 ===================
 
 Ce dépôt contient les sources du Windows Media Player de mon groupe pour le module .NET de 3e année à Epitech.
